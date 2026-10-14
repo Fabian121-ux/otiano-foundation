@@ -5,7 +5,7 @@ import json
 import zipfile
 
 ROOT_FILES = {"index.html", "SMTIcon.png", "favicon.png", "lastlogoss.png",
-              "ofdlogo-red.png", "og-image.png"}
+              "ofdlogo-red.png", "og-image.png", "images/ofd-placeholder.svg"}
 BLOCKED_SUFFIXES = {".php", ".phtml", ".phar", ".sqlite", ".sqlite3", ".db",
                     ".sql", ".ini", ".pem", ".key"}
 SOURCE = Path("dist")
@@ -19,7 +19,7 @@ def collect(source):
             raise ValueError("Symlinks are not allowed")
         rel = path.relative_to(source)
         if path.is_dir():
-            if rel.parts[0] != "assets":
+            if rel.parts[0] != "assets" and rel.as_posix() != "images":
                 raise ValueError("Unexpected build directory")
             continue
         # Never copy build-generated Apache configuration to the server.
