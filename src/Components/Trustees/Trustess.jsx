@@ -5,8 +5,8 @@ import Ekeoma from '../../assets/trustees/Ekeoma Ogbu.JPG'
 import David from '../../assets/trustees/David Achugbu.jpeg'
 import Kinglsey from '../../assets/trustees/Kingsley Otiaba.png'
 import Solomon from '../../assets/trustees/Solomon Ogbu.JPG'
-import Awan from '../../assets/trustees/Zanang Awan.jpeg'
-import Lucy from '../../assets/trustees/Lucy Simon.jpeg'
+import Awan from '../../assets/trustees/zanang Awan.jpeg'
+import Lucy from '../../assets/trustees/lucy simon.jpeg'
 
 
 function Trustees() {
