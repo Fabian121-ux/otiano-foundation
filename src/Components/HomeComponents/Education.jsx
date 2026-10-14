@@ -1,0 +1,133 @@
+import React from 'react'
+import Navbar from '../GeneralComponents/Navbar'
+import Footer from '../GeneralComponents/Footer'
+import AccessEducationImg from '../../assets/downloadedimages/Skills and Digital Literacy.png'
+import SkillsDigitalImg from '../../assets/downloadedimages/Teacher and school support.png'
+import TeacherSupportImg from '../../assets/downloadedimages/Child Protection.png'
+import CommunityEngagementImg from '../../assets/downloadedimages/Community Engagement in Education.png'
+
+function Education() {
+  return (
+    <div>
+      <Navbar />
+      
+      {/* Hero Section */}
+      <section className="h-[550px] bg-[url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/70"></div>
+        <div className="relative z-10 h-full flex items-end">
+          <div className="max-w-7xl px-8 md:px-20 pb-12">
+            <div className="text-white max-w-3xl">
+              <h1 className="text-2xl md:text-3xl font-bold text-red-600 mb-4">Education</h1>
+              <p className="text-lg md:text-xl font-medium mb-4">
+                Transforming educational landscapes across Africa through equitable access and innovative learning.
+              </p>
+              {/* <p className="text-base text-white/90">
+                Education is the cornerstone of empowerment, yet disparities in access and quality hinder millions from realizing their potential. At OFD, we are committed to transforming educational landscapes across Africa by fostering equitable access, innovative learning, and systemic strengthening.
+              </p> */}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Overview Section */}
+      <section className="bg-white py-16">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          {/* <h2 className="text-3xl font-bold text-gray-900 mb-8">Overview</h2> */}
+          <p className="text-gray-700 leading-relaxed text-lg mb-8">
+Education is the cornerstone of empowerment, yet disparities in access and quality hinder millions from realizing their potential. At OFD, we are committed to transforming educational landscapes across Africa by fostering equitable access, innovative learning, and systemic strengthening.          </p>
+          <p className="text-gray-700 italic leading-relaxed">
+            We achieve this by implementing initiatives that nurture knowledge and skills for lifelong success:
+          </p>
+        </div>
+      </section>
+
+      {/* Access to Education */}
+      <section className="bg-gray-50 py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="text-center">
+              <img 
+                src={AccessEducationImg}
+                alt="Vibrant classroom scene with diverse students"
+                className="w-full h-80 object-cover object-top rounded-xl shadow-lg"
+              />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-red-600 mb-6">Access to Education</h2>
+              <p className="text-gray-700 leading-relaxed">
+                We provide scholarships, learning materials, and school support to ensure financial constraints do not limit access to education. Our initiatives target remote and low-income areas, offering tuition waivers, textbooks, and digital devices to thousands of students annually. By partnering with local governments, we have increased enrollment rates by over 25% in pilot regions, fostering environments where education becomes a right, not a privilege, and inspiring families to invest in long-term human development.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Skills & Digital Literacy */}
+      <section className="bg-white py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="order-2 lg:order-1">
+              <h2 className="text-2xl font-bold text-red-600 mb-6">Skills & Digital Literacy</h2>
+              <p className="text-gray-700 leading-relaxed">
+                OFD promotes literacy, digital skills, and practical learning programs that prepare learners for modern educational and employment environments. Through interactive workshops and online platforms, we teach coding, critical thinking, and vocational basics. This focus on future-ready skills empowers youth to navigate a tech-driven economy, challenging traditional curricula and sparking innovation in underserved communities.
+              </p>
+            </div>
+            <div className="order-1 lg:order-2 text-center">
+              <img 
+                src={SkillsDigitalImg}
+                alt="Youth participating in digital workshop"
+                className="w-full h-80 object-cover object-top rounded-xl shadow-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Teacher & School Support */}
+      <section className="bg-gray-50 py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="text-center">
+              <img 
+                src={TeacherSupportImg}
+                alt="Teachers in training session"
+                className="w-full h-80 object-cover object-top rounded-xl shadow-lg"
+              />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-red-600 mb-6">Teacher & School Support</h2>
+              <p className="text-gray-700 leading-relaxed">
+                We strengthen education systems through teacher training, school infrastructure support, and curriculum enhancement initiatives. Our programs include professional development workshops for educators, renovations of dilapidated facilities, and integration of culturally relevant content. By enhancing teacher efficacy and school environments, we have improved learning outcomes in partner schools, urging reflection on how empowered educators can reshape generations.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Community Engagement */}
+      <section className="bg-white py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="order-2 lg:order-1">
+              <h2 className="text-2xl font-bold text-red-600 mb-6">Community Engagement in Education</h2>
+              <p className="text-gray-700 leading-relaxed">
+                Extending beyond classrooms, we foster parental and community involvement through awareness campaigns and volunteer networks. This holistic approach builds local ownership, reducing dropout rates and promoting lifelong learning cultures. Our efforts have mobilized hundreds of volunteers, demonstrating how community-led education can sustain progress even in resource-scarce settings.
+              </p>
+            </div>
+            <div className="order-1 lg:order-2 text-center">
+              <img 
+                src={CommunityEngagementImg}
+                alt="Community members involved in school events"
+                className="w-full h-80 object-cover object-top rounded-xl shadow-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <Footer />
+    </div>
+  )
+}
+
+export default Education

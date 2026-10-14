@@ -1,0 +1,11 @@
+RewriteEngine On
+RewriteBase /ofd_foundation/php-backend/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# API routes
+RewriteRule ^api/news/?$ api/news.php [L,QSA]
+RewriteRule ^api/news/([0-9]+)/?$ api/news.php [L,QSA]
+RewriteRule ^api/events/?$ api/events.php [L,QSA]
+RewriteRule ^api/events/([0-9]+)/?$ api/events.php [L,QSA]
+RewriteRule ^api/auth/?$ api/auth.php [L,QSA]
