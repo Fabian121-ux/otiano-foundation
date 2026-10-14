@@ -57,6 +57,8 @@ try {
       await page.goto(baseUrl + route, { waitUntil: 'networkidle' })
       await page.getByRole('heading', { level: 1 }).first().waitFor()
       await assertNoOverflow(width + 'px ' + route)
+      assert.equal(await page.locator('.site-navbar').count(), 1, width + 'px ' + route + ': duplicate navbar')
+      assert.equal(await page.locator('#mobile-navigation').count(), 1, width + 'px ' + route + ': duplicate navigation dialog')
       const logoInsideHeader = await page.locator('.site-navbar').evaluate((header) => {
         const bounds = header.getBoundingClientRect()
         const logo = header.querySelector('img').getBoundingClientRect()

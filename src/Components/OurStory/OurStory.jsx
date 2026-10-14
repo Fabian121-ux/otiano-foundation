@@ -1,9 +1,7 @@
-import Navbar from '../GeneralComponents/Navbar'
 
 function OurStory() {
   return (
     <div>
-      <Navbar />
       
       {/* Hero Section */}
       <section className="brand-hero">

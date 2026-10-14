@@ -1,10 +1,8 @@
 import React from 'react'
-import Navbar from '../GeneralComponents/Navbar'
 
 function Contact() {
   return (
     <div>
-      <Navbar />
       {/* Hero Section */}
       <section className="brand-hero">
         <div className="relative z-10 flex items-end">

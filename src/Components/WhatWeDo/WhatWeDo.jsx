@@ -1,10 +1,8 @@
 import React from 'react'
-import Navbar from '../GeneralComponents/Navbar'
 
 function WhatWeDo() {
   return (
     <div>
-      <Navbar />
       
       {/* Hero Section */}
       <section className="brand-hero">

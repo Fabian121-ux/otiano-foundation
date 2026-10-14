@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import Navbar from '../GeneralComponents/Navbar'
 import SEO from '../GeneralComponents/SEO'
 import ApiService, { getImageUrl } from '../../services/api'
 
@@ -34,7 +33,6 @@ function SingleNews() {
   if (loading) {
     return (
       <div>
-        <Navbar isDark={true} />
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand mx-auto mb-4"></div>
@@ -48,7 +46,6 @@ function SingleNews() {
   if (error || !newsItem) {
     return (
       <div>
-        <Navbar isDark={true} />
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-neutral-900 mb-4">News article not found</h1>
@@ -75,7 +72,6 @@ function SingleNews() {
           type="article"
         />
       )}
-      <Navbar isDark={true} />
       
       {/* Breadcrumb Section */}
       <section className="bg-neutral-50 pb-8 pt-32">

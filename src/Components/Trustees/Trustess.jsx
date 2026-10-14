@@ -1,5 +1,4 @@
 import React from 'react'
-import Navbar from '../GeneralComponents/Navbar'
 import Cheeka from '../../assets/trustees/Cheeka Onyeka.jpeg'
 import Ekeoma from '../../assets/trustees/Ekeoma Ogbu.JPG'
 import David from '../../assets/trustees/David Achugbu.jpeg'
@@ -11,7 +10,6 @@ import Lucy from '../../assets/trustees/lucy simon.jpeg'
 function Trustees() {
   return (
     <div>
-      <Navbar />
       
       {/* Hero Section */}
       <section className="brand-hero">

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import Navbar from '../GeneralComponents/Navbar'
 import ApiService, { getImageUrl } from '../../services/api'
 
 function LatestNews() {
@@ -27,7 +26,6 @@ function LatestNews() {
   if (loading) {
     return (
       <div>
-        <Navbar />
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand mx-auto mb-4"></div>
@@ -41,7 +39,6 @@ function LatestNews() {
   if (error) {
     return (
       <div>
-        <Navbar />
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <p className="text-brand mb-4">{error}</p>
@@ -59,7 +56,6 @@ function LatestNews() {
 
   return (
     <div>
-      <Navbar />
       
       {/* Hero Section */}
       <section className="brand-hero">
