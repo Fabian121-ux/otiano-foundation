@@ -30,8 +30,8 @@ function LatestNews() {
         <Navbar />
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading news...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand mx-auto mb-4"></div>
+            <p className="text-neutral-600">Loading news...</p>
           </div>
         </div>
       </div>
@@ -44,10 +44,10 @@ function LatestNews() {
         <Navbar />
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
-            <p className="text-red-600 mb-4">{error}</p>
+            <p className="text-brand mb-4">{error}</p>
             <button 
               onClick={() => window.location.reload()} 
-              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+              className="bg-brand text-white px-4 py-2 rounded hover:bg-brand-hover"
             >
               Try Again
             </button>
@@ -62,12 +62,11 @@ function LatestNews() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="h-[550px] bg-[url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/70"></div>
-        <div className="relative z-10 h-full flex items-end">
-          <div className="max-w-7xl px-8 md:px-20 pb-12">
-            <div className="text-white max-w-2xl">
-              <h1 className="text-3xl md:text-5xl font-bold text-red-600 mb-4">Latest News</h1>
+      <section className="brand-hero">
+        <div className="relative z-10 flex items-end">
+          <div className="max-w-7xl px-6 md:px-12 lg:px-20 pb-12">
+            <div className="text-neutral-700 max-w-2xl">
+              <h1 className="text-3xl md:text-5xl font-bold text-brand mb-4">Latest News</h1>
               <p className="text-lg md:text-xl font-medium">
 Discover our latest initiatives, partnerships, and impact in education empowerment, healthcare access, skills & entrepreneurship training, and community development across Nigeria and Africa.              </p>
             </div>
@@ -80,18 +79,18 @@ Discover our latest initiatives, partnerships, and impact in education empowerme
         <div className="max-w-7xl mx-auto px-6">
           {newsData.length === 0 ? (
             <div className="text-center py-12">
-              <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-red-100 to-red-100 rounded-full flex items-center justify-center shadow-lg">
-                <svg className="w-10 h-10 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+              <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-brand-100 to-brand-100 rounded-full flex items-center justify-center shadow-card">
+                <svg className="w-10 h-10 text-brand" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
                   <path d="M2 3h20a1 1 0 011 1v16a1 1 0 01-1 1H2a1 1 0 01-1-1V4a1 1 0 011-1zm1 2v14h18V5H3z"/>
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-6">News & Updates</h3>
-              <p className="text-gray-600 mb-8">We are building a growing record of stories, insights, and updates from our work across communities.</p>
+              <h3 className="text-2xl font-bold text-neutral-800 mb-6">News & Updates</h3>
+              <p className="text-neutral-600 mb-8">We are building a growing record of stories, insights, and updates from our work across communities.</p>
               
               {/* <div className="mb-8">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4">Our News section will soon feature:</h4>
-                <ul className="text-gray-600 space-y-2 max-w-md mx-auto text-left">
+                <h4 className="text-lg font-semibold text-neutral-800 mb-4">Our News section will soon feature:</h4>
+                <ul className="text-neutral-600 space-y-2 max-w-md mx-auto text-left">
                   <li>• Program announcements and milestones</li>
                   <li>• Community impact stories</li>
                   <li>• Partnerships and events</li>
@@ -99,33 +98,35 @@ Discover our latest initiatives, partnerships, and impact in education empowerme
                 </ul>
               </div> */}
               
-              <p className="text-red-600 font-semibold text-2xl">Coming Soon.</p>
+              <p className="text-brand font-semibold text-2xl">Coming Soon.</p>
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {newsData.map((item) => (
-                <Link key={item.id} to={`/news/${item.id}`} className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <Link key={item.id} to={`/news/${item.id}`} className="bg-white rounded-card overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                   <div className="h-48 overflow-hidden">
-                    <img 
+                    <img loading="lazy" decoding="async"
                       src={getImageUrl(item.image)} 
                       alt={item.title}
                       className="w-full h-full object-cover"
                       onError={(e) => {
-                        e.target.src = '/src/assets/homepage/thumb-profile-governance-01.webp'
+                        e.currentTarget.onerror = null
+                          e.currentTarget.src = '/images/ofd-placeholder.svg'
+                          e.currentTarget.alt = 'Otiano Foundation branded illustration; photograph unavailable'
                       }}
                     />
                   </div>
                   <div className="p-4">
-                    <div className="text-sm text-gray-500 mb-2">
+                    <div className="text-sm text-neutral-500 mb-2">
                       {item.date} • {item.category}
                     </div>
-                    <h3 className="text-lg font-extrabold text-gray-900 mb-3 line-clamp-2">
+                    <h3 className="text-lg font-extrabold text-neutral-900 mb-3 line-clamp-2">
                       {item.title}
                     </h3>
-                    <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+                    <p className="text-neutral-600 text-sm leading-relaxed mb-4 line-clamp-3">
                       {item.description}
                     </p>
-                    <span className="text-red-600 font-medium text-sm hover:text-red-600 transition-colors">
+                    <span className="text-brand font-medium text-sm hover:text-brand transition-colors">
                       Read More →
                     </span>
                   </div>

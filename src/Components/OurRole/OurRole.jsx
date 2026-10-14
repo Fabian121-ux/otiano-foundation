@@ -6,12 +6,11 @@ function OurRole() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="h-[550px] bg-[url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/70"></div>
-        <div className="relative z-10 h-full flex items-end">
-          <div className="max-w-7xl px-8 md:px-20 pb-12">
-            <div className="text-white max-w-2xl">
-              <h1 className="text-3xl md:text-4xl font-bold text-red-600 mb-4">Our Role</h1>
+      <section className="brand-hero">
+        <div className="relative z-10 flex items-end">
+          <div className="max-w-7xl px-6 md:px-12 lg:px-20 pb-12">
+            <div className="text-neutral-700 max-w-2xl">
+              <h1 className="text-3xl md:text-4xl font-bold text-brand mb-4">Our Role</h1>
               <p className="text-lg md:text-xl font-medium">
                 Catalyzing positive, sustainable change across communities by closing gaps in access.
               </p>
@@ -23,7 +22,7 @@ function OurRole() {
       {/* Content Section */}
       <section className="bg-white py-16">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center space-y-8 text-gray-700 leading-relaxed">
+          <div className="text-center space-y-8 text-neutral-700 leading-relaxed">
             <p className="text-lg">
               Otiano Foundation for Development (OFD) stands as a catalyst for enduring, positive transformation, bridging the divides that hinder progress in underserved communities worldwide. By addressing disparities in access to education, healthcare, economic pathways, and essential social services, we challenge the status quo and ignite cycles of empowerment. In a world where inequality often perpetuates itself, OFD confronts this reality head-on, questioning: What if every individual, regardless of circumstance, could harness their innate potential to reshape not just their own destiny, but the fabric of society?
             </p>

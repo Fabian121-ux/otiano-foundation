@@ -9,7 +9,7 @@ export const eventsData = [
     category: 'Summit',
     status: 'upcoming',
     description: 'Join leading public sector professionals for a day of insights on transformational leadership and governance excellence.',
-    image: '/src/assets/homepage/thumb-profile-governance-01.webp',
+    image: '/images/ofd-placeholder.svg',
     agenda: [
       { time: '9:00 AM', activity: 'Registration & Welcome Coffee' },
       { time: '10:00 AM', activity: 'Opening Keynote: The Future of Public Service Leadership' },
@@ -34,7 +34,7 @@ export const eventsData = [
     category: 'Workshop',
     status: 'upcoming',
     description: 'Explore innovative approaches to primary healthcare delivery and system strengthening across Africa.',
-    image: '/src/assets/homepage/thumb-profile-adv-01.webp',
+    image: '/images/ofd-placeholder.svg',
     agenda: [
       { time: '10:00 AM', activity: 'Registration & Opening' },
       { time: '11:00 AM', activity: 'Healthcare Innovation Trends' },
@@ -57,7 +57,7 @@ export const eventsData = [
     category: 'Conference',
     status: 'upcoming',
     description: 'Discover how digital transformation is revolutionizing public service delivery across the continent.',
-    image: '/src/assets/homepage/thumb-profile-business-01.webp',
+    image: '/images/ofd-placeholder.svg',
     agenda: [
       { time: '8:30 AM', activity: 'Registration & Breakfast' },
       { time: '9:30 AM', activity: 'Opening Keynote: Digital Africa' },
@@ -81,7 +81,7 @@ export const eventsData = [
     category: 'Awards',
     status: 'past',
     description: 'Celebrated outstanding achievements in public service delivery and recognized reform champions.',
-    image: '/src/assets/homepage/thumb-profile-office-01.webp',
+    image: '/images/ofd-placeholder.svg',
     agenda: [
       { time: '6:00 PM', activity: 'Red Carpet & Cocktails' },
       { time: '7:00 PM', activity: 'Opening Ceremony' },
@@ -103,7 +103,7 @@ export const eventsData = [
     category: 'Forum',
     status: 'past',
     description: 'Brought together policy makers and practitioners to discuss governance challenges and solutions.',
-    image: '/src/assets/homepage/thumb-profile-profile-01.webp',
+    image: '/images/ofd-placeholder.svg',
     agenda: [
       { time: '9:00 AM', activity: 'Opening & Welcome' },
       { time: '10:00 AM', activity: 'Governance in Africa: Current State' },
