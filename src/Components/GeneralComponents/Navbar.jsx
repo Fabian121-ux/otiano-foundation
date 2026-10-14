@@ -122,7 +122,7 @@ function Navbar() {
       <header ref={navRef} className="site-navbar fixed inset-x-0 top-0 z-40 border-b border-neutral-200 bg-white shadow-sm">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <Link to="/" aria-label="Otiano Foundation for Development home" className="min-w-0 shrink-0">
-            <img src={Logo} alt="Otiano Foundation for Development" width="335" height="170" className="h-auto w-36 sm:w-40 lg:w-44" />
+            <img src={Logo} alt="Otiano Foundation for Development" width="343" height="189" className="h-14 w-auto max-w-40 sm:h-16" />
           </Link>
           <nav aria-label="Primary navigation" className="hidden items-center gap-2 lg:flex">
             {navigation.map((group) => {
@@ -183,7 +183,7 @@ function Navbar() {
           <div className="mobile-navigation-shell">
             <div className="mobile-navigation-header">
               <Link to="/" onClick={closeMenu} aria-label="Otiano Foundation for Development home">
-                <img src={Logo} alt="Otiano Foundation for Development" width="335" height="170" className="h-auto w-36 sm:w-40" />
+                <img src={Logo} alt="Otiano Foundation for Development" width="343" height="189" className="h-14 w-auto max-w-40 sm:h-16" />
               </Link>
               <button type="button" autoFocus onClick={closeMenu} aria-label="Close navigation menu"
                 className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand text-white hover:bg-brand-hover">

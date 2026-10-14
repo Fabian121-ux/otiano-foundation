@@ -57,6 +57,12 @@ try {
       await page.goto(baseUrl + route, { waitUntil: 'networkidle' })
       await page.getByRole('heading', { level: 1 }).first().waitFor()
       await assertNoOverflow(width + 'px ' + route)
+      const logoInsideHeader = await page.locator('.site-navbar').evaluate((header) => {
+        const bounds = header.getBoundingClientRect()
+        const logo = header.querySelector('img').getBoundingClientRect()
+        return logo.top >= bounds.top && logo.bottom <= bounds.bottom && logo.left >= bounds.left && logo.right <= bounds.right
+      })
+      assert.ok(logoInsideHeader, width + 'px ' + route + ': logo outside navbar')
       await page.locator('img').evaluateAll((images) => images.forEach((img) => { img.loading = 'eager' }))
       await waitFor(() => page.locator('img').evaluateAll((images) => images.every((img) => img.complete && img.naturalWidth > 0)), width + 'px ' + route + ': image did not load')
       const brokenImages = await page.locator('img').evaluateAll((images) => images.filter((img) => img.complete && img.naturalWidth === 0).map((img) => img.src))
