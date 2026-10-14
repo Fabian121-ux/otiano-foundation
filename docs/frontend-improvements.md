@@ -4,7 +4,7 @@ Review branch: `improve/responsive-branding`, based on main at `7861eb643eeb3d5d
 
 ## Scope and implementation
 
-- Existing public routes, copy, section order, programme descriptions, PHP backend, database, authentication, and administrator access are preserved.
+- Existing public routes, copy, section order, programme descriptions, PHP backend, database, authentication, and administrator access are preserved. The login component only removes an unused state binding to resolve an existing lint error; its state updates and behavior are unchanged.
 - Navigation retains all five categories and all 16 submenu destinations. A native modal dialog supplies focus containment and background inertness. Its header remains outside the independently scrolling menu. The menu closes on links, Escape, the close control, route changes, and desktop resizing. Body positioning prevents mobile background scrolling and restores the prior scroll position. Animations respect reduced-motion preferences.
 - Desktop navigation uses explicit disclosure buttons with click, Enter/Space, ArrowDown, Escape, focus-out, and outside-click support. Active routes are highlighted. The existing logo appears on a white header with red controls and safe spacing.
 - Tailwind defines the red brand, hover shade, light tints, card radius, and card shadow. Shared CSS uses these tokens. White sections, neutral typography, red accents, and light backgrounds retain visual balance.
@@ -94,7 +94,15 @@ A frontend-only GitHub Actions workflow is included to execute `npm install`, `n
 
 `scripts/check-responsive.mjs` exercises all 20 active public routes at 320, 375, 390, 430, 768, 1024, 1280, and 1440 px. It checks horizontal overflow, image loading, browser exceptions, menu expansion/collapse, scroll locking/restoration, keyboard focus, Escape, link closure, desktop resizing, and registration on a short viewport. Screenshots are uploaded as the `responsive-qa` artifact. API responses are intercepted with clearly synthetic QA fixtures; the script does not write to the actual backend.
 
-Local npm/build/lint/browser execution is unavailable in this session. CI results must be confirmed on the pull request before treating those checks as passed. Static inspection confirms that existing relative imports resolve with exact filename casing and that application routes are unchanged.
+GitHub Actions executed the checks on the initial implementation commit `eae98d36658fb81da270f68fe4de45a048d277c1`:
+- `npm install`: passed.
+- `npm run build`: passed (Vite production output generated).
+- Responsive Chromium checks: passed across all 20 public routes and all eight widths. 37 screenshots were uploaded as [responsive-qa](https://github.com/Fabian121-ux/otiano-foundation/actions/runs/38590251702/artifacts/11907007241).
+- `npm run lint`: identified one pre-existing error, an unused `loading` binding in the admin login component. That binding is removed in the follow-up without changing login behavior. The PR workflow verifies the resulting revision.
+- Two pre-existing `react-hooks/exhaustive-deps` warnings remain in the admin news/event editing forms.
+- Static inspection confirms that existing relative imports resolve with exact filename casing and that application routes are unchanged.
+
+Local execution is unavailable; all runtime checks above ran in GitHub Actions. No live site was deployed.
 
 ## Remaining review items
 
@@ -102,6 +110,7 @@ Local npm/build/lint/browser execution is unavailable in this session. CI result
 - Visually review the CI screenshots and inspect on physical iOS/Android devices, including landscape orientation.
 - Verify live API integrations in a staging environment; browser QA uses fixtures and does not validate the PHP backend.
 - Compress retained large trustee portraits once verified source images and an image-processing runtime are available. Responsive sizing and lazy loading are implemented; binary compression is not.
+- The initial install reported 30 existing dependency audit findings (1 low, 7 moderate, 21 high, 1 critical). Package versions were left unchanged because forced upgrades would expand this frontend improvement scope; dependency remediation needs separate review.
 - Existing footer social links still use placeholder destinations. No organization URLs were guessed.
 - `Ekeoma Ogbu.JPG` and `Solomon Ogbu.JPG` have identical Git blob SHAs; the unused Solomon asset and displayed Ekeoma portrait were preserved. Their identity mapping needs an owner check.
 - Unused template components and sample-data copy remain preserved under the project's content restriction.
@@ -152,4 +161,5 @@ Local npm/build/lint/browser execution is unavailable in this session. CI result
 - `src/index.css`
 - `src/services/api.js`
 - `tailwind.config.js`
+- `src/Components/Admin/Login.jsx`
 - `docs/frontend-improvements.md`

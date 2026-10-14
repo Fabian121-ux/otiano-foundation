@@ -5,7 +5,7 @@ import ApiService from '../../services/api'
 function Login() {
   const [credentials, setCredentials] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [, setLoading] = useState(false)
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
