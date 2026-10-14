@@ -1,0 +1,32 @@
+name: Import Otiano Foundation website source
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".import/otiano-foundation.part*"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: otiano-foundation-source-import
+  cancel-in-progress: true
+
+jobs:
+  import-website:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+      - name: Verify and import project
+        run: python3 .github/scripts/import_zip.py
+      - name: Commit all 151 files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "Import complete original Otiano Foundation website source"
+          git push origin HEAD:main
