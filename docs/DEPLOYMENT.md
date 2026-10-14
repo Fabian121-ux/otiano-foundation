@@ -41,4 +41,7 @@ No staging upload, backup, production deployment or rollback test has occurred.
 The hosting method cannot responsibly be finalized until its supported capabilities and staging behavior are verified.
 
 ## Local test results
-npm ci succeeded. The original Linux build failed on two case-sensitive trustee image imports. Correcting the imports to match the existing filenames made npm run build pass. Frontend packaging passed, and negative tests rejected API, portal, uploads, SQLite, hidden files and symlinks. Cloud GitHub Actions execution remains to be verified.
+npm ci succeeded. The original Linux build failed on two case-sensitive trustee image imports. Correcting the imports to match the existing filenames made npm run build pass. Frontend packaging passed, and negative tests rejected API, portal, uploads, SQLite, hidden files and symlinks. GitHub Actions run 38594058888 passed dependency installation, production compilation, frontend packaging and artifact upload. These checks validate build preparation, not hosting deployment.
+
+## Live read-only check
+The cloud browser displayed the Foundation homepage at https://otianofoundation.org/ successfully. A container HTTP request instead redirected to https://www.hostseo.uk/. This environment-dependent discrepancy remains unexplained; future automated production health checks must verify the expected Foundation content, not merely HTTP 200.
