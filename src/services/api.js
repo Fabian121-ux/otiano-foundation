@@ -3,8 +3,8 @@ const UPLOAD_URL = import.meta.env.VITE_UPLOAD_URL || 'http://localhost:8000/upl
 
 // Helper function to get full upload URL
 export const getImageUrl = (imagePath) => {
-  if (!imagePath) return '/src/assets/homepage/thumb-profile-governance-01.webp'
-  if (imagePath.startsWith('data:')) return imagePath
+  if (!imagePath || imagePath.startsWith('/src/assets/')) return '/images/ofd-placeholder.svg'
+  if (/^(https?:|data:|blob:)/.test(imagePath) || imagePath.startsWith('/images/')) return imagePath
   return `${UPLOAD_URL}/${imagePath}`
 }
 

@@ -5,12 +5,12 @@ function EnhancingOpportunities() {
     <section className="bg-white py-16">
       <div className="max-w-6xl mx-auto px-6">
         <div className="mb-12 text-center">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-red-500 mb-6">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-brand mb-6">
             Enhancing opportunities for sustainable development
           </h2>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-8 text-gray-700 leading-relaxed">
+        <div className="grid md:grid-cols-2 gap-8 text-neutral-700 leading-relaxed">
           <div className="space-y-6">
             <p className="text-lg">
               Otiano Foundation for Development (OFD) is a non-profit organization dedicated to advancing inclusive and sustainable development across Nigeria and Africa. Headquartered in Nigeria, the Foundation was established to deliver strategic, high-impact interventions that address critical social, economic, and human development challenges.
