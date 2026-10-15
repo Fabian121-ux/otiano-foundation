@@ -1,0 +1,4 @@
+---
+deployment:
+  tasks:
+    - /bin/bash /home/otianofo/repositories/otiano-foundation/scripts/deploy_frontend.sh
