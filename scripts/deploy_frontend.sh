@@ -33,18 +33,26 @@ DIST="$REPO/dist"
   echo 'ERROR: backend or sensitive file in frontend output' >&2
   exit 1
 }
-while IFS= read -r name; do
-  case "$name" in
-    index.html|SMTIcon.png|favicon.png|lastlogoss.png|ofdlogo-red.png|og-image.png) ;;
-    *) echo "ERROR: unexpected root file: $name" >&2; exit 1 ;;
-  esac
-done < <(find "$DIST" -maxdepth 1 -type f -printf '%f\n')
-while IFS= read -r name; do
-  case "$name" in
-    assets|images) ;;
-    *) echo "ERROR: unexpected build directory: $name" >&2; exit 1 ;;
-  esac
-done < <(find "$DIST" -mindepth 1 -maxdepth 1 -type d -printf '%f\n')
+# cPanel cron may lack /dev/fd, so do not use Bash process substitution.
+# Ordinary pathname expansion works in both cPanel Cron Jobs and Terminal.
+shopt -s nullglob
+for item in "$DIST"/*; do
+  name="${item##*/}"
+  if [[ -f "$item" ]]; then
+    case "$name" in
+      index.html|SMTIcon.png|favicon.png|lastlogoss.png|ofdlogo-red.png|og-image.png) ;;
+      *) echo "ERROR: unexpected root file: $name" >&2; exit 1 ;;
+    esac
+  elif [[ -d "$item" ]]; then
+    case "$name" in
+      assets|images) ;;
+      *) echo "ERROR: unexpected build directory: $name" >&2; exit 1 ;;
+    esac
+  else
+    echo "ERROR: unsupported build entry: $name" >&2
+    exit 1
+  fi
+done
 if [[ -d "$DIST/images" ]]; then
   [[ -z "$(find "$DIST/images" -type f ! -name 'ofd-placeholder.svg' -print -quit)" ]] || {
     echo 'ERROR: unapproved image output' >&2
