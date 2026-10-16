@@ -194,7 +194,7 @@ try {
   // Short phones keep the lead call to action visible immediately.
   await page.setViewportSize({ width: 320, height: 568 })
   await page.goto(baseUrl, { waitUntil: 'networkidle' })
-  const leadAction = await page.getByRole('link', { name: 'Read Our Story', exact: false }).boundingBox()
+  const leadAction = await page.getByRole('region', { name: 'Otiano Foundation highlights' }).getByRole('link', { name: 'Read Our Story', exact: false }).boundingBox()
   assert.ok(leadAction && leadAction.y >= 80 && leadAction.y + leadAction.height <= 568, 'Lead hero CTA is below the first screen')
   await page.screenshot({ path: output + '/320-short-home.png' })
 

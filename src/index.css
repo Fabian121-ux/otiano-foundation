@@ -251,3 +251,6 @@
   .landing-cta, .landing-controls { margin-top: 1rem; }
   .landing-caption { margin-top: 0.5rem; }
 }
+
+/* Keep bounded paragraphs aligned with the centred sections that contain them. */
+.text-center > .max-w-prose { margin-inline: auto; }
