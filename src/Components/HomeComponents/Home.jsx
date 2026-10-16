@@ -9,25 +9,25 @@ const slides = [
     title: 'Opportunity for All • Possibility Everywhere',
     text: 'Otiano Foundation for Development works to widen access to opportunity through education, healthcare, empowerment, and social welfare.',
     button: 'Read Our Story', to: '/about/our-story', image: HealthcareImage,
-    position: '58% center', caption: 'Illustrative healthcare imagery',
+    position: '58% center',
   },
   {
     title: 'Education',
     text: 'Supporting learning, school engagement, and opportunity for children and young people.',
     button: 'Explore Education', to: '/education', image: EducationImage,
-    position: '32% center', caption: 'Illustrative education imagery',
+    position: '32% center',
   },
   {
     title: 'Healthcare',
     text: 'Promoting stronger communities through awareness, access, and practical support.',
     button: 'Explore Healthcare', to: '/healthcare', image: HealthcareImage,
-    position: '75% center', caption: 'Illustrative healthcare imagery',
+    position: '75% center',
   },
   {
     title: 'Community Impact',
     text: 'Building programmes around real needs identified in communities.',
     button: 'View Activities', to: '#activities', image: AfricaImage,
-    position: 'center', caption: 'Africa illustration',
+    position: 'center',
   },
 ]
 
@@ -127,8 +127,7 @@ function Home() {
                 onClick={() => setPaused((value) => !value)}>{paused ? 'Play' : 'Pause'}</button>
             )}
           </div>
-        </div>
-        <p className="landing-caption">{slides[active].caption}</p>
+        </div>
       </div>
     </section>
   )

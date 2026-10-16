@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import Kingsley from '../../assets/trustees/kingsley-otiaba.jpg'
 import David from '../../assets/trustees/david-achugbu.jpg'
 import Raphael from '../../assets/trustees/raphael-anyanwu.jpg'
@@ -9,7 +8,7 @@ import Lucy from '../../assets/trustees/lucy-simon-ashide.jpg'
 import { founderProfile } from '../../data/founderProfile'
 
 const trustees = [
-  { name: founderProfile.name, image: Kingsley, role: 'Founder and Executive Chairman', founder: true },
+  { name: founderProfile.name, image: Kingsley, role: 'Chairman', founder: true },
   { name: 'David Achugbu', image: David, role: 'Secretary, Board of Trustees' },
   { name: 'Raphael Anyanwu', image: Raphael, role: 'Trustee' },
   { name: 'Zanang Awan', image: Awan, role: 'Trustee' },
@@ -40,9 +39,8 @@ function Trustees() {
                 <h2 className="text-xl font-semibold text-neutral-900">{trustee.name}</h2>
                 <p className="mb-5 mt-2 text-sm font-medium leading-6 text-brand">{trustee.role}</p>
                 {trustee.founder ? (
-                  <div className="mt-auto">
-                    <p className="mb-4 text-sm leading-6 text-neutral-600 max-w-prose">Read the approved founder biography and learn about his community and technology work.</p>
-                    <Link to="/about/founders-message" className="ofd-text-link">Read founder profile <span aria-hidden="true">→</span></Link>
+                  <div className="mt-auto border-t border-neutral-200 pt-3">
+                    <a href="#chairman-profile" className="ofd-text-link">View Profile <span aria-hidden="true">→</span></a>
                   </div>
                 ) : trustee.bio ? (
                   <details className="mt-auto border-t border-neutral-200 pt-3">
@@ -55,6 +53,22 @@ function Trustees() {
               </div>
             </article>
           ))}
+        </div>
+      </section>
+      <section id="chairman-profile" className="section-space scroll-mt-24 bg-neutral-50" aria-labelledby="chairman-profile-heading">
+        <div className="site-container">
+          <div className="mx-auto grid max-w-5xl items-start gap-8 rounded-card border border-neutral-200 bg-white p-5 shadow-card sm:p-8 lg:grid-cols-[minmax(0,1fr)_15rem] lg:gap-12">
+            <div>
+              <p className="section-eyebrow">Board of Trustees</p>
+              <h2 id="chairman-profile-heading" className="mb-2 text-2xl font-bold text-neutral-900 sm:text-3xl">{founderProfile.name}</h2>
+              <p className="mb-6 text-base font-semibold text-brand">Chairman</p>
+              <div className="reading-copy space-y-5">
+                {founderProfile.bio.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              </div>
+            </div>
+            <img src={Kingsley} alt={founderProfile.name} loading="lazy" decoding="async"
+              className="order-first mx-auto aspect-[4/5] w-full max-w-60 rounded-card bg-neutral-50 object-contain object-bottom lg:order-last" />
+          </div>
         </div>
       </section>
     </div>

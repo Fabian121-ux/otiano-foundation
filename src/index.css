@@ -209,9 +209,9 @@
   .landing-hero-shade { background: linear-gradient(90deg, rgb(0 0 0 / 0.78), rgb(0 0 0 / 0.35)), linear-gradient(0deg, rgb(0 0 0 / 0.7), transparent 65%); }
   .landing-hero-layout { display: flex; min-height: inherit; flex-direction: column; align-items: flex-start; justify-content: center; padding-top: 2rem; padding-bottom: 1.25rem; }
   .landing-eyebrow { margin-bottom: 1.25rem; max-width: 38rem; font-size: 0.75rem; font-weight: 600; line-height: 1.7; letter-spacing: 0.1em; text-transform: uppercase; color: white; }
-  .landing-slides { display: grid; width: 100%; max-width: 43rem; }
-  .landing-slide { grid-area: 1 / 1; display: flex; flex-direction: column; align-items: flex-start; min-width: 0; visibility: hidden; opacity: 0; pointer-events: none; transition: opacity 500ms ease, visibility 500ms; }
-  .landing-slide.is-active { visibility: visible; opacity: 1; pointer-events: auto; }
+  .landing-slides { display: block; width: 100%; max-width: 43rem; }
+  .landing-slide { display: none; flex-direction: column; align-items: flex-start; min-width: 0; }
+  .landing-slide.is-active { display: flex; }
   .landing-heading { max-width: 20ch; font-size: clamp(1.75rem, 4.4vw, 3.5rem); font-weight: 600; line-height: 1.12; letter-spacing: -0.025em; text-wrap: balance; }
   .landing-description { max-width: 36rem; margin-top: 1rem; font-size: 0.9375rem; line-height: 1.7; color: white; }
   .landing-cta { margin-top: 1.5rem; }
@@ -222,7 +222,6 @@
   .landing-play { min-width: 3.5rem; padding-inline: 0.75rem; font-size: 0.75rem; font-weight: 600; }
   .landing-dot { width: 0.5rem; height: 0.5rem; border: 1px solid white; border-radius: 999px; background: transparent; transition: width 200ms, background 200ms; }
   .landing-dot.is-active { width: 1.5rem; background: white; }
-  .landing-caption { margin-top: 0.75rem; font-size: 0.6875rem; line-height: 1.5; color: theme('colors.neutral.200'); }
   .landing-hero :focus-visible { outline-color: white; }
 }
 
@@ -249,7 +248,6 @@
   .landing-heading { font-size: 1.625rem; }
   .landing-description { margin-top: 0.75rem; font-size: 0.875rem; line-height: 1.65; }
   .landing-cta, .landing-controls { margin-top: 1rem; }
-  .landing-caption { margin-top: 0.5rem; }
 }
 
 /* Keep bounded paragraphs aligned with the centred sections that contain them. */
