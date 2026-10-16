@@ -1,25 +1,53 @@
-# Otiano Foundation — Website source
+# Otiano Foundation for Development
 
-Source snapshot supplied by the previous developer, prepared for a new private GitHub repository.
+Source for the public website at https://otianofoundation.org.
 
-## Stack
-- React + Vite frontend (`src/`, `public/`)
-- PHP + SQLite backend (`php-backend/`)
+## Architecture
 
-## Local frontend setup
-1. Install a recent Node.js LTS version.
-2. Run `npm ci`.
-3. Copy `.env.example` to `.env` and set the correct deployment API URLs.
-4. Run `npm run dev`.
+- **Public frontend:** React + Vite, located in `src/` and `public/`.
+- **Admin interface:** React routes; API-dependent functionality requires the existing live backend.
+- **Separate backend source:** PHP + SQLite in `php-backend/`. The PHP backend and database are **not deployed** by the frontend workflow.
+- **Production hosting:** Sagacious Teck cPanel shared hosting.
+- **GitHub:** version control and automated frontend build. A successful GitHub build does **not** prove that changes are live.
 
-The PHP backend must be hosted separately with PHP SQLite support and appropriate web-server rewrite rules.
+## Local development
 
-## Important
-- The source was not deployed or tested against the live production server.
-- `node_modules/`, `dist/`, and the old developer's `.git/` history are excluded because they are generated/developer-specific files; `npm ci` recreates dependencies and `npm run build` regenerates the bundle.
-- `.env` variants, `php-backend/database.sqlite`, old backend ZIP backup and uploaded runtime data are excluded for privacy/security. Preserve the original archive securely if those deployment-specific items are needed for migration.
-- The default credentials in `php-backend/create_admin.php` were replaced by `OTIANO_ADMIN_EMAIL` and `OTIANO_ADMIN_PASSWORD` environment variables; ensure both are set before running it.
-- The backend authorization logic requires a separate security review before deployment; possession of an arbitrary token may be sufficient in the existing implementation.
+```bash
+npm ci
+npm run dev
+npm run lint
+npm run build
+```
 
-## GitHub import
-See `GITHUB_IMPORT.md`. Keep the repository **private** until all authentication, database and data-protection concerns have been reviewed.
+Copy `.env.example` to a local `.env` and supply the relevant API and upload URLs.
+Do not commit private configuration or credentials.
+
+## Publishing the frontend
+
+1. Merge an approved PR into `main`.
+2. GitHub Actions automatically builds `dist/` using the configured public production API/upload URLs, validates its content, and commits frontend build files.
+3. In **cPanel → Git Version Control → otiano-foundation → Manage → Pull or Deploy**, select **Update from Remote**, then **Deploy HEAD Commit**.
+4. The checked-in `.cpanel.yml` uses `scripts/deploy_frontend.sh` to back up and update **frontend-only** files. It does not replace the backend, portal, uploads, database, or Apache rewrite rules.
+5. Check the deployed public site and functional pages before considering the release complete.
+
+Full instructions and limitations: [cPanel deployment instructions](docs/CPANEL_DEPLOY.md).
+
+## Website status monitoring
+
+A read-only GitHub Actions public-site smoke test runs daily (and supports manual runs).
+It checks public homepage content and that a compiled JS asset is accessible.
+It **does not verify** production deploy commit, admin login, database, or API availability.
+
+## Editorial work still needed
+
+- Documented activities require approved photos, dates, locations, and verified outcomes.
+- Six non-founder trustee profiles still await approved biographies.
+- Do not publish unsupported impact statistics.
+- Founder biography must remain sourced from Foundation-approved content.
+
+## Security / operational notes
+
+**Do not upload or expose live database files or credentials.**
+Backend authentication and upload handling require a dedicated security review before any backend rollout. The included PHP source should not be assumed to match the server's currently deployed implementation.
+
+This is a live public nonprofit website: verify all hosting paths, keep rollback copies, and do not deploy unreviewed changes.
