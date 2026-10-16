@@ -104,6 +104,7 @@ try {
     assert.equal(await page.getByRole('link', { name: 'Read founder profile' }).getAttribute('href'), '/about/founders-message')
     await page.getByRole('link', { name: 'Read founder profile' }).click()
     await page.waitForURL('**/about/founders-message')
+    await page.getByRole('heading', { level: 1, name: founderProfile.name, exact: true }).waitFor()
     assert.equal(await page.getByRole('heading', { level: 1 }).textContent(), founderProfile.name)
     assert.deepEqual(await page.locator('article section p').allTextContents(), founderProfile.bio, 'Approved founder biography changed or was omitted')
     await page.goto(baseUrl + '/volunteer-opportunities', { waitUntil: 'networkidle' })
