@@ -6,7 +6,7 @@ import Logo from '../../assets/ofdlogo-red.png'
 const navigation = [
   { id: 'about', label: 'About', links: [
     { label: 'Our Story', to: '/about/our-story' },
-    { label: "Founder's Message", to: '/about/founders-message' },
+    { label: "Founder's Profile", to: '/about/founders-message' },
     { label: 'Our Role', to: '/about/our-role' },
     { label: 'Our Values', to: '/about/our-values' },
     { label: 'Our Strategic Plan', to: '/about/strategic-plan' },
@@ -221,7 +221,7 @@ function Navbar() {
                 })}
                 <NavLink to="/contact" onClick={closeMenu} className="mt-6 flex min-h-12 items-center justify-center rounded-lg bg-brand px-6 py-3 font-semibold text-white hover:bg-brand-hover">Contact</NavLink>
               </nav>
-              <p className="mt-8 border-t border-neutral-200 pt-6 text-sm leading-relaxed text-neutral-600">Opportunity for All<br />Possibility Everywhere</p>
+              <p className="mt-8 border-t border-neutral-200 pt-6 text-sm leading-relaxed text-neutral-600 max-w-prose">Opportunity for All<br />Possibility Everywhere</p>
             </div>
           </div>
         </dialog>,

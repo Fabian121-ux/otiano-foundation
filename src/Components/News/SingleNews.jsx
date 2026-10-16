@@ -36,7 +36,7 @@ function SingleNews() {
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand mx-auto mb-4"></div>
-            <p className="text-neutral-600">Loading article...</p>
+            <p className="text-neutral-600 max-w-prose">Loading article...</p>
           </div>
         </div>
       </div>
@@ -67,7 +67,7 @@ function SingleNews() {
         <SEO 
           title={newsItem.title}
           description={newsItem.description.substring(0, 160) + '...'}
-          keywords={`Otinao Foundation for Development news, ${newsItem.title}, community development, Nigeria foundation`}
+          keywords={`Otiano Foundation for Development news, ${newsItem.title}, community development, Nigeria foundation`}
           image={getImageUrl(newsItem.image)}
           type="article"
         />
@@ -107,7 +107,7 @@ function SingleNews() {
 
           {/* Article Text */}
           <div className="prose max-w-none">
-            <p className="text-lg text-neutral-700 leading-relaxed mb-6">
+            <p className="text-[0.9375rem] sm:text-base text-neutral-700 leading-relaxed mb-6 max-w-prose">
               {newsItem.description}
             </p>
           </div>

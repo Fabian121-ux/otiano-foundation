@@ -1,85 +1,37 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
-import { FaGraduationCap, FaHeartbeat, FaDollarSign, FaShieldAlt } from 'react-icons/fa'
+import BrandVisual from '../GeneralComponents/BrandVisual'
+
+const pillars = [
+  { title: 'Education', topic: 'education', visual: 'Learning and opportunity', to: '/education', description: 'Supporting learning, school engagement, and opportunity for children and young people.' },
+  { title: 'Healthcare', topic: 'healthcare', visual: 'Awareness and access', to: '/healthcare', description: 'Promoting health awareness, access to care, and practical community support.' },
+  { title: 'Economic Empowerment', topic: 'livelihoods', visual: 'Skills and livelihoods', to: '/economic-empowerment', description: 'Focusing on skills, financial knowledge, career development, and pathways to work.' },
+  { title: 'Social Welfare', topic: 'protection', visual: 'Dignity and inclusion', to: '/social-welfare', description: 'Prioritising protection, inclusion, and the needs of people facing vulnerability.' },
+]
 
 function OurWork() {
-    return (
-        <section id="our-work" className="bg-neutral-100 py-2">
-            <div className="relative z-10 py-16">
-                <div className='max-w-7xl mx-auto px-6'>
-                    <h2 className="text-3xl md:text-4xl font-bold text-brand mb-8">What We Do</h2>
-                    {/* <p className="text-xl md:text-2xl text-neutral-800 font-medium mb-4 max-w-2xl">
-                        Opportunity for All • Possibility Everywhere
-                    </p> */}
-                    <p className="text-lg text-neutral-600 mb-16 max-w-3xl">
-                        At Otiano Foundation for Development (OFD), our work is focused on creating inclusive opportunities and sustainable impact across communities. We deliver our mission through four core areas of intervention.
-                    </p>
-                </div>
-                <div className="max-w-5xl mx-auto px-6">
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <div className=" text-center">
-                            <div className="mb-8 bg-white p-8 rounded-card shadow-sm flex items-center justify-center">
-                                <FaGraduationCap className="text-brand text-6xl" />
-                            </div>
-                            <h3 className="text-xl font-bold text-neutral-800 mb-4">
-                                Education
-                            </h3>
-                            <p className="text-neutral-600 mb-6 text-sm leading-relaxed">
-                                We expand access to quality education and learning opportunities for underserved children and young people, laying the foundation for long-term social and economic mobility.
-                            </p>
-                            <Link to="/education" className="text-brand font-medium hover:underline">
-                                Learn more →
-                            </Link>
-                        </div>
-
-                        <div className=" text-center">
-                            <div className="mb-8 bg-white p-8 rounded-card shadow-sm flex items-center justify-center">
-                                <FaHeartbeat className="text-brand text-6xl" />
-                            </div>
-                            <h3 className="text-xl font-bold text-neutral-800 mb-4">
-                                Healthcare
-                            </h3>
-                            <p className="text-neutral-600 mb-6 text-sm leading-relaxed">
-                                We support community-based healthcare initiatives that improve access to essential services, promote preventive care, and strengthen health outcomes.
-                            </p>
-                            <Link to="/healthcare" className="text-brand font-medium hover:underline">
-                                Learn more →
-                            </Link>
-                        </div>
-
-                        <div className=" text-center">
-                            <div className="mb-8 bg-white p-8 rounded-card shadow-sm flex items-center justify-center">
-                                <FaDollarSign className="text-brand text-6xl" />
-                            </div>
-                            <h3 className="text-xl font-bold text-neutral-800 mb-4">
-                                Economic Empowerment
-                            </h3>
-                            <p className="text-neutral-600 mb-6 text-sm leading-relaxed">
-                                We equip individuals with skills, knowledge, and resources to achieve financial independence and build sustainable livelihoods.
-                            </p>
-                            <Link to="/economic-empowerment" className="text-brand font-medium hover:underline">
-                                Learn more →
-                            </Link>
-                        </div>
-                        <div className=" text-center">
-                            <div className="mb-8 bg-white p-8 rounded-card shadow-sm flex items-center justify-center">
-                                <FaShieldAlt className="text-brand text-6xl" />
-                            </div>
-                            <h3 className="text-xl font-bold text-neutral-800 mb-4">
-                                Social Welfare & Protection
-                            </h3>
-                            <p className="text-neutral-600 mb-6 text-sm leading-relaxed">
-                                We protect dignity and wellbeing by supporting vulnerable populations and strengthening community safety nets.
-                            </p>
-                            <Link to="/social-welfare" className="text-brand font-medium hover:underline">
-                                Learn more →
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    )
+  return (
+    <section id="our-work" className="section-space bg-neutral-50" aria-labelledby="pillars-heading">
+      <div className="site-container">
+        <div className="section-intro">
+          <p className="section-eyebrow">Our programme pillars</p>
+          <h2 id="pillars-heading" className="section-heading">What We Do</h2>
+          <p className="reading-copy">Four connected areas guide the programmes we aim to build around community needs.</p>
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+          {pillars.map((pillar) => (
+            <article key={pillar.to} className="ofd-card flex min-w-0 flex-col overflow-hidden">
+              <BrandVisual title={pillar.visual} topic={pillar.topic} className="pillar-visual" />
+              <div className="flex flex-1 flex-col p-5 sm:p-6">
+                <h3 className="mb-3 text-xl font-semibold text-neutral-900">{pillar.title}</h3>
+                <p className="mb-6 text-[0.9375rem] leading-7 text-neutral-600 max-w-prose">{pillar.description}</p>
+                <Link to={pillar.to} className="ofd-button ofd-button-outline mt-auto" aria-label={`Explore ${pillar.title}`}>Explore pillar <span aria-hidden="true">→</span></Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
 }
 
 export default OurWork

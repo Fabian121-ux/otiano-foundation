@@ -1,3 +1,4 @@
+import EmptyState from '../GeneralComponents/EmptyState'
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import ApiService, { getImageUrl } from '../../services/api'
@@ -53,11 +54,11 @@ function News() {
 
   if (loading) {
     return (
-      <section className="bg-white py-16">
+      <section className="bg-white section-space">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand mx-auto mb-4"></div>
-            <p className="text-neutral-600">Loading news...</p>
+            <p className="text-neutral-600 max-w-prose">Loading news...</p>
           </div>
         </div>
       </section>
@@ -66,7 +67,7 @@ function News() {
 
   if (error) {
     return (
-      <section className="bg-white py-16">
+      <section className="bg-white section-space">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center">
             <p className="text-brand">{error}</p>
@@ -77,12 +78,12 @@ function News() {
   }
 
   return (
-    <section className="bg-white py-16">
+    <section className="bg-white section-space">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col gap-6 sm:flex-row sm:justify-between sm:items-start mb-12">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-brand mb-4">Latest News</h2>
-            <p className="text-neutral-600">Read our regional, national, and global media coverage.</p>
+            <p className="text-neutral-600 max-w-prose">Published news and activity updates from the Foundation.</p>
           </div>
           
           {newsItems.length > 0 && (
@@ -112,28 +113,7 @@ function News() {
         </div>
         
         {newsItems.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-brand-100 to-brand-100 rounded-full flex items-center justify-center shadow-card">
-              <svg className="w-10 h-10 text-brand" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
-                <path d="M2 3h20a1 1 0 011 1v16a1 1 0 01-1 1H2a1 1 0 01-1-1V4a1 1 0 011-1zm1 2v14h18V5H3z"/>
-              </svg>
-            </div>
-            <h3 className="text-2xl font-bold text-neutral-800 mb-6">News & Updates</h3>
-            <p className="text-neutral-600 mb-8">We are building a growing record of stories, insights, and updates from our work across communities.</p>
-            
-            <div className="mb-8">
-              <h4 className="text-lg font-semibold text-neutral-800 mb-4">Our News section will soon feature:</h4>
-              <ul className="text-neutral-600 space-y-2 max-w-md mx-auto text-left">
-                <li>• Program announcements and milestones</li>
-                <li>• Community impact stories</li>
-                <li>• Partnerships and events</li>
-                <li>• Reports and thought leadership</li>
-              </ul>
-            </div>
-            
-            <p className="text-brand font-semibold text-lg">Coming Soon.</p>
-          </div>
+          <EmptyState title="Foundation news"><p>Published announcements and confirmed activity updates will appear here. Contact OFD for current programme enquiries.</p></EmptyState>
         ) : (
           <div className="relative overflow-hidden">
             <div 
@@ -161,7 +141,7 @@ function News() {
                     <h3 className="text-lg font-bold text-neutral-800 mb-3 group-hover:text-brand transition-colors">
                       {item.title}
                     </h3>
-                    <p className="text-neutral-600 text-sm leading-relaxed mb-4">
+                    <p className="text-neutral-600 text-sm leading-relaxed mb-4 max-w-prose">
                       {item.description}
                     </p>
                     <Link 

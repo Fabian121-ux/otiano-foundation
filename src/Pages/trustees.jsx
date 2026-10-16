@@ -9,8 +9,8 @@ function trustees() {
     <>
       <SEO 
         title="Board of Trustees"
-        description="Meet Otinao Foundation for Development's dedicated Board of Trustees who provide leadership and governance for our community development initiatives."
-        keywords="Otinao Foundation for Development trustees, board members, foundation leadership, governance, Nigeria foundation board"
+        description="Meet Otiano Foundation for Development's dedicated Board of Trustees who provide leadership and governance for our community development initiatives."
+        keywords="Otiano Foundation for Development trustees, board members, foundation leadership, governance, Nigeria foundation board"
       />
       <Navbar />
       <Trustees />

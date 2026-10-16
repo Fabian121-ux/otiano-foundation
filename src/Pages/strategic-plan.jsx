@@ -9,8 +9,8 @@ function strategicplan() {
     <>
       <SEO 
         title="Strategic Plan"
-        description="Learn about Otinao Foundation for Development's strategic plan, goals, and roadmap for sustainable community development and social impact."
-        keywords="Otinao Foundation for Development strategic plan, development goals, community strategy, Nigeria foundation planning, social impact strategy"
+        description="Learn about Otiano Foundation for Development's strategic plan, goals, and roadmap for sustainable community development and social impact."
+        keywords="Otiano Foundation for Development strategic plan, development goals, community strategy, Nigeria foundation planning, social impact strategy"
       />
       <Navbar />
       <StrategicPlan />

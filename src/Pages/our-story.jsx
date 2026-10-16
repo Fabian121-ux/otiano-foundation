@@ -8,8 +8,8 @@ function ourstory() {
     <>
       <SEO 
         title="Our Story"
-        description="Learn about Otinao Foundation for Development's journey, mission, and commitment to transforming communities through impactful development programs."
-        keywords="Otinao Foundation for Development story, foundation history, mission, vision, community transformation, Nigeria development"
+        description="Learn about Otiano Foundation for Development's journey, mission, and commitment to transforming communities through impactful development programs."
+        keywords="Otiano Foundation for Development story, foundation history, mission, vision, community transformation, Nigeria development"
       />
       <Navbar />
       <OurStory />

@@ -1,3 +1,4 @@
+import EmptyState from '../GeneralComponents/EmptyState'
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { getImageUrl } from '../../services/api'
@@ -49,7 +50,7 @@ function Events() {
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand mx-auto mb-4"></div>
-            <p className="text-neutral-600">Loading events...</p>
+            <p className="text-neutral-600 max-w-prose">Loading events...</p>
           </div>
         </div>
       </div>
@@ -82,41 +83,19 @@ function Events() {
           <div className="max-w-7xl px-6 md:px-12 lg:px-20 pb-12">
             <div className="text-neutral-700 max-w-2xl">
               <h1 className="text-3xl md:text-5xl font-bold text-brand mb-4">Events</h1>
-              <p className="text-lg md:text-xl font-medium">
- Dive into our upcoming events and network with like-minded individuals transforming education empowerment, healthcare access, skills & entrepreneurship training, and community development across Nigeria and Africa.              </p>
+              <p className="text-[0.9375rem] sm:text-base md:text-base font-medium">
+ Find published event announcements, participation details, and records of past activities.              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Upcoming Events Section */}
-      <section className="bg-white py-16">
+      <section className="bg-white section-space">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-neutral-800 mb-12">Upcoming Events</h2>
           {upcomingEvents.length === 0 ? (
-            <div className="text-center py-16">
-              <div className="relative">
-                <div className="w-40 h-40 mx-auto mb-8 bg-gradient-to-br from-brand-100 via-brand-50 to-brand-100 rounded-full flex items-center justify-center relative overflow-hidden">
-                  <div className="text-7xl">🎉</div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
-                </div>
-                <div className="flex justify-center gap-4 mb-6">
-                  <div className="w-2 h-2 bg-brand rounded-full animate-bounce" style={{animationDelay: '0s'}}></div>
-                  <div className="w-2 h-2 bg-brand rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                  <div className="w-2 h-2 bg-brand rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-                  <div className="w-2 h-2 bg-brand rounded-full animate-bounce" style={{animationDelay: '0.3s'}}></div>
-                  <div className="w-2 h-2 bg-brand rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></div>
-                </div>
-              </div>
-              <h3 className="text-4xl font-bold text-neutral-800 mb-4">Exciting Events Coming Soon!</h3>
-              <p className="text-neutral-600 text-lg mb-8 max-w-lg mx-auto">
-We're planning transformative experiences that empower communities through education, healthcare access, skills & entrepreneurship training, and development initiatives across Nigeria and Africa. Join us in building a brighter future - get ready for something impactful.              </p>
-              <div className="bg-gradient-to-r from-brand to-brand text-white px-8 py-3 rounded-full inline-flex items-center gap-2 font-medium">
-                <span className="animate-spin">✨</span>
-                <span>Stay Tuned</span>
-                <span className="animate-spin">✨</span>
-              </div>
-            </div>
+            <EmptyState title="Event announcements"><p>Confirmed dates, locations, and participation details will be listed here when events are published. Contact OFD with an event enquiry.</p></EmptyState>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {upcomingEvents.map((event) => (
@@ -142,7 +121,7 @@ We're planning transformative experiences that empower communities through educa
                     <div className="text-sm text-neutral-600 mb-4">
                       <span className="font-medium">Location:</span> {event.location}
                     </div>
-                    <p className="text-neutral-600 leading-relaxed mb-4">{event.description}</p>
+                    <p className="text-neutral-600 leading-relaxed mb-4 max-w-prose">{event.description}</p>
                     <Link to={`/events/${event.id}`} className="inline-flex min-h-11 items-center rounded-card bg-brand px-6 py-2 text-white transition-colors hover:bg-brand-hover">View Details</Link>
                   </div>
                 </div>
@@ -153,19 +132,19 @@ We're planning transformative experiences that empower communities through educa
       </section>
 
       {/* Feedback Form Hero Section */}
-      <section className="bg-gradient-to-r from-brand to-brand py-16">
+      <section className="bg-gradient-to-r from-brand to-brand section-space">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="text-white">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">Share Your Thoughts on Our Events</h2>
-              <p className="text-lg mb-6 opacity-90">
-Your feedback helps us shape empowering events focused on education, healthcare access, skills & entrepreneurship training, and community development. We value your insights to create better experiences for communities across Nigeria and Africa - even if you haven't attended yet, share your ideas for future gatherings.              </p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Share feedback or an idea</h2>
+              <p className="text-[0.9375rem] sm:text-base mb-6 opacity-90">
+Share feedback on a published event or suggest a programme idea. Your input can help inform future planning.              </p>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
                     <span className="text-sm">✓</span>
                   </div>
-                  <span>Help us innovate for upcoming events</span>
+                  <span>Suggest topics and practical priorities</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
@@ -177,7 +156,7 @@ Your feedback helps us shape empowering events focused on education, healthcare 
                   <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
                     <span className="text-sm">✓</span>
                   </div>
-                  <span>Connect with our growing community</span>
+                  <span>Share needs identified in your community</span>
                 </div>
               </div>
             </div>
@@ -266,7 +245,7 @@ Your feedback helps us shape empowering events focused on education, healthcare 
                 </button>
                 
                 {feedbackStatus === 'success' && (
-                  <p role="status" className="text-neutral-700 font-medium text-center">Thank you! Your feedback has been submitted successfully.</p>
+                  <p role="status" className="text-neutral-700 font-medium text-center max-w-prose">Thank you! Your feedback has been submitted successfully.</p>
                 )}
                 {feedbackStatus === 'error' && (
                   <p role="status" className="text-brand font-medium text-center">Something went wrong. Please try again.</p>
@@ -278,18 +257,11 @@ Your feedback helps us shape empowering events focused on education, healthcare 
       </section>
 
       {/* Past Events Section */}
-      <section className="bg-white py-16">
+      <section className="bg-white section-space">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-neutral-800 mb-12">Recent Past Events</h2>
+          <h2 className="text-3xl font-bold text-neutral-800 mb-12">Past activities</h2>
           {pastEvents.length === 0 ? (
-            <div className="text-center py-12">
-              {/* <div className="w-24 h-24 mx-auto mb-6 bg-neutral-100 rounded-full flex items-center justify-center">
-                <div className="text-4xl opacity-60"></div>
-              </div> */}
-              <h3 className="text-2xl font-bold text-neutral-700 mb-3">No Past Events Yet</h3>
-              <p className="text-neutral-500 max-w-md mx-auto">
-As we launch our initiatives in education empowerment, healthcare access, skills & entrepreneurship training, and community development, you'll soon see highlights, photos, and inspiring stories from our gatherings across Nigeria and Africa. Stay connected for updates.              </p>
-            </div>
+            <EmptyState title="Activity records"><p>Published event records and photographs will appear here as they become available.</p></EmptyState>
           ) : (
             <div className="grid md:grid-cols-2 gap-8">
               {pastEvents.map((event) => (
@@ -312,7 +284,7 @@ As we launch our initiatives in education empowerment, healthcare access, skills
                     <div className="text-sm text-neutral-600 mb-4">
                       <span className="font-medium">Location:</span> {event.location}
                     </div>
-                    <p className="text-neutral-600 leading-relaxed">{event.description}</p>
+                    <p className="text-neutral-600 leading-relaxed max-w-prose">{event.description}</p>
                   </div>
                 </div>
               ))}

@@ -4,54 +4,54 @@ import React from 'react'
 function StrategicPlan() {
   return (
     <div>
-      {/* Hero Section */}
+      
       <section className="brand-hero">
         <div className="relative z-10 flex items-end">
           <div className="max-w-7xl px-6 md:px-12 lg:px-20 pb-12">
             <div className="text-neutral-700 max-w-3xl">
               <h1 className="text-2xl md:text-3xl font-bold text-brand mb-4">Our Strategic Plan</h1>
-              <p className="text-lg md:text-xl font-medium">
-                Charting a visionary course toward measurable, transformative impact across Africa.
+              <p className="text-[0.9375rem] sm:text-base md:text-base font-medium">
+                A practical direction for programme development around community needs.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Introduction Section */}
-      <section className="bg-white py-16">
+      
+      <section className="bg-white section-space">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <p className="text-neutral-700 leading-relaxed text-lg">
-            OFD's strategic plan charts a visionary course toward measurable, transformative impact, addressing the multifaceted challenges faced by underserved communities across Africa. By delineating clear, interconnected pathways, we not only respond to immediate needs but also cultivate ecosystems of resilience and growth. This blueprint challenges us to envision a future where opportunity is not a privilege but a universal reality: How might targeted, scalable actions redefine the trajectory of entire generations?
-          </p>
+          <p className="text-neutral-700 leading-relaxed text-[0.9375rem] sm:text-base max-w-prose">
+                OFD’s strategic priorities set out areas for intended work. Specific activities should follow needs assessment, available resources, and appropriate partnerships. Progress will be described through documented activity records.
+              </p>
         </div>
       </section>
 
-      {/* Education Section */}
-      <section className="bg-neutral-50 py-16">
+      
+      <section className="bg-neutral-50 section-space">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="text-center">
               <BrandVisual title="Education Access & Quality" topic="education" className="h-64 sm:h-80 shadow-card" />
             </div>
             <div className="text-center">
               <h2 className="text-2xl font-bold text-brand mb-6">Expanding Educational Access & Quality</h2>
-              <p className="text-neutral-700 leading-relaxed">
-                In an era where knowledge is the cornerstone of progress, we are dedicated to dismantling barriers that hinder learning for underserved children and youth. Through scholarships that alleviate financial burdens, digital literacy programs that bridge the technological divide, and initiatives to fortify education systems, we ensure equitable access to quality education. Our approach empowers individuals to not just learn, but to innovate and lead, prompting reflection: What untapped potential lies dormant when education remains out of reach, and how can we unlock it to fuel societal advancement?
+              <p className="text-neutral-700 leading-relaxed max-w-prose">
+                We aim to explore learning materials, school engagement, teacher support, and digital literacy. These priorities guide programme development; they are not a claim of completed scholarship or infrastructure programmes.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Health Section */}
-      <section className="bg-white py-16">
+      
+      <section className="bg-white section-space">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="order-2 lg:order-1 text-center">
               <h2 className="text-2xl font-bold text-brand mb-6">Enhancing Community Health & Well-Being</h2>
-              <p className="text-neutral-700 leading-relaxed">
-                Health is the bedrock of human dignity and productivity, yet disparities persist in vulnerable regions. We commit to elevating health outcomes by reinforcing systems, heightening awareness through targeted campaigns, and expanding access to essential services via community outreach and robust health infrastructure support. This holistic strategy fosters preventive care and long-term wellness, inviting contemplation: In a world interconnected by health crises, how can empowered communities become the first line of defense against inequality in well-being?
+              <p className="text-neutral-700 leading-relaxed max-w-prose">
+                Our intended healthcare focus includes awareness, access, and identifying practical gaps in community services. Clinical activities or material support will require appropriate health expertise and confirmed arrangements.
               </p>
             </div>
             <div className="order-1 lg:order-2 text-center">
@@ -61,31 +61,31 @@ function StrategicPlan() {
         </div>
       </section>
 
-      {/* Economic Empowerment Section */}
-      <section className="bg-neutral-50 py-16">
+      
+      <section className="bg-neutral-50 section-space">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="text-center">
               <BrandVisual title="Economic Empowerment & Livelihoods" topic="livelihoods" className="h-64 sm:h-80 shadow-card" />
             </div>
             <div className="text-center">
               <h2 className="text-2xl font-bold text-brand mb-6">Boosting Economic Empowerment & Livelihoods</h2>
-              <p className="text-neutral-700 leading-relaxed">
-                Economic independence is the engine of self-reliance, driving families and communities toward prosperity. We deliver comprehensive skills training, financial education, and entrepreneurial guidance to equip individuals with the tools for sustainable livelihoods. By nurturing innovation and financial acumen, we enable pathways to stability and growth, challenging us to consider: If economic barriers were systematically removed, what waves of entrepreneurship and wealth creation could reshape Africa's future?
+              <p className="text-neutral-700 leading-relaxed max-w-prose">
+                We aim to explore practical skills, career development, entrepreneurship guidance, and financial literacy. Intended outcomes should be distinguished from verified results as programmes develop.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Social Protection Section */}
-      <section className="bg-white py-16">
+      
+      <section className="bg-white section-space">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="order-2 lg:order-1 text-center">
               <h2 className="text-2xl font-bold text-brand mb-6">Strengthening Social Protection & Inclusion</h2>
-              <p className="text-neutral-700 leading-relaxed">
-                True progress demands safeguarding the most vulnerable, weaving nets of support that promote inclusion and resilience. Our focus on holistic interventions - such as child protection programs and community-led support networks - builds frameworks that shield against adversity while fostering unity. This value-driven effort ensures no one is marginalized, provoking deeper insight: How might robust social protections not only heal wounds but also prevent them, creating societies where every voice contributes to collective strength?
+              <p className="text-neutral-700 leading-relaxed max-w-prose">
+                We aim to place dignity, protection, and inclusion at the centre of programme decisions. Community engagement and appropriate professional guidance should shape support for people facing vulnerability.
               </p>
             </div>
             <div className="order-1 lg:order-2 text-center">
@@ -95,17 +95,17 @@ function StrategicPlan() {
         </div>
       </section>
 
-      {/* Partnerships Section */}
-      <section className="bg-neutral-50 py-16">
+      
+      <section className="bg-neutral-50 section-space">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="text-center">
               <BrandVisual title="Partnerships for Scale" topic="partnership" className="h-64 sm:h-80 shadow-card" />
             </div>
             <div className="text-center">
               <h2 className="text-2xl font-bold text-brand mb-6">Building Partnerships for Scale</h2>
-              <p className="text-neutral-700 leading-relaxed">
-                No single entity can achieve systemic change alone; it is through synergy that impact multiplies exponentially. We forge strategic alliances with public, private, and civil society partners to amplify reach and deepen efficacy, co-creating solutions that endure. This collaborative ethos leverages diverse expertise for sustainable outcomes, urging us to ponder: In an age of global challenges, what profound transformations await when unified efforts turn isolated initiatives into widespread revolutions?
+              <p className="text-neutral-700 leading-relaxed max-w-prose">
+                We welcome discussions with community groups, public institutions, and other organisations about relevant opportunities to work together. Partnerships will be announced when arrangements are confirmed.
               </p>
             </div>
           </div>

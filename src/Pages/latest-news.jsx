@@ -8,8 +8,8 @@ function latestnews() {
     <>
       <SEO 
         title="Latest News"
-        description="Stay updated with the latest news and updates from Otinao Foundation for Development's community development projects and initiatives."
-        keywords="Otinao Foundation for Development news, latest updates, community projects, foundation announcements, Nigeria development news"
+        description="Stay updated with the latest news and updates from Otiano Foundation for Development's community development projects and initiatives."
+        keywords="Otiano Foundation for Development news, latest updates, community projects, foundation announcements, Nigeria development news"
       />
       <Navbar />
       <LatestNews />

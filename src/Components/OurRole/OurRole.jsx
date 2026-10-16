@@ -3,39 +3,39 @@ function OurRole() {
   return (
     <div>
       
-      {/* Hero Section */}
+      
       <section className="brand-hero">
         <div className="relative z-10 flex items-end">
           <div className="max-w-7xl px-6 md:px-12 lg:px-20 pb-12">
             <div className="text-neutral-700 max-w-2xl">
               <h1 className="text-3xl md:text-4xl font-bold text-brand mb-4">Our Role</h1>
-              <p className="text-lg md:text-xl font-medium">
-                Catalyzing positive, sustainable change across communities by closing gaps in access.
+              <p className="text-[0.9375rem] sm:text-base md:text-base font-medium">
+                Listening to community needs and identifying practical pathways to opportunity.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Content Section */}
-      <section className="bg-white py-16">
+      
+      <section className="bg-white section-space">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center space-y-8 text-neutral-700 leading-relaxed">
-            <p className="text-lg">
-              Otiano Foundation for Development (OFD) stands as a catalyst for enduring, positive transformation, bridging the divides that hinder progress in underserved communities worldwide. By addressing disparities in access to education, healthcare, economic pathways, and essential social services, we challenge the status quo and ignite cycles of empowerment. In a world where inequality often perpetuates itself, OFD confronts this reality head-on, questioning: What if every individual, regardless of circumstance, could harness their innate potential to reshape not just their own destiny, but the fabric of society?
-            </p>
+            <p className="text-[0.9375rem] sm:text-base">
+                OFD’s role is to help turn community needs into practical programme priorities across education, healthcare, economic empowerment, and social welfare.
+              </p>
             
             <p>
-              At our essence, we function as the vital conduit linking untapped human potential with the resources and opportunities required for realization. This role demands more than mere intervention; it calls for a profound commitment to equity, where empowerment is not a handout but a spark for self-determination. We ponder the deeper implications: How might societies evolve if barriers were dismantled not through temporary fixes, but through systemic strengthening that fosters resilience and autonomy?
-            </p>
+                We aim to listen to community members, understand the barriers they describe, and identify support that is relevant to their circumstances.
+              </p>
             
             <p>
-              To achieve this, OFD meticulously designs and executes programs that equip individuals with critical knowledge, practical skills, and supportive networks, all while fortifying local infrastructures. Our collaborations with community leaders, governmental bodies, and strategic partners amplify these efforts, creating synergies that extend far beyond isolated initiatives. This holistic strategy provokes reflection on a larger scale: In an interconnected global landscape, can collective action truly eradicate the roots of inequity, paving the way for communities that are not only self-sustaining but thriving exemplars of human ingenuity?
-            </p>
+                Programme development should involve appropriate expertise, available resources, and clear responsibilities. Our intended approach is to work with communities and partners rather than assume a single solution fits every setting.
+              </p>
             
             <p>
-              Ultimately, through our unwavering pursuit, OFD cultivates environments where resilience becomes the norm, and self-reliance empowers generations to envision and construct brighter horizons. We invite contemplation: If access is the key to unlocking human potential, what untapped possibilities await when we collectively commit to turning that key?
-            </p>
+                We aim to document activities and learn from feedback as work develops. This allows the Foundation to communicate what has been done and distinguish it from future plans.
+              </p>
           </div>
         </div>
       </section>

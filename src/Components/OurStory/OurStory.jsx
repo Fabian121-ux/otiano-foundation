@@ -3,13 +3,13 @@ function OurStory() {
   return (
     <div>
       
-      {/* Hero Section */}
+      
       <section className="brand-hero">
         <div className="relative z-10 flex items-end">
           <div className="max-w-7xl px-6 md:px-12 lg:px-20 pb-12">
             <div className="text-neutral-700 max-w-7xl">
               <h1 className="text-3xl md:text-4xl font-bold text-brand mb-4">Our Story</h1>
-              <p className="text-lg md:text-xl font-medium">
+              <p className="text-[0.9375rem] sm:text-base md:text-base font-medium">
                 Opportunity for All • Possibility Everywhere
               </p>
             </div>
@@ -17,42 +17,42 @@ function OurStory() {
         </div>
       </section>
 
-      {/* Story Content Section */}
-      <section className="bg-white py-16">
+      
+      <section className="bg-white section-space">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="space-y-16">
-            {/* First Section */}
+          <div className="space-y-10">
+            
             <div className="space-y-6 text-neutral-600 leading-relaxed">
-              <p className="text-lg">
-                The Otiano Foundation for Development (OFD) was born out of a deep commitment to expanding opportunity and transforming communities through sustainable development, inclusive growth, and human empowerment. Founded in response to the pressing challenges faced by underserved populations around the world, OFD emerged from a vision that recognized the interconnectedness of social, economic, and environmental factors.
+              <p className="text-[0.9375rem] sm:text-base">
+                Otiano Foundation for Development (OFD) was founded by Kingsley Chikaodili Otiaba to widen access to opportunity through education, healthcare, skills development, and civic participation.
               </p>
               
               <p>
-                This dedication stems from the founders personal experiences and observations of inequality, inspiring a mission to create lasting change. By prioritizing equitable access to education, quality health services, economic pathways, and social protection, OFD was formally established as a beacon of hope for those often left behind.
+                The Foundation’s direction begins with listening to people and understanding the needs they identify in their communities.
               </p>
             </div>
             
-            {/* Second Section */}
+            
             <div className="space-y-6 text-neutral-600 leading-relaxed">
               <p>
-                At its core, the Foundation believes that when individuals are equipped with the right skills, support, and resources, they can unlock their full potential and drive community-wide progress. This philosophy is rooted in the idea that empowerment is not just about immediate aid but fostering self-reliance and resilience.
+                We believe practical support should respect people’s knowledge, dignity, and ability to shape their own futures.
               </p>
               
               <p>
-                OFD focuses on holistic approaches that address root causes rather than symptoms, ensuring that interventions are culturally sensitive and community-led. Through targeted programs, the Foundation has already made strides in areas like vocational training, healthcare outreach, and financial literacy, helping countless individuals build brighter futures.
+                Our four programme pillars are education, healthcare, economic empowerment, and social welfare. They guide the work we aim to develop around community needs.
               </p>
             </div>
             
-            {/* Third Section - Full Width */}
+            
             <div className="bg-neutral-50 rounded-card p-8">
               <div className="max-w-4xl mx-auto space-y-6 text-neutral-600 leading-relaxed">
                 <p>
-                  Building on its foundational principles, OFD emphasizes the power of partnerships and innovation to amplify its impact. Collaborating with local governments, NGOs, businesses, and community leaders, the Foundation designs strategic interventions tailored to the unique needs of regions where change is most urgently required. Whether through technology-driven solutions, capacity-building workshops, or advocacy campaigns, OFD adapts to evolving challenges like climate change, urbanization, and global pandemics.
-                </p>
+                We aim to develop relevant programmes with trustees, community stakeholders, and partners. Activities, partnerships, and outcomes should be supported by records before they are presented as completed work.
+              </p>
                 
                 <p>
-                  Looking ahead, OFD remains committed to growing as a dynamic force for long-term transformation, with a focus on scalability and measurable outcomes. By continuously evaluating its programs and incorporating feedback from beneficiaries, the Foundation ensures accountability and effectiveness. As it expands its reach, OFD invites like-minded individuals, organizations, and donors to join in this journey toward a more inclusive world. Ultimately, the story of OFD is one of possibility everywhere, where every act of empowerment contributes to a ripple effect of positive change across communities.
-                </p>
+                As programmes develop, documented updates will explain what took place, where, and when. We welcome enquiries from people and organisations interested in contributing to this work.
+              </p>
               </div>
             </div>
           </div>

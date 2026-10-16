@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import { mkdir } from 'node:fs/promises'
 import { chromium } from '@playwright/test'
+import { founderProfile } from '../src/data/founderProfile.js'
 
 // Only synthetic QA records are supplied here. No calls reach the production backend.
 const baseUrl = 'http://127.0.0.1:4173'
@@ -74,6 +75,40 @@ try {
       }
     }
     await page.goto(baseUrl, { waitUntil: 'networkidle' })
+    // Every slide keeps its approved copy, link, accessible state, and layout.
+    const hero = page.getByRole('region', { name: 'Otiano Foundation highlights' })
+    const heroSlides = [
+      ['Opportunity for All • Possibility Everywhere', 'Read Our Story', '/about/our-story'],
+      ['Education', 'Explore Education', '/education'],
+      ['Healthcare', 'Explore Healthcare', '/healthcare'],
+      ['Community Impact', 'View Activities', '#activities'],
+    ]
+    for (let index = 0; index < heroSlides.length; index++) {
+      const [title, button, href] = heroSlides[index]
+      await hero.getByRole('button', { name: 'Show slide ' + (index + 1) + ': ' + title, exact: true }).click()
+      assert.equal(await hero.getByRole('heading', { level: 1 }).textContent(), title)
+      assert.equal(await hero.getByRole('link', { name: button, exact: false }).getAttribute('href'), href)
+      assert.equal(await hero.getByRole('group', { name: 'Choose a highlight' }).locator('[aria-current="true"]').count(), 1)
+      assert.equal(await hero.getByRole('link').count(), 1, 'Inactive slide links remained accessible')
+      await assertNoOverflow(width + 'px slide ' + (index + 1))
+      await page.screenshot({ path: output + '/' + width + '-slide-' + (index + 1) + '.png' })
+    }
+    await hero.getByRole('link', { name: 'View Activities' }).click()
+    assert.equal(await page.evaluate(() => location.hash), '#activities')
+    assert.equal(await page.locator('#activities').count(), 1)
+    assert.equal(await page.locator('#activities').getByRole('heading', { name: 'Documented activity updates' }).count(), 1)
+    assert.equal(await page.locator('footer a[href="#"]').count(), 0)
+    await page.goto(baseUrl + '/about/trustees', { waitUntil: 'networkidle' })
+    assert.equal(await page.getByText('Profile details to be updated.', { exact: true }).count(), 5)
+    await page.getByText('Profile details to be updated.', { exact: true }).first().waitFor({ state: 'visible' })
+    assert.equal(await page.getByRole('link', { name: 'Read founder profile' }).getAttribute('href'), '/about/founders-message')
+    await page.getByRole('link', { name: 'Read founder profile' }).click()
+    await page.waitForURL('**/about/founders-message')
+    assert.equal(await page.getByRole('heading', { level: 1 }).textContent(), founderProfile.name)
+    assert.deepEqual(await page.locator('article section p').allTextContents(), founderProfile.bio, 'Approved founder biography changed or was omitted')
+    await page.goto(baseUrl + '/volunteer-opportunities', { waitUntil: 'networkidle' })
+    assert.ok((await page.getByRole('link', { name: 'Email your interest' }).getAttribute('href')).startsWith('mailto:info@otianofoundation.org'))
+    await page.goto(baseUrl, { waitUntil: 'networkidle' })
     if (width < 1024) {
       const trigger = page.getByRole('button', { name: 'Open navigation menu' })
       await page.evaluate(() => window.scrollTo(0, 200))
@@ -135,10 +170,51 @@ try {
     await registration.waitFor({ state: 'hidden' })
     console.log('Passed responsive and navigation checks at ' + width + 'px')
   }
+  // Autoplay, pause, resume, keyboard selection and reduced motion are behavior checks.
+  const heroPage = await context.newPage()
+  await heroPage.clock.install()
+  await heroPage.goto(baseUrl, { waitUntil: 'networkidle' })
+  const rotatingHero = heroPage.getByRole('region', { name: 'Otiano Foundation highlights' })
+  await heroPage.clock.fastForward(7100)
+  assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Education', 'Slideshow did not auto-rotate')
+  await rotatingHero.getByRole('button', { name: 'Pause slideshow' }).click()
+  await heroPage.mouse.move(0, 0)
+  await heroPage.clock.fastForward(15000)
+  assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Education', 'Paused slideshow advanced')
+  await rotatingHero.getByRole('button', { name: 'Start slideshow' }).click()
+  await heroPage.mouse.move(0, 0)
+  await heroPage.clock.fastForward(7100)
+  assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Healthcare', 'Slideshow did not resume')
+  await rotatingHero.getByRole('button', { name: 'Show slide 1: Opportunity for All • Possibility Everywhere' }).focus()
+  await heroPage.keyboard.press('ArrowRight')
+  assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Community Impact')
+  await heroPage.close()
+
+  // Short phones keep the lead call to action visible immediately.
+  await page.setViewportSize({ width: 320, height: 568 })
+  await page.goto(baseUrl, { waitUntil: 'networkidle' })
+  const leadAction = await page.getByRole('link', { name: 'Read Our Story', exact: false }).boundingBox()
+  assert.ok(leadAction && leadAction.y >= 80 && leadAction.y + leadAction.height <= 568, 'Lead hero CTA is below the first screen')
+  await page.screenshot({ path: output + '/320-short-home.png' })
+
+  // Empty news/event states offer a useful next step without invented records.
+  const emptyPage = await context.newPage()
+  await emptyPage.route('**/api/*.php*', (route) => route.fulfill({ json: { data: [] }, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': '*' } }))
+  for (const route of ['/latest-news', '/events']) {
+    await emptyPage.goto(baseUrl + route, { waitUntil: 'networkidle' })
+    assert.equal(await emptyPage.getByRole('link', { name: 'Contact the Foundation', exact: false }).count() > 0, true)
+    const copy = await emptyPage.locator('body').innerText()
+    assert.ok(!/coming soon|no past events yet/i.test(copy))
+  }
+  await emptyPage.close()
+
   // Verify that reduced-motion preferences keep all controls usable.
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.setViewportSize({ width: 320, height: 568 })
   await page.goto(baseUrl, { waitUntil: 'networkidle' })
+  assert.equal(await page.getByRole('button', { name: /slideshow/ }).count(), 0, 'Reduced motion still enables autoplay')
+  await page.getByRole('button', { name: 'Show slide 2: Education', exact: true }).click()
+  assert.equal(await page.getByRole('heading', { level: 1 }).textContent(), 'Education')
   await page.getByRole('button', { name: 'Open navigation menu' }).click()
   await page.getByRole('button', { name: 'Close navigation menu' }).click()
   await waitFor(() => page.locator('#mobile-navigation').evaluate((el) => !el.open), 'Reduced-motion close failed')

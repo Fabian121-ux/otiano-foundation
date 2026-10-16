@@ -1,9 +1,8 @@
 import Home from '../Components/HomeComponents/Home'
 import Navbar from '../Components/GeneralComponents/Navbar'
 import OurWork from '../Components/HomeComponents/OurWork'
-// import News from '../Components/HomeComponents/News'
+import ActivityUpdates from '../Components/HomeComponents/ActivityUpdates'
 import Quote from '../Components/HomeComponents/Quote'
-// import Exploits from '../Components/HomeComponents/Exploits'
 import Footer from '../Components/GeneralComponents/Footer'
 import EnhancingOpportunities from '../Components/HomeComponents/EnhancingOpportunities'
 import Newsletter from '../Components/HomeComponents/Newsletter'
@@ -15,15 +14,14 @@ function HomePage() {
     <>
       <SEO 
         title="Home"
-        description="Otinao Foundation for Development - Empowering communities through education, healthcare, and sustainable development initiatives across Nigeria."
-        keywords="Otinao Foundation for Development, Nigeria foundation, community development, education, healthcare, sustainable development, charity, NGO"
+        description="Otiano Foundation for Development - Empowering communities through education, healthcare, and sustainable development initiatives across Nigeria."
+        keywords="Otiano Foundation for Development, Nigeria foundation, community development, education, healthcare, sustainable development, charity, NGO"
       />
       <Navbar />
       <Home />
       <EnhancingOpportunities />
       <OurWork />
-      {/* <News />
-      <Exploits /> */}
+      <ActivityUpdates />
       <Quote />
       <Newsletter />
       <Footer />

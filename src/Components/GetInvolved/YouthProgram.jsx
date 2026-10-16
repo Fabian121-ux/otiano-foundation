@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import React from 'react'
 import Navbar from '../GeneralComponents/Navbar'
 import Footer from '../GeneralComponents/Footer'
@@ -13,8 +14,8 @@ function YouthProgram() {
           <div className="max-w-7xl px-6 md:px-12 lg:px-20 pb-12">
             <div className="text-neutral-700 max-w-2xl">
               <h1 className="text-3xl md:text-4xl font-bold text-brand mb-4">Youth Program</h1>
-              <p className="text-lg md:text-xl font-medium">
-                Look forward to our Youth Program, designed to build skills, leadership, and community impact for young Africans.
+              <p className="text-[0.9375rem] sm:text-base md:text-base font-medium">
+                We welcome conversations about community needs and practical ways to contribute.
               </p>
             </div>
           </div>
@@ -22,14 +23,13 @@ function YouthProgram() {
       </section>
 
       {/* Content Section */}
-      <section className="bg-white py-16">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-neutral-800 mb-8">
-            Program details and enrollment opportunities are coming soon.
-          </h2>
-          <p className="text-xl text-brand font-medium">
-            Stay tuned
-          </p>
+      <section className="section-space bg-white">
+        <div className="site-container">
+          <div className="ofd-card max-w-3xl p-6 sm:p-8">
+            <h2 className="mb-4 text-2xl font-semibold text-neutral-900">Ask about youth participation</h2>
+            <p className="reading-copy">Contact the Foundation to share your interests or ask about possible participation. Any activity or role will be discussed once arrangements are confirmed.</p>
+            <Link to="/contact" className="ofd-button mt-6">Contact OFD <span aria-hidden="true">→</span></Link>
+          </div>
         </div>
       </section>
 

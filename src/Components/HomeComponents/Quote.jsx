@@ -1,14 +1,13 @@
-import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Quote() {
   return (
-    <section className="bg-neutral-100 py-32">
-      <div className="max-w-4xl mx-auto px-6 text-center">
-        <blockquote className="text-3xl md:text-4xl font-bold text-brand-hover mb-8 leading-relaxed">
-"When individuals are equipped with skills, support, and resources, they unlock their full potential - enabling communities to thrive."        </blockquote>
-        <cite className="text-lg text-neutral-700 font-medium">
-          – Kingsley Chikaodili Otiaba.
-        </cite>
+    <section className="section-space border-y border-brand-100 bg-brand-50">
+      <div className="site-container max-w-3xl text-center">
+        <p className="section-eyebrow">A community-led direction</p>
+        <h2 className="section-heading">Building programmes around needs that people have identified.</h2>
+        <p className="reading-copy mx-auto mt-4">Learn about the founder’s community work and the experience that informs the Foundation’s direction.</p>
+        <Link to="/about/founders-message" className="ofd-button mt-6">Meet our founder <span aria-hidden="true">→</span></Link>
       </div>
     </section>
   )
