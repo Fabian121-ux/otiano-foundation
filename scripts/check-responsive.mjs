@@ -99,7 +99,7 @@ try {
     assert.equal(await page.locator('#activities').getByRole('heading', { name: 'Documented activity updates' }).count(), 1)
     assert.equal(await page.locator('footer a[href="#"]').count(), 0)
     await page.goto(baseUrl + '/about/trustees', { waitUntil: 'networkidle' })
-    assert.equal(await page.getByText('Profile details to be updated.', { exact: true }).count(), 5)
+    assert.equal(await page.getByText('Profile details to be updated.', { exact: true }).count(), 6)
     await page.getByText('Profile details to be updated.', { exact: true }).first().waitFor({ state: 'visible' })
     assert.equal(await page.getByRole('link', { name: 'Read founder profile' }).getAttribute('href'), '/about/founders-message')
     await page.getByRole('link', { name: 'Read founder profile' }).click()
