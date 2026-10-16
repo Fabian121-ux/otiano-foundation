@@ -4,7 +4,9 @@ on:
   pull_request:
     branches: [main]
   push:
-    branches: ['improve/**']
+    branches: [main, 'improve/**']
+    paths-ignore:
+      - 'dist/**'
 
 permissions:
   contents: read
@@ -24,7 +26,7 @@ jobs:
           node-version: '22'
           cache: npm
       - name: Install existing dependencies
-        run: npm install
+        run: npm ci
       - name: Build production frontend
         run: npm run build
       - name: Lint frontend
