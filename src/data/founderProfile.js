@@ -1,7 +1,7 @@
 // Biography approved by the Foundation for this refinement.
 export const founderProfile = {
   "name": "Kingsley Chikaodili Otiaba",
-  "role": "Founder and Executive Chairman, Otiano Foundation for Development",
+  "role": "Chairman",
   "bio": [
     "Kingsley Chikaodili Otiaba is a Nigerian technology entrepreneur and community development leader. He founded Otiano Foundation for Development to widen access to opportunity through education, healthcare, skills development and civic participation.",
     "As Founder and Executive Chairman, he sets the Foundation’s direction and works with its trustees and partners to turn community needs into practical programmes. His work has included leadership and career development events for young people, educational support for pupils and teachers, and initiatives that bring attention to women’s inclusion and gender-based violence.",
