@@ -8,8 +8,8 @@ function ContactPage() {
     <div>
       <SEO 
         title="Contact Us"
-        description="Get in touch with Otinao Foundation for Development. Contact us for partnerships, donations, volunteer opportunities, or general inquiries."
-        keywords="Otinao Foundation for Development contact, get in touch, partnerships, donations, volunteer, Nigeria foundation contact"
+        description="Get in touch with Otiano Foundation for Development. Contact us for partnerships, donations, volunteer opportunities, or general inquiries."
+        keywords="Otiano Foundation for Development contact, get in touch, partnerships, donations, volunteer, Nigeria foundation contact"
       />
       <Navbar />
       <Contact />

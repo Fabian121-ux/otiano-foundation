@@ -65,7 +65,7 @@ function SingleEvent() {
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand mx-auto mb-4"></div>
-            <p className="text-neutral-600">Loading event...</p>
+            <p className="text-neutral-600 max-w-prose">Loading event...</p>
           </div>
         </div>
       </div>
@@ -93,7 +93,7 @@ function SingleEvent() {
         <SEO 
           title={event.title}
           description={event.description.substring(0, 160) + '...'}
-          keywords={`Otinao Foundation for Development events, ${event.title}, community events, Nigeria foundation, ${event.location}`}
+          keywords={`Otiano Foundation for Development events, ${event.title}, community events, Nigeria foundation, ${event.location}`}
           image={getImageUrl(event.image)}
           type="event"
         />
@@ -138,7 +138,7 @@ function SingleEvent() {
           <div className="grid md:grid-cols-3 gap-8">
             <div className="md:col-span-2">
               <h2 className="text-2xl font-bold text-neutral-800 mb-4">About This Event</h2>
-              <p className="text-neutral-700 leading-relaxed mb-8">{event.description}</p>
+              <p className="text-neutral-700 leading-relaxed mb-8 max-w-prose">{event.description}</p>
               
               <h3 className="text-xl font-bold text-neutral-800 mb-4">Event Agenda</h3>
               <div className="space-y-3 mb-8">
@@ -160,7 +160,7 @@ function SingleEvent() {
                   event.speakers.map((speaker, index) => (
                     <div key={index} className="p-4 border border-neutral-200 rounded-card">
                       <h4 className="font-bold text-neutral-800">{speaker.name}</h4>
-                      <p className="text-neutral-600">{speaker.title}</p>
+                      <p className="text-neutral-600 max-w-prose">{speaker.title}</p>
                     </div>
                   ))
                 ) : (
@@ -175,19 +175,19 @@ function SingleEvent() {
                 <div className="space-y-3 mb-6">
                   <div>
                     <span className="font-medium text-neutral-700">Date:</span>
-                    <p className="text-neutral-600">{event.date}</p>
+                    <p className="text-neutral-600 max-w-prose">{event.date}</p>
                   </div>
                   <div>
                     <span className="font-medium text-neutral-700">Time:</span>
-                    <p className="text-neutral-600">{event.time}</p>
+                    <p className="text-neutral-600 max-w-prose">{event.time}</p>
                   </div>
                   <div>
                     <span className="font-medium text-neutral-700">Venue:</span>
-                    <p className="text-neutral-600">{event.venue}</p>
+                    <p className="text-neutral-600 max-w-prose">{event.venue}</p>
                   </div>
                   <div>
                     <span className="font-medium text-neutral-700">Location:</span>
-                    <p className="text-neutral-600">{event.location}</p>
+                    <p className="text-neutral-600 max-w-prose">{event.location}</p>
                   </div>
                 </div>
                 <button 

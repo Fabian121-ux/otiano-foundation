@@ -23,14 +23,14 @@ function Newsletter() {
   }
 
   return (
-    <section className="bg-neutral-50 py-16">
+    <section className="bg-neutral-50 section-space">
       <div className="max-w-4xl mx-auto px-6 text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-brand mb-6">
           Stay Connected with OFD
         </h2>
         
         <p className="text-neutral-700 leading-relaxed mb-8 max-w-2xl mx-auto">
-          Join our newsletter to get updates on our programs, real impact stories from the communities we serve, new opportunities, and ways you can support or get involved.
+          Receive Foundation announcements, documented activity updates, and ways to express interest in our work.
         </p>
         
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto mb-6">
@@ -56,17 +56,17 @@ function Newsletter() {
         </form>
         
         {status === 'success' && (
-          <p role="status" className="text-neutral-700 font-medium mb-4">Successfully subscribed! Thank you for joining our newsletter.</p>
+          <p role="status" className="text-neutral-700 font-medium mb-4 max-w-prose">Successfully subscribed! Thank you for joining our newsletter.</p>
         )}
         {status === 'already_subscribed' && (
-          <p role="status" className="text-neutral-700 font-medium mb-4">You are already subscribed to our newsletter.</p>
+          <p role="status" className="text-neutral-700 font-medium mb-4 max-w-prose">You are already subscribed to our newsletter.</p>
         )}
         {status === 'error' && (
           <p role="status" className="text-brand font-medium mb-4">Something went wrong. Please try again.</p>
         )}
         
-        <p className="text-sm text-neutral-600">
-          We value your privacy - your email stays secure and you'll only hear from us about meaningful updates.
+        <p className="text-sm text-neutral-600 max-w-prose">
+          Subscribe to receive OFD news and programme updates.
         </p>
       </div>
     </section>

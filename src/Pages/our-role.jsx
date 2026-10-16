@@ -8,8 +8,8 @@ function ourstory() {
     <>
       <SEO 
         title="Our Role"
-        description="Discover Otinao Foundation for Development's role in community development, our approach to sustainable change, and how we make a difference."
-        keywords="Otinao Foundation for Development role, community development, sustainable change, social impact, Nigeria foundation role"
+        description="Discover Otiano Foundation for Development's role in community development, our approach to sustainable change, and how we make a difference."
+        keywords="Otiano Foundation for Development role, community development, sustainable change, social impact, Nigeria foundation role"
       />
       <Navbar />
       <OurRole />

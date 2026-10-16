@@ -10,8 +10,8 @@ function ourvalues() {
     <div>
       <SEO 
         title="Our Values"
-        description="Explore Otinao Foundation for Development's core values that guide our work in education, healthcare, and community development across Nigeria."
-        keywords="Otinao Foundation for Development values, core values, integrity, excellence, community service, Nigeria foundation principles"
+        description="Explore Otiano Foundation for Development's core values that guide our work in education, healthcare, and community development across Nigeria."
+        keywords="Otiano Foundation for Development values, core values, integrity, excellence, community service, Nigeria foundation principles"
       />
       <Navbar />
       <OurValues />

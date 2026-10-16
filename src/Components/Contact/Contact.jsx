@@ -9,7 +9,7 @@ function Contact() {
           <div className="max-w-7xl px-6 md:px-12 lg:px-20 pb-12">
             <div className="text-neutral-700 max-w-2xl">
               <h1 className="text-3xl md:text-5xl font-bold text-brand mb-4">Contact Us</h1>
-              <p className="text-lg md:text-xl font-medium">
+              <p className="text-[0.9375rem] sm:text-base md:text-base font-medium">
 Reach out for inquiries, collaborations, or general information.              </p>
             </div>
           </div>
@@ -17,12 +17,12 @@ Reach out for inquiries, collaborations, or general information.              </
       </section>
 
       {/* Contact Information Section */}
-      <section className="bg-white py-16">
+      <section className="bg-white section-space">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 mb-16">
             <div className="bg-neutral-50 p-8 rounded-card">
               <h3 className="text-xl font-bold text-neutral-800 mb-4">General Inquiries</h3>
-              <p className="text-neutral-600 mb-4">
+              <p className="text-neutral-600 mb-4 max-w-prose">
 For questions about our programs, partnerships, or support:               </p>
               <a href="mailto:info@otianofoundation.org" className="text-brand font-medium hover:text-brand">
                 info@otianofoundation.org 
@@ -31,7 +31,7 @@ For questions about our programs, partnerships, or support:               </p>
             
             <div className="bg-neutral-50 p-8 rounded-card">
               <h3 className="text-xl font-bold text-neutral-800 mb-4">Media Inquiries</h3>
-              <p className="text-neutral-600 mb-4">
+              <p className="text-neutral-600 mb-4 max-w-prose">
 For press releases, interviews, or media kits:               </p>
               <a href="mailto:media@otianofoundation.org" className="text-brand font-medium hover:text-brand">
                 media@otianofoundation.org
@@ -40,7 +40,7 @@ For press releases, interviews, or media kits:               </p>
             
             {/* <div className="bg-brand-50 p-8 rounded-card md:col-span-2 lg:col-span-1">
               <div className="bg-brand-100 p-4 rounded-card">
-                <p className="text-neutral-700 text-sm leading-relaxed">
+                <p className="text-neutral-700 text-sm leading-relaxed max-w-prose">
                   While we aim to be available to all our stakeholders and other interested parties, occasionally our response time may be delayed due to the large volume of emails we receive. Please bear with us.
                 </p>
               </div>

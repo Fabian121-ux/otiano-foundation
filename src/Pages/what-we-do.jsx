@@ -8,8 +8,8 @@ function whatwedo() {
     <div>
       <SEO 
         title="What We Do"
-        description="Discover Otinao Foundation for Development's programs in education, healthcare, economic empowerment, and community development across Nigeria."
-        keywords="Otinao Foundation for Development programs, education initiatives, healthcare programs, economic empowerment, community development, Nigeria NGO"
+        description="Discover Otiano Foundation for Development's programs in education, healthcare, economic empowerment, and community development across Nigeria."
+        keywords="Otiano Foundation for Development programs, education initiatives, healthcare programs, economic empowerment, community development, Nigeria NGO"
       />
       <Navbar />
       <WhatWeDo />
