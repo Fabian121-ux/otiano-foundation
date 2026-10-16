@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import Navbar from '../GeneralComponents/Navbar'
 import Footer from '../GeneralComponents/Footer'
 import SEO from '../GeneralComponents/SEO'
-import KingsleyImage from '../../assets/trustees/Kingsley Otiaba.png'
+import KingsleyImage from '../../assets/trustees/kingsley-otiaba.jpg'
 import { founderProfile } from '../../data/founderProfile'
 
 const sections = [

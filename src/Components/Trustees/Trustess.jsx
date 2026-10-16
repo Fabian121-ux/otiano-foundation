@@ -1,19 +1,21 @@
 import { Link } from 'react-router-dom'
-import Cheeka from '../../assets/trustees/Cheeka Onyeka.jpeg'
-import Ekeoma from '../../assets/trustees/Ekeoma Ogbu.JPG'
-import David from '../../assets/trustees/David Achugbu.jpeg'
-import Kingsley from '../../assets/trustees/Kingsley Otiaba.png'
-import Awan from '../../assets/trustees/zanang Awan.jpeg'
-import Lucy from '../../assets/trustees/lucy simon.jpeg'
+import Kingsley from '../../assets/trustees/kingsley-otiaba.jpg'
+import David from '../../assets/trustees/david-achugbu.jpg'
+import Raphael from '../../assets/trustees/raphael-anyanwu.jpg'
+import Awan from '../../assets/trustees/zanang-awan.jpg'
+import Cheeka from '../../assets/trustees/cheeka-onyeka.jpg'
+import Ekeoma from '../../assets/trustees/ekeoma-solomon-ogbu.jpg'
+import Lucy from '../../assets/trustees/lucy-simon-ashide.jpg'
 import { founderProfile } from '../../data/founderProfile'
 
 const trustees = [
-  { name: 'Cheeka Onyeka', image: Cheeka, role: 'Trustee' },
-  { name: 'Ekeoma Ogbu', image: Ekeoma, role: 'Trustee' },
   { name: founderProfile.name, image: Kingsley, role: 'Founder and Executive Chairman', founder: true },
+  { name: 'David Achugbu', image: David, role: 'Secretary, Board of Trustees' },
+  { name: 'Raphael Anyanwu', image: Raphael, role: 'Trustee' },
   { name: 'Zanang Awan', image: Awan, role: 'Trustee' },
-  { name: 'David Achugbu', image: David, role: 'Trustee' },
-  { name: 'Lucy Simon', image: Lucy, role: 'Trustee' },
+  { name: 'Cheeka Onyeka Esq.', image: Cheeka, role: 'Trustee' },
+  { name: 'Ekeoma Solomon Ogbu Esq.', image: Ekeoma, role: 'Trustee' },
+  { name: 'Lucy Simon Ashide', image: Lucy, role: 'Trustee' },
 ]
 
 function Trustees() {
