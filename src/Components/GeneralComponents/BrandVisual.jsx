@@ -12,10 +12,9 @@ const icons = {
 function BrandVisual({ title, topic = 'partnership', className = '' }) {
   const Icon = icons[topic] || FaHandsHelping
   return (
-    <div role="img" aria-label={`Otiano Foundation branded illustration: ${title}`} className={`brand-visual ${className}`}>
+    <div role="img" aria-label={`${title} programme icon`} className={`brand-visual ${className}`}>
       <span aria-hidden="true" className="brand-visual-icon"><Icon className="h-9 w-9" /></span>
       <span aria-hidden="true" className="max-w-xs text-center text-lg font-semibold leading-snug">{title}</span>
-      <span aria-hidden="true" className="text-xs font-medium uppercase tracking-widest text-brand">Otiano Foundation</span>
     </div>
   )
 }
