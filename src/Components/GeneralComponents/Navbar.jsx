@@ -6,7 +6,7 @@ import Logo from '../../assets/ofdlogo-red.png'
 const navigation = [
   { id: 'about', label: 'About', links: [
     { label: 'Our Story', to: '/about/our-story' },
-    { label: "Founder's Profile", to: '/about/founders-message' },
+    { label: "Founder's Message", to: '/about/founders-message' },
     { label: 'Our Role', to: '/about/our-role' },
     { label: 'Our Values', to: '/about/our-values' },
     { label: 'Our Strategic Plan', to: '/about/strategic-plan' },
