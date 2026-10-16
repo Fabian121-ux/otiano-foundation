@@ -1,0 +1,26 @@
+name: Public website health check
+
+# Read-only monitoring; this does not deploy, authenticate, or change site data.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 8 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ofd-public-website-health
+  cancel-in-progress: false
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout static health-check script
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Verify homepage and compiled frontend asset
+        run: python3 scripts/check_site_health.py
