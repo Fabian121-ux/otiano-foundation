@@ -2,6 +2,8 @@ name: Public website health check
 
 # Read-only monitoring; this does not deploy, authenticate, or change site data.
 on:
+  push:
+    branches: [maintenance/monitoring-and-cleanup]  # one-time PR-branch smoke test
   workflow_dispatch:
   schedule:
     - cron: '17 8 * * *'
