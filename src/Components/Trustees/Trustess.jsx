@@ -126,25 +126,27 @@ function Trustees() {
         {selectedTrustee && (
           <>
             <div className="trustee-dialog-header">
-              <p className="trustee-dialog-eyebrow">Board of Trustees · Selected profile</p>
               <button type="button" className="trustee-dialog-close" aria-label="Close trustee profile" onClick={closeProfile}>
                 <span aria-hidden="true">×</span>
               </button>
             </div>
             <div className="trustee-dialog-content">
-              <img
-                className="trustee-dialog-portrait"
-                src={selectedTrustee.image}
-                alt={selectedTrustee.name}
-                decoding="async"
-              />
               <div className="trustee-dialog-text">
                 <h2 id="trustee-dialog-heading">{selectedTrustee.name}</h2>
                 <p id="trustee-dialog-role" className="trustee-dialog-role">{selectedTrustee.role}</p>
                 <div className="trustee-dialog-accent" aria-hidden="true" />
                 <div className="trustee-dialog-bio">
-                  {selectedTrustee.bio
-                    ? selectedTrustee.bio.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
+                  {selectedTrustee.bio?.length > 0 && (
+                    <p className="trustee-dialog-lede">{selectedTrustee.bio[0]}</p>
+                  )}
+                  <img
+                    className="trustee-dialog-portrait"
+                    src={selectedTrustee.image}
+                    alt={selectedTrustee.name}
+                    decoding="async"
+                  />
+                  {selectedTrustee.bio?.length > 0
+                    ? selectedTrustee.bio.slice(1).map((paragraph) => <p key={paragraph}>{paragraph}</p>)
                     : <p>A full biography will be added once approved by the Foundation.</p>}
                 </div>
               </div>
