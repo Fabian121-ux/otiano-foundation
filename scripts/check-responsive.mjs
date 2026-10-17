@@ -130,10 +130,13 @@ try {
     assert.equal(await page.locator('.trustee-profile-button').count(), 7, 'Every board card needs a View Profile button')
     if (width <= 430) {
       const label = await page.locator('.trustees-board-label').boundingBox()
+      const hero = await page.locator('.trustees-hero').boundingBox()
       const photo = await page.locator('.trustee-photo-frame').first().boundingBox()
-      assert.ok(label && label.height >= 205, 'Board of Trustees panel must be tall enough on a phone')
-      assert.ok(photo && photo.y >= label.y + label.height + 20, 'Profile cards should start below the tall board panel')
-      assert.ok(photo.y >= 500 && photo.y < 760, width + 'px: board panel spacing should require only a little scrolling')
+      assert.ok(hero && hero.height >= 700, 'Mobile hero should occupy the first screen')
+      assert.ok(label && label.height >= 255, 'Board of Trustees introduction must have a padded gray panel')
+      assert.ok(label.y >= hero.y + hero.height + 35, 'Gray introduction must have breathing space below the hero')
+      assert.ok(photo && photo.y >= 800, 'Trustee photos must be below the first mobile screen')
+      assert.ok(photo.y >= label.y + label.height + 35, 'Cards must start below the gray board panel')
       await page.screenshot({ path: output + '/' + width + '-trustees-tall-label.png' })
     }
 
@@ -147,6 +150,14 @@ try {
     assert.equal(await modal.locator('.trustee-dialog-bio p').count(), 2)
     assert.ok((await modal.locator('.trustee-dialog-bio').innerText()).includes('American University of Nigeria'))
     assert.ok((await modal.locator('.trustee-dialog-bio').innerText()).includes('stronger, more resilient communities.'))
+    assert.deepEqual(
+      await modal.locator('.trustee-dialog-bio').evaluate((node) => [...node.children].map((el) => el.tagName)),
+      ['P', 'IMG', 'P'],
+      'Biography must lead with text, followed by the approved photo and the remaining copy'
+    )
+    assert.ok(await modal.locator('.trustee-dialog-portrait').evaluate((img) => img.complete && img.naturalWidth > 0), 'Approved portrait missing from pop-up')
+    const compactButton = await zanangButton.boundingBox()
+    assert.ok(compactButton && compactButton.width <= 155, 'View Profile button is not compact')
     assert.ok(await zanangCard.evaluate((el) => el.classList.contains('is-selected')), 'Clicked trustee not highlighted')
     assert.equal(await page.evaluate(() => document.body.style.overflow), 'hidden', 'Modal failed to lock background scrolling')
     await assertNoOverflow(width + 'px trustee popup')
