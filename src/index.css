@@ -59,21 +59,26 @@
   }
   .brand-hero > div { width: 100%; }
   .brand-hero > div > div { width: 100%; margin-inline: auto; }
-  .trustees-hero {
+  /* The former Founder’s portrait and Trustees banner have exchanged hero positions. */
+  .trustees-hero,
+  .founders-message-hero {
     min-height: clamp(25rem, 45vw, 33rem);
     background: linear-gradient(120deg, #380008, #990f23);
     color: white;
   }
-  .trustees-hero-image {
+  .trustees-hero-image,
+  .founders-message-hero-image {
     position: absolute;
     z-index: 0;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 26%;
   }
-  .trustees-hero::before {
+  .trustees-hero-image { object-position: 63% 28%; }
+  .founders-message-hero-image { object-position: 65% 35%; }
+  .trustees-hero::before,
+  .founders-message-hero::before {
     z-index: 1;
     inset: 0;
     width: auto;
@@ -81,11 +86,14 @@
     border: 0;
     border-radius: 0;
     opacity: 1;
-    background: linear-gradient(90deg, rgb(37 0 10 / 0.94) 0%, rgb(45 0 13 / 0.78) 38%, rgb(37 0 10 / 0.16) 100%);
+    background: linear-gradient(90deg, rgb(20 0 6 / 0.94) 0%, rgb(27 0 8 / 0.76) 42%, rgb(20 0 6 / 0.25) 100%);
   }
-  .trustees-hero::after { z-index: 2; }
-  .trustees-hero h1 { color: white; text-shadow: 0 2px 8px rgb(0 0 0 / 0.25); }
-  .trustees-hero p.reading-copy { color: white; text-shadow: 0 1px 5px rgb(0 0 0 / 0.35); }
+  .trustees-hero::after,
+  .founders-message-hero::after { z-index: 2; }
+  .trustees-hero h1,
+  .founders-message-hero h1 { color: white; text-shadow: 0 2px 8px rgb(0 0 0 / 0.25); }
+  .trustees-hero p.reading-copy,
+  .founders-message-hero p { color: white; text-shadow: 0 1px 5px rgb(0 0 0 / 0.35); }
   .brand-visual {
     position: relative;
     display: flex;
@@ -182,6 +190,16 @@
 @media (max-width: 639px) {
   .brand-hero { min-height: 20rem; }
   .brand-hero::before { width: 15rem; height: 15rem; right: -8rem; }
+  .trustees-hero,
+  .founders-message-hero { min-height: 27rem; }
+  .trustees-hero::before,
+  .founders-message-hero::before {
+    inset: 0;
+    width: auto;
+    height: auto;
+    background: linear-gradient(90deg, rgb(20 0 6 / 0.88), rgb(20 0 6 / 0.52)),
+                linear-gradient(0deg, rgb(20 0 6 / 0.58), transparent 65%);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
