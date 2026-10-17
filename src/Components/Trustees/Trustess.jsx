@@ -13,7 +13,7 @@ import { founderProfile } from '../../data/founderProfile'
 // remain clearly marked as awaiting approved text.
 const trustees = [
   { name: founderProfile.name, image: Kingsley, role: 'Chairman', bio: founderProfile.bio, founder: true },
-  { name: 'David Achugbu', image: David, role: 'Secretary, Board of Trustees' },
+  { name: 'David Achugbu', image: David, role: 'Secretary' },
   { name: 'Raphael Anyanwu', image: Raphael, role: 'Trustee' },
   {
     name: 'Miss Zanang Diana Awan',
