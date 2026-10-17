@@ -1,7 +1,8 @@
 import Kingsley from '../../assets/trustees/kingsley-otiaba.jpg'
 import David from '../../assets/trustees/david-achugbu.jpg'
 import Raphael from '../../assets/trustees/raphael-anyanwu.jpg'
-import Awan from '../../assets/trustees/zanang-awan.jpg'
+import Awan from '../../assets/trustees/zanang-diana-awan.jpg'
+import TrusteesHero from '../../assets/trustees/trustees-hero.jpg'
 import Cheeka from '../../assets/trustees/cheeka-onyeka.jpg'
 import Ekeoma from '../../assets/trustees/ekeoma-solomon-ogbu.jpg'
 import Lucy from '../../assets/trustees/lucy-simon-ashide.jpg'
@@ -29,6 +30,7 @@ function Trustees() {
   return (
     <div>
       <section className="brand-hero trustees-hero" aria-label="Our Trustees">
+        <img src={TrusteesHero} alt="" decoding="async" fetchPriority="high" className="trustees-hero-image" />
         <div className="relative z-10 flex items-end">
           <div className="site-container pb-10">
             <h1 className="mb-4 text-3xl font-bold text-brand md:text-4xl">Our Trustees</h1>
