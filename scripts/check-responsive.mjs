@@ -170,7 +170,7 @@ try {
     await modal.getByText('A full biography will be added once approved by the Foundation.').waitFor()
     await page.keyboard.press('Escape')
     await modal.waitFor({ state: 'hidden' })
-    assert.equal(await page.evaluate(() => document.body.style.overflow), '', 'Background scroll remains locked after closing the popup')
+    await waitFor(() => page.evaluate(() => document.body.style.overflow === ''), 'Background scroll remains locked after closing the popup')
     await page.goto(baseUrl + '/about/founders-message', { waitUntil: 'networkidle' })
     await page.getByRole('heading', { name: "Founder's Message", level: 1 }).waitFor()
     assert.ok((await page.locator('main, section').allTextContents()).join(' ').includes('The future we envision is achievable.'))
