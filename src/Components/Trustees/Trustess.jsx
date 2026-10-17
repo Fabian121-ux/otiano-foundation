@@ -5,10 +5,13 @@ import Awan from '../../assets/trustees/zanang-diana-awan.jpg'
 import Cheeka from '../../assets/trustees/cheeka-onyeka.jpg'
 import Ekeoma from '../../assets/trustees/ekeoma-solomon-ogbu.jpg'
 import Lucy from '../../assets/trustees/lucy-simon-ashide.jpg'
+import FounderMessageBackground from '../../assets/trustees/trustees-hero.jpg'
 import { founderProfile } from '../../data/founderProfile'
 
+// Only the Foundation-approved profiles have biographies. Other profiles
+// remain clearly marked as awaiting approved text.
 const trustees = [
-  { name: founderProfile.name, image: Kingsley, role: 'Chairman', founder: true },
+  { name: founderProfile.name, image: Kingsley, role: 'Chairman', bio: founderProfile.bio, founder: true },
   { name: 'David Achugbu', image: David, role: 'Secretary, Board of Trustees' },
   { name: 'Raphael Anyanwu', image: Raphael, role: 'Trustee' },
   {
@@ -28,57 +31,62 @@ const trustees = [
 function Trustees() {
   return (
     <div>
-      <section className="brand-hero trustees-hero" aria-label="Our Trustees">
-        <img src={Kingsley} alt="" decoding="async" fetchPriority="high" className="trustees-hero-image" />
-        <div className="relative z-10 flex items-end">
-          <div className="site-container pb-10">
-            <h1 className="mb-4 text-3xl font-bold text-brand md:text-4xl">Our Trustees</h1>
-            <p className="reading-copy">Our trustees provide oversight and guidance for the Foundation’s direction, governance, and programme priorities.</p>
+      <section className="brand-hero trustees-hero" aria-labelledby="trustees-heading">
+        {/* Reuse the exact background asset from Founder's Message; that page is unchanged. */}
+        <img src={FounderMessageBackground} alt="" fetchPriority="high" decoding="async" className="trustees-hero-image" />
+        <div className="relative z-10">
+          <div className="site-container trustees-hero-content">
+            <p className="trustees-hero-eyebrow">Otiano Foundation for Development</p>
+            <h1 id="trustees-heading">Meet Our Board of Trustees</h1>
+            <div className="trustees-hero-rule" aria-hidden="true" />
+            <p className="trustees-hero-description">
+              Our trustees provide oversight, guidance and diverse experience to help the Foundation
+              pursue its mission through responsible governance and community-led programmes.
+            </p>
           </div>
         </div>
       </section>
-      <section className="section-space bg-white" aria-label="Board of Trustees">
-        <div className="site-container grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {trustees.map((trustee) => (
-            <article key={trustee.name} className="ofd-card flex min-w-0 flex-col overflow-hidden">
-              <div className="aspect-[4/5] w-full border-b border-neutral-200 bg-neutral-50">
-                <img src={trustee.image} alt={trustee.name} loading="lazy" decoding="async" className="h-full w-full object-contain object-bottom" />
-              </div>
-              <div className="flex flex-1 flex-col p-5 sm:p-6">
-                <h2 className="text-xl font-semibold text-neutral-900">{trustee.name}</h2>
-                <p className="mb-5 mt-2 text-sm font-medium leading-6 text-brand">{trustee.role}</p>
-                {trustee.founder ? (
-                  <div className="mt-auto border-t border-neutral-200 pt-3">
-                    <a href="#chairman-profile" className="ofd-text-link">View Profile <span aria-hidden="true">→</span></a>
-                  </div>
-                ) : trustee.bio ? (
-                  <details className="mt-auto border-t border-neutral-200 pt-3">
-                    <summary className="cursor-pointer py-2 text-sm font-semibold text-neutral-800 hover:text-brand">Read profile</summary>
-                    <div className="mt-3 space-y-3 text-sm leading-6 text-neutral-600">
-                      {trustee.bio.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+
+      <section className="trustees-board-section" aria-labelledby="trustee-list-heading">
+        <div className="site-container">
+          <div className="trustees-board-label">
+            <h2 id="trustee-list-heading">Board of Trustees</h2>
+          </div>
+          <div className="trustees-grid">
+            {trustees.map((trustee) => (
+              <article
+                key={trustee.name}
+                id={trustee.founder ? 'chairman-profile' : undefined}
+                className="trustee-card"
+                aria-label={trustee.name}
+              >
+                <div className="trustee-photo-frame">
+                  <img
+                    src={trustee.image}
+                    alt={trustee.name}
+                    loading="lazy"
+                    decoding="async"
+                    className="trustee-portrait"
+                  />
+                </div>
+                <div className="trustee-card-body">
+                  <h3 className="trustee-card-name">{trustee.name}</h3>
+                  <p className="trustee-card-role">{trustee.role}</p>
+                  <details className="trustee-profile-details">
+                    <summary className="trustee-profile-button">
+                      View Profile <span aria-hidden="true">›</span>
+                    </summary>
+                    <div className="trustee-profile-copy">
+                      {trustee.bio ? (
+                        trustee.bio.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
+                      ) : (
+                        <p>A full biography will be added once approved by the Foundation.</p>
+                      )}
                     </div>
                   </details>
-                ) : (
-                  <p className="mt-auto border-t border-neutral-200 pt-4 text-sm leading-6 text-neutral-600">Profile details to be updated.</p>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-      <section id="chairman-profile" className="section-space scroll-mt-24 bg-neutral-50" aria-labelledby="chairman-profile-heading">
-        <div className="site-container">
-          <div className="mx-auto grid max-w-5xl items-start gap-8 rounded-card border border-neutral-200 bg-white p-5 shadow-card sm:p-8 lg:grid-cols-[minmax(0,1fr)_15rem] lg:gap-12">
-            <div>
-              <p className="section-eyebrow">Board of Trustees</p>
-              <h2 id="chairman-profile-heading" className="mb-2 text-2xl font-bold text-neutral-900 sm:text-3xl">{founderProfile.name}</h2>
-              <p className="mb-6 text-base font-semibold text-brand">Chairman</p>
-              <div className="reading-copy space-y-5">
-                {founderProfile.bio.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-              </div>
-            </div>
-            <img src={Kingsley} alt={founderProfile.name} loading="lazy" decoding="async"
-              className="order-first mx-auto aspect-[4/5] w-full max-w-60 rounded-card bg-neutral-50 object-contain object-bottom lg:order-last" />
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
