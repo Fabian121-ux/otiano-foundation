@@ -161,6 +161,11 @@ try {
     )
     assert.ok((await modal.locator('.trustee-dialog-portrait').getAttribute('src')).includes('zanang-diana-awan-'), 'Use the approved Zanang portrait')
     assert.ok(await modal.locator('.trustee-dialog-portrait').evaluate((img) => img.complete && img.naturalWidth > 0), 'Modal portrait not loaded')
+    const portraitBox = await modal.locator('.trustee-dialog-portrait').boundingBox()
+    const biographyBox = await modal.locator('.trustee-dialog-bio').boundingBox()
+    assert.ok(portraitBox && biographyBox && Math.abs(portraitBox.x - biographyBox.x) <= 2 &&
+      Math.abs(portraitBox.width - biographyBox.width) <= 2,
+    'Profile portrait should be centered and align with both edges of the biography')
     assert.ok(await zanangCard.evaluate((el) => el.classList.contains('is-selected')), 'Clicked trustee not highlighted')
     assert.equal(await page.evaluate(() => document.body.style.overflow), 'hidden', 'Modal failed to lock background scrolling')
     await assertNoOverflow(width + 'px trustee popup')
@@ -181,8 +186,11 @@ try {
     await modal.waitFor({ state: 'hidden' })
 
     const pendingProfile = page.locator('.trustee-card').filter({ hasText: 'David Achugbu' })
+    assert.equal(await pendingProfile.getByText('Secretary', { exact: true }).count(), 1, 'Secretary role must not repeat Board of Trustees')
     await pendingProfile.getByRole('button', { name: 'View Profile: David Achugbu' }).click()
     await modal.waitFor({ state: 'visible' })
+    assert.equal(await modal.getByText('Secretary', { exact: true }).count(), 1, 'Secretary role must be concise in the modal')
+    assert.equal(await modal.getByText(/Selected Profile/i).count(), 0, 'Do not show the redundant selected profile label')
     await modal.getByText('A full biography will be added once approved by the Foundation.').waitFor()
     await page.keyboard.press('Escape')
     await modal.waitFor({ state: 'hidden' })
