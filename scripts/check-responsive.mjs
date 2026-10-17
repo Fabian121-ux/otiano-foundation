@@ -129,11 +129,18 @@ try {
     assert.equal(await page.locator('.trustee-card').count(), 7)
     assert.equal(await page.locator('.trustee-profile-button').count(), 7, 'Every board card needs a View Profile button')
     if (width <= 430) {
+      const landing = await page.locator('.trustees-hero').boundingBox()
       const label = await page.locator('.trustees-board-label').boundingBox()
       const photo = await page.locator('.trustee-photo-frame').first().boundingBox()
-      assert.ok(label && label.height >= 205, 'Board of Trustees panel must be tall enough on a phone')
-      assert.ok(photo && photo.y >= label.y + label.height + 20, 'Profile cards should start below the tall board panel')
-      assert.ok(photo.y >= 500 && photo.y < 760, width + 'px: board panel spacing should require only a little scrolling')
+      assert.ok(landing && label && photo, 'Trustees hero, board panel or first portrait missing')
+      assert.ok(label.height >= 270, 'Grey Board of Trustees panel must be spacious on small phones')
+      assert.ok(label.y - (landing.y + landing.height) >= 48, 'Grey board panel needs clear separation from the photo hero')
+      assert.ok(photo.y - (label.y + label.height) >= 56, 'Trustee portrait must sit well below the grey board panel')
+      assert.ok(photo.y >= 800, width + 'px: first profile photograph should be below the initial mobile viewport')
+      assert.equal(await page.locator('.trustees-board-label').evaluate((element) => getComputedStyle(element).backgroundColor), 'rgb(230, 230, 230)', 'Board of Trustees heading should remain inside a grey box')
+      const profileButton = await page.locator('.trustee-profile-button').first().boundingBox()
+      assert.ok(profileButton && profileButton.width <= 170 && profileButton.height >= 44,
+        'View Profile should be visually compact but keep a touch-friendly tap target')
       await page.screenshot({ path: output + '/' + width + '-trustees-tall-label.png' })
     }
 
