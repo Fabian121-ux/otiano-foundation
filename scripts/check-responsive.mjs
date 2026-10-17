@@ -129,10 +129,12 @@ try {
     assert.equal(await page.locator('.trustee-card').count(), 7)
     assert.equal(await page.locator('.trustee-profile-button').count(), 7, 'Every board card needs a View Profile button')
     if (width <= 430) {
-      const photo = await page.locator('.trustee-photo-frame').first().boundingBox()
-      assert.ok(photo && photo.y < 520, width + 'px: excessive scrolling before the first trustee photo')
       const label = await page.locator('.trustees-board-label').boundingBox()
-      assert.ok(label && label.height < 85, 'The Board of Trustees section label is too tall for a phone')
+      const photo = await page.locator('.trustee-photo-frame').first().boundingBox()
+      assert.ok(label && label.height >= 205, 'Board of Trustees panel must be tall enough on a phone')
+      assert.ok(photo && photo.y >= label.y + label.height + 20, 'Profile cards should start below the tall board panel')
+      assert.ok(photo.y >= 500 && photo.y < 760, width + 'px: board panel spacing should require only a little scrolling')
+      await page.screenshot({ path: output + '/' + width + '-trustees-tall-label.png' })
     }
 
     const modal = page.locator('dialog.trustee-profile-dialog')
