@@ -398,9 +398,10 @@
   .brand-hero { min-height: 20rem; }
   .brand-hero::before { width: 15rem; height: 15rem; right: -8rem; }
   .founders-message-hero { min-height: 27rem; }
-  /* Keep the Trustees introduction compact on short phones, independently
-     from the unchanged Founder’s Message hero. */
-  .trustees-hero { min-height: 19rem; }
+  /* This unlayered mobile rule must agree with the component-layer rule.
+     It overrides the general .brand-hero height; the first profile remains
+     below the initial viewport and visitors scroll through the grey panel. */
+  .trustees-hero { min-height: max(31rem, calc(100svh - 5rem)); }
   .trustees-hero::before,
   .founders-message-hero::before {
     inset: 0;
