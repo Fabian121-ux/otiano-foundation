@@ -183,13 +183,17 @@
   .trustee-card-body { display: flex; flex: 1; flex-direction: column; padding: 1.5rem 2rem 2rem; }
   .trustee-card-name { color: #171717; font-size: 1.3rem; font-weight: 750; line-height: 1.3; }
   .trustee-card-role { margin-top: 0.2rem; color: #424242; font-size: 0.9375rem; line-height: 1.5; }
-  .trustee-profile-details { margin-top: auto; padding-top: 1.5rem; }
+  .trustee-card.is-selected { border-color: var(--brand); box-shadow: 0 0 0 2px rgb(200 26 38 / 0.18); }
   .trustee-profile-button {
     display: inline-flex;
     min-height: 2.8rem;
     align-items: center;
+    justify-content: center;
+    align-self: flex-start;
     gap: 1.5rem;
+    margin-top: auto;
     padding: 0.75rem 1.25rem;
+    border: 0;
     border-radius: 0.2rem;
     background: var(--brand);
     color: white;
@@ -198,24 +202,73 @@
     font-weight: 750;
     letter-spacing: 0.09em;
     line-height: 1.3;
-    list-style: none;
     text-transform: uppercase;
     transition: background-color 150ms ease;
   }
-  .trustee-profile-button::-webkit-details-marker { display: none; }
   .trustee-profile-button:hover { background: theme('colors.brand.hover'); }
-  .trustee-profile-button:focus-visible { outline: 3px solid var(--brand); outline-offset: 4px; }
   .trustee-profile-button span { font-size: 1.2rem; line-height: 0.8; }
-  .trustee-profile-details[open] .trustee-profile-button span { transform: rotate(90deg); }
-  .trustee-profile-copy {
+  .trustee-profile-dialog {
+    width: min(46rem, calc(100% - 1.25rem));
+    max-width: none;
+    max-height: calc(100vh - 2rem);
+    max-height: calc(100dvh - 2rem);
+    margin: auto;
+    padding: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    border: 1px solid #e5e5e5;
+    border-top: 5px solid var(--brand);
+    border-radius: 0.5rem;
+    background: white;
+    box-shadow: 0 20px 60px rgb(0 0 0 / 0.35);
+  }
+  .trustee-profile-dialog::backdrop { background: rgb(11 9 11 / 0.78); }
+  .trustee-dialog-header {
+    position: sticky;
+    z-index: 2;
+    top: 0;
+    display: flex;
+    min-height: 3.75rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 1.2rem;
+    border-bottom: 1px solid #ececec;
+    background: white;
+  }
+  .trustee-dialog-eyebrow {
+    color: var(--brand);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .trustee-dialog-close {
     display: grid;
-    gap: 0.85rem;
-    margin-top: 1.35rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid #e2e2e2;
-    color: #454545;
-    font-size: 0.9375rem;
-    line-height: 1.75;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 50%;
+    background: #f5f5f5;
+    color: #191919;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .trustee-dialog-close:hover { background: #fae9eb; color: var(--brand); }
+  .trustee-dialog-content { display: grid; grid-template-columns: 13rem minmax(0, 1fr); align-items: start; gap: 1.75rem; padding: 1.5rem; }
+  .trustee-dialog-portrait { width: 100%; aspect-ratio: 4 / 5; background: #f3f3f3; object-fit: contain; object-position: center bottom; }
+  .trustee-dialog-text { min-width: 0; }
+  .trustee-dialog-text h2 { color: #171717; font-size: clamp(1.35rem, 3vw, 1.85rem); font-weight: 800; line-height: 1.2; }
+  .trustee-dialog-role { margin-top: 0.5rem; color: var(--brand); font-size: 0.95rem; font-weight: 700; }
+  .trustee-dialog-accent { width: 4.5rem; height: 3px; margin-block: 1rem; background: var(--brand); }
+  .trustee-dialog-bio { display: grid; gap: 1rem; color: #424242; font-size: 0.9375rem; line-height: 1.75; }
+  @media (max-width: 639px) {
+    .trustee-dialog-header { min-height: 3.5rem; padding-inline: 0.9rem; }
+    .trustee-dialog-content { grid-template-columns: minmax(0, 1fr); gap: 1.1rem; padding: 1rem; }
+    .trustee-dialog-portrait { width: min(11rem, 48%); aspect-ratio: 4 / 5; }
+    .trustee-dialog-bio { font-size: 0.875rem; line-height: 1.65; }
   }
   @media (max-width: 1023px) {
     .trustees-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -223,13 +276,24 @@
     .trustee-card-body { padding: 1.5rem; }
   }
   @media (max-width: 639px) {
-    .trustees-hero { min-height: 36rem; padding-top: 6rem; }
-    .trustees-hero-content { padding-block: 3rem 3.75rem; }
-    .trustees-hero .trustees-hero-content h1 { max-width: 13ch; font-size: clamp(2.4rem, 9vw, 3.5rem); }
-    .trustees-hero-rule { margin-block: 1.5rem; }
-    .trustees-grid { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
-    .trustees-board-label { min-height: 8rem; margin-bottom: 2rem; }
-    .trustee-photo-frame { height: clamp(16rem, 80vw, 23rem); padding: 2rem 2rem 0; }
+    /* Allow the first board portrait onto the initial short-phone viewport. */
+    .trustees-hero { min-height: 19rem; padding-top: 5.25rem; }
+    .trustees-hero-content { padding-block: 0.95rem 1.1rem; }
+    .trustees-hero .trustees-hero-eyebrow { display: none; }
+    .trustees-hero .trustees-hero-content h1 { max-width: 17ch; font-size: clamp(1.75rem, 7.3vw, 2.1rem); line-height: 1.15; }
+    .trustees-hero-rule { width: 6rem; height: 3px; margin-block: 0.75rem; }
+    .trustees-hero .trustees-hero-description { font-size: 0.875rem; line-height: 1.4; }
+    .trustees-grid { grid-template-columns: minmax(0, 1fr); gap: 1.2rem; }
+    .trustees-board-label {
+      width: 100%;
+      min-height: 0;
+      margin-bottom: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 2px solid #e6e6e6;
+      background: transparent;
+    }
+    .trustees-board-label h2 { max-width: none; font-size: 1.05rem; font-weight: 700; }
+    .trustee-photo-frame { height: clamp(16rem, 80vw, 23rem); padding: 1.25rem 1.25rem 0; }
     .trustee-card-body { padding: 1.5rem; }
   }
   .brand-visual {
