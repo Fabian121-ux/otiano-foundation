@@ -1,7 +1,7 @@
 import SEO from '../GeneralComponents/SEO'
 import Navbar from '../GeneralComponents/Navbar'
 import Footer from '../GeneralComponents/Footer'
-import KingsleyImage from '../../assets/trustees/kingsley-otiaba.jpg'
+import TrusteeBackground from '../../assets/trustees/trustees-hero.jpg'
 
 function FoundersMessage() {
   return (
@@ -9,21 +9,26 @@ function FoundersMessage() {
       <SEO title="Founder's Message" description="Africa's greatest resource is not beneath its soil, it is within its people." />
       <Navbar />
       
-      {/* Hero Section */}
-      <section className="border-b border-brand-100 bg-brand-50 pb-12 pt-32">
-        <div className="mx-auto grid max-w-7xl items-center gap-8 px-6 md:grid-cols-2 lg:gap-16">
-          <div className="max-w-2xl">
-            <h1 className="mb-4 text-3xl font-bold text-brand md:text-4xl">Founder's Message</h1>
-            <p className="text-lg font-medium leading-relaxed text-neutral-800 md:text-xl">
-              Africa's greatest resource is not beneath its soil, it is within its people.
-            </p>
-            <p className="mt-6 font-semibold text-neutral-900">Kingsley Otiaba</p>
-            <p className="text-sm text-neutral-600">Founder &amp; Executive Chairman</p>
+      {/* Founder’s Message hero uses the former Trustees background photograph. */}
+      <section className="brand-hero founders-message-hero" aria-label="Founder's Message">
+        <img
+          src={TrusteeBackground}
+          alt=""
+          fetchPriority="high"
+          decoding="async"
+          className="founders-message-hero-image"
+        />
+        <div className="relative z-10">
+          <div className="site-container pb-10 pt-8 sm:pb-14 sm:pt-12">
+            <div className="max-w-xl">
+              <h1 className="mb-4 text-3xl font-bold text-white md:text-4xl">Founder's Message</h1>
+              <p className="text-lg font-medium leading-relaxed text-white md:text-xl">
+                Africa's greatest resource is not beneath its soil, it is within its people.
+              </p>
+              <p className="mt-6 font-semibold text-white">Kingsley Otiaba</p>
+              <p className="text-sm text-white">Founder &amp; Executive Chairman</p>
+            </div>
           </div>
-          <figure className="mx-auto w-full max-w-sm overflow-hidden rounded-card border border-neutral-200 bg-white shadow-card">
-            <img src={KingsleyImage} alt="Kingsley Otiaba, Founder and Executive Chairman of Otiano Foundation for Development"
-              fetchPriority="high" decoding="async" className="aspect-[4/5] w-full object-contain object-bottom" />
-          </figure>
         </div>
       </section>
 
