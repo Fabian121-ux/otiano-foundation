@@ -25,7 +25,7 @@ original = HERO.read_text(encoding='utf-8')
 new = original
 changes = [
     ("import EducationImage from '../../assets/homepage/education.jpeg'",
-     "import SpeakerPhoto from '../../assets/homepage/landing-speaker.jpg'\nimport TeamPhoto from '../../assets/homepage/landing-team.jpg'\nimport StudentsPhoto from '../../assets/homepage/landing-students.png'"),
+     "import SpeakerPhoto from '../../assets/homepage/landing-speaker.jpg'\nimport TeamPhoto from '../../assets/homepage/landing-team.jpg'\nimport StudentsPhoto from '../../assets/homepage/landing-students.jpg'"),
     ("import AfricaImage from '../../assets/homepage/thirdimage.webp'", ""),
     ("button: 'Read Our Story', to: '/about/our-story', image: HealthcareImage",
      "button: 'Read Our Story', to: '/about/our-story', image: TeamPhoto"),
