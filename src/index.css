@@ -94,6 +94,144 @@
   .founders-message-hero h1 { color: white; text-shadow: 0 2px 8px rgb(0 0 0 / 0.25); }
   .trustees-hero p.reading-copy,
   .founders-message-hero p { color: white; text-shadow: 0 1px 5px rgb(0 0 0 / 0.35); }
+  /* Board page: a photograph-led introduction and editorial profile cards.
+     Founder's Message deliberately retains its existing markup and styling. */
+  .trustees-hero {
+    min-height: clamp(33rem, 54vw, 43rem);
+    padding-top: 7rem;
+    align-items: flex-end;
+  }
+  .trustees-hero-image { object-position: 65% 35%; }
+  .trustees-hero::before {
+    background: linear-gradient(90deg, rgb(14 0 5 / 0.86) 0%, rgb(18 0 7 / 0.68) 48%, rgb(18 0 7 / 0.36) 100%);
+  }
+  .trustees-hero-content { padding-block: 4rem 4.5rem; }
+  .trustees-hero .trustees-hero-eyebrow {
+    max-width: 38rem;
+    margin-bottom: 1.1rem;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .trustees-hero .trustees-hero-content h1 {
+    max-width: 16ch;
+    font-size: clamp(2.5rem, 5.2vw, 4.8rem);
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    color: white;
+  }
+  .trustees-hero-rule {
+    width: min(100%, 40rem);
+    height: 4px;
+    margin-block: 2rem;
+    background: var(--brand);
+  }
+  .trustees-hero .trustees-hero-description {
+    max-width: 41rem;
+    color: white;
+    font-size: clamp(0.9375rem, 1.5vw, 1.125rem);
+    line-height: 1.75;
+    text-shadow: 0 1px 5px rgb(0 0 0 / 0.35);
+  }
+  .trustees-board-section { padding-bottom: 5rem; background: #f9f9f9; }
+  .trustees-board-label {
+    display: flex;
+    align-items: flex-end;
+    width: min(14.5rem, 64%);
+    min-height: 10rem;
+    margin-bottom: 3rem;
+    padding: 1.75rem;
+    background: #e6e6e6;
+  }
+  .trustees-board-label h2 {
+    max-width: 9ch;
+    color: #242424;
+    font-size: 1.35rem;
+    font-weight: 500;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+  .trustees-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.75rem; }
+  .trustee-card {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    overflow: hidden;
+    scroll-margin-top: 7rem;
+    border: 1px solid #d8d8d8;
+    background: white;
+  }
+  .trustee-photo-frame {
+    display: flex;
+    height: 19rem;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+    padding: 2rem 2rem 0;
+    background: white;
+  }
+  .trustee-portrait {
+    width: 100%;
+    height: 100%;
+    background: #f3f3f3;
+    object-fit: contain;
+    object-position: center bottom;
+  }
+  .trustee-card-body { display: flex; flex: 1; flex-direction: column; padding: 1.5rem 2rem 2rem; }
+  .trustee-card-name { color: #171717; font-size: 1.3rem; font-weight: 750; line-height: 1.3; }
+  .trustee-card-role { margin-top: 0.2rem; color: #424242; font-size: 0.9375rem; line-height: 1.5; }
+  .trustee-profile-details { margin-top: auto; padding-top: 1.5rem; }
+  .trustee-profile-button {
+    display: inline-flex;
+    min-height: 2.8rem;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.2rem;
+    background: var(--brand);
+    color: white;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 750;
+    letter-spacing: 0.09em;
+    line-height: 1.3;
+    list-style: none;
+    text-transform: uppercase;
+    transition: background-color 150ms ease;
+  }
+  .trustee-profile-button::-webkit-details-marker { display: none; }
+  .trustee-profile-button:hover { background: theme('colors.brand.hover'); }
+  .trustee-profile-button:focus-visible { outline: 3px solid var(--brand); outline-offset: 4px; }
+  .trustee-profile-button span { font-size: 1.2rem; line-height: 0.8; }
+  .trustee-profile-details[open] .trustee-profile-button span { transform: rotate(90deg); }
+  .trustee-profile-copy {
+    display: grid;
+    gap: 0.85rem;
+    margin-top: 1.35rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #e2e2e2;
+    color: #454545;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+  }
+  @media (max-width: 1023px) {
+    .trustees-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .trustee-photo-frame { height: 17rem; padding: 1.5rem 1.5rem 0; }
+    .trustee-card-body { padding: 1.5rem; }
+  }
+  @media (max-width: 639px) {
+    .trustees-hero { min-height: 36rem; padding-top: 6rem; }
+    .trustees-hero-content { padding-block: 3rem 3.75rem; }
+    .trustees-hero .trustees-hero-content h1 { max-width: 13ch; font-size: clamp(2.4rem, 9vw, 3.5rem); }
+    .trustees-hero-rule { margin-block: 1.5rem; }
+    .trustees-grid { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+    .trustees-board-label { min-height: 8rem; margin-bottom: 2rem; }
+    .trustee-photo-frame { height: clamp(16rem, 80vw, 23rem); padding: 2rem 2rem 0; }
+    .trustee-card-body { padding: 1.5rem; }
+  }
   .brand-visual {
     position: relative;
     display: flex;
