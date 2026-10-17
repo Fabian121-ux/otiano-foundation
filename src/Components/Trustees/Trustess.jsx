@@ -1,7 +1,8 @@
 import Kingsley from '../../assets/trustees/kingsley-otiaba.jpg'
 import David from '../../assets/trustees/david-achugbu.jpg'
 import Raphael from '../../assets/trustees/raphael-anyanwu.jpg'
-import Awan from '../../assets/trustees/zanang-awan.jpg'
+import Awan from '../../assets/trustees/zanang-diana-awan.jpg'
+import TrusteesHero from '../../assets/trustees/trustees-hero.jpg'
 import Cheeka from '../../assets/trustees/cheeka-onyeka.jpg'
 import Ekeoma from '../../assets/trustees/ekeoma-solomon-ogbu.jpg'
 import Lucy from '../../assets/trustees/lucy-simon-ashide.jpg'
@@ -11,7 +12,15 @@ const trustees = [
   { name: founderProfile.name, image: Kingsley, role: 'Chairman', founder: true },
   { name: 'David Achugbu', image: David, role: 'Secretary, Board of Trustees' },
   { name: 'Raphael Anyanwu', image: Raphael, role: 'Trustee' },
-  { name: 'Zanang Awan', image: Awan, role: 'Trustee' },
+  {
+    name: 'Miss Zanang Diana Awan',
+    image: Awan,
+    role: 'Trustee',
+    bio: [
+      'Zanang Diana Awan holds a BA in International Relations from the American University of Nigeria and an MA in Global Governance and Sustainable Development from Middlesex University London. She works in tax administration, bringing a practical understanding of public service to her interest in governance and sustainable development.',
+      'She is passionate about community development, agriculture and youth empowerment, particularly initiatives that promote inclusive growth and create opportunities for young people to thrive. As a trustee, she supports the Foundation’s efforts to build stronger, more resilient communities.',
+    ],
+  },
   { name: 'Cheeka Onyeka Esq.', image: Cheeka, role: 'Trustee' },
   { name: 'Ekeoma Solomon Ogbu Esq.', image: Ekeoma, role: 'Trustee' },
   { name: 'Lucy Simon Ashide', image: Lucy, role: 'Trustee' },
@@ -20,7 +29,8 @@ const trustees = [
 function Trustees() {
   return (
     <div>
-      <section className="brand-hero">
+      <section className="brand-hero trustees-hero" aria-label="Our Trustees">
+        <img src={TrusteesHero} alt="" decoding="async" fetchPriority="high" className="trustees-hero-image" />
         <div className="relative z-10 flex items-end">
           <div className="site-container pb-10">
             <h1 className="mb-4 text-3xl font-bold text-brand md:text-4xl">Our Trustees</h1>
@@ -45,7 +55,9 @@ function Trustees() {
                 ) : trustee.bio ? (
                   <details className="mt-auto border-t border-neutral-200 pt-3">
                     <summary className="cursor-pointer py-2 text-sm font-semibold text-neutral-800 hover:text-brand">Read profile</summary>
-                    <p className="mt-3 text-sm leading-6 text-neutral-600">{trustee.bio}</p>
+                    <div className="mt-3 space-y-3 text-sm leading-6 text-neutral-600">
+                      {trustee.bio.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                    </div>
                   </details>
                 ) : (
                   <p className="mt-auto border-t border-neutral-200 pt-4 text-sm leading-6 text-neutral-600">Profile details to be updated.</p>
