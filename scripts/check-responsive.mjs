@@ -70,6 +70,17 @@ try {
       await waitFor(() => page.locator('img').evaluateAll((images) => images.every((img) => img.complete && img.naturalWidth > 0)), width + 'px ' + route + ': image did not load')
       const brokenImages = await page.locator('img').evaluateAll((images) => images.filter((img) => img.complete && img.naturalWidth === 0).map((img) => img.src))
       assert.deepEqual(brokenImages, [], width + 'px ' + route + ': broken image')
+      if (route === '/about/founders-message') {
+        const image = page.locator('.founders-message-hero-image')
+        assert.equal(await image.count(), 1, 'Founder’s Message should display its new hero photo')
+        assert.ok((await image.getAttribute('src')).includes('trustees-hero-'), 'Founder’s Message should use the former Trustees photo')
+        assert.equal(await page.locator('.founders-message-hero figure').count(), 0, 'Previous Founder’s Message portrait should no longer appear in its hero')
+      }
+      if (route === '/about/trustees') {
+        const image = page.locator('.trustees-hero-image')
+        assert.equal(await image.count(), 1, 'Trustees page must retain one hero photo')
+        assert.ok((await image.getAttribute('src')).includes('kingsley-otiaba-'), 'Trustees should use the previous Founder’s Message portrait')
+      }
       if (['/', '/education', '/about/founders-message', '/about/trustees'].includes(route)) {
         await page.screenshot({ path: output + '/' + width + '-' + (route === '/' ? 'home' : route.replaceAll('/', '-')) + '.png', fullPage: true })
       }
