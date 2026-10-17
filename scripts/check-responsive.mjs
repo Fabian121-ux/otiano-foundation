@@ -101,6 +101,7 @@ try {
     await page.waitForURL('**/about/founders-message')
     await page.getByRole('heading', { level: 1, name: "Founder's Message" }).waitFor()
     await page.goto(baseUrl, { waitUntil: 'networkidle' })
+    await hero.getByRole('button', { name: 'Show slide 4: Community Impact', exact: true }).click()
     const pillarButtons = page.locator('#our-work a.ofd-button')
     assert.equal(await pillarButtons.count(), 4)
     for (const button of await pillarButtons.all()) {
