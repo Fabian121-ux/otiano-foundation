@@ -17,7 +17,7 @@ with ZipFile(ARCHIVE) as archive:
         raise SystemExit('Unexpected entries in landing photo ZIP')
     photos = {name: archive.read(name) for name in NAMES}
 for name, image in photos.items():
-    marker = bytes([137, 80, 78, 71, 13, 10, 26, 10]) if name.endswith('.png') else bytes([255, 216, 255])
+    marker = bytes([255, 216, 255])  # Uploaded .png is actually a JPEG byte stream
     if not image.startswith(marker) or not 10_000 < len(image) < 3_000_000:
         raise SystemExit('Invalid approved image: ' + name)
 
@@ -45,7 +45,8 @@ for old, replacement in changes:
 
 DEST.mkdir(parents=True, exist_ok=True)
 for name, image in photos.items():
-    (DEST / name).write_bytes(image)
+    destination = name.replace('.png', '.jpg')
+    (DEST / destination).write_bytes(image)
 HERO.write_text(new, encoding='utf-8')
 ARCHIVE.unlink()
 print('Installed OFD landing photos: team (slide 1), pupils (slide 2), speaker (slide 4).')
