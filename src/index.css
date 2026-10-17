@@ -392,8 +392,10 @@
 @media (max-width: 639px) {
   .brand-hero { min-height: 20rem; }
   .brand-hero::before { width: 15rem; height: 15rem; right: -8rem; }
-  .trustees-hero,
   .founders-message-hero { min-height: 27rem; }
+  /* Keep the Trustees introduction compact on short phones, independently
+     from the unchanged Founder’s Message hero. */
+  .trustees-hero { min-height: 19rem; }
   .trustees-hero::before,
   .founders-message-hero::before {
     inset: 0;
