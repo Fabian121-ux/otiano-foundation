@@ -1,21 +1,23 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import EducationImage from '../../assets/homepage/education.jpeg'
+import SpeakerPhoto from '../../assets/homepage/landing-speaker.jpg'
+import TeamPhoto from '../../assets/homepage/landing-team.jpg'
+import StudentsPhoto from '../../assets/homepage/landing-students.jpg'
 import HealthcareImage from '../../assets/homepage/health.jpeg'
-import AfricaImage from '../../assets/homepage/thirdimage.webp'
+
 
 const slides = [
   {
     title: 'Opportunity for All • Possibility Everywhere',
     text: 'Otiano Foundation for Development works to widen access to opportunity through education, healthcare, empowerment, and social welfare.',
-    button: 'Read Our Story', to: '/about/our-story', image: HealthcareImage,
-    position: '58% center',
+    button: 'Read Our Story', to: '/about/our-story', image: TeamPhoto,
+    position: 'center 45%',
   },
   {
     title: 'Education',
     text: 'Supporting learning, school engagement, and opportunity for children and young people.',
-    button: 'Explore Education', to: '/education', image: EducationImage,
-    position: '32% center',
+    button: 'Explore Education', to: '/education', image: StudentsPhoto,
+    position: 'center 44%',
   },
   {
     title: 'Healthcare',
@@ -26,8 +28,8 @@ const slides = [
   {
     title: 'Community Impact',
     text: 'Building programmes around real needs identified in communities.',
-    button: 'View Activities', to: '#activities', image: AfricaImage,
-    position: 'center',
+    button: 'View Activities', to: '#activities', image: SpeakerPhoto,
+    position: 'center 36%',
   },
 ]
 
@@ -83,7 +85,7 @@ function Home() {
         {slides.map((slide, index) => (
           <img key={slide.title} src={slide.image} alt="" decoding="async"
             fetchPriority={index === 0 ? 'high' : 'low'}
-            className={`landing-hero-image ${index === active ? 'is-active' : ''} ${index === 3 ? 'is-artwork' : ''}`}
+            className={`landing-hero-image ${index === active ? 'is-active' : ''} ${index === 3 ? 'is-photo' : ''}`}
             style={{ objectPosition: slide.position }} />
         ))}
       </div>
@@ -127,7 +129,8 @@ function Home() {
                 onClick={() => setPaused((value) => !value)}>{paused ? 'Play' : 'Pause'}</button>
             )}
           </div>
-        </div>
+        </div>
+
       </div>
     </section>
   )
