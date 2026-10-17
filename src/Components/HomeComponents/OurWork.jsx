@@ -24,7 +24,7 @@ function OurWork() {
               <div className="flex flex-1 flex-col p-5 sm:p-6">
                 <h3 className="mb-3 text-xl font-semibold text-neutral-900">{pillar.title}</h3>
                 <p className="mb-6 text-[0.9375rem] leading-7 text-neutral-600 max-w-prose">{pillar.description}</p>
-                <Link to={pillar.to} className="ofd-button ofd-button-outline mt-auto" aria-label={`Explore ${pillar.title}`}>Explore pillar <span aria-hidden="true">→</span></Link>
+                <Link to={pillar.to} className="ofd-button ofd-button-outline mt-auto" aria-label={`Explore ${pillar.title}`}>Explore <span aria-hidden="true">→</span></Link>
               </div>
             </article>
           ))}
