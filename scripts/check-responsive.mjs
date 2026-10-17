@@ -95,6 +95,17 @@ try {
       await assertNoOverflow(width + 'px slide ' + (index + 1))
       await page.screenshot({ path: output + '/' + width + '-slide-' + (index + 1) + '.png' })
     }
+    const messageCta = page.getByRole('link', { name: "Founder's Message" })
+    assert.equal(await messageCta.getAttribute('href'), '/about/founders-message', 'Founder CTA should open the original Founder’s Message')
+    await messageCta.click()
+    await page.waitForURL('**/about/founders-message')
+    await page.getByRole('heading', { level: 1, name: "Founder's Message" }).waitFor()
+    await page.goto(baseUrl, { waitUntil: 'networkidle' })
+    const pillarButtons = page.locator('#our-work a.ofd-button')
+    assert.equal(await pillarButtons.count(), 4)
+    for (const button of await pillarButtons.all()) {
+      assert.ok((await button.textContent()).trim().startsWith('Explore'), 'Pillar button should be labeled Explore')
+    }
     await hero.getByRole('link', { name: 'View Activities' }).click()
     assert.equal(await page.evaluate(() => location.hash), '#activities')
     assert.equal(await page.locator('#activities').count(), 1)
