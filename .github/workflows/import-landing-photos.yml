@@ -3,7 +3,7 @@ name: Import approved OFD landing photos
 on:
   push:
     branches: [improve/landing-photos-and-home-cta]
-    paths: ['.import/landing-photos.zip']
+    paths: ['.import/landing-photos.zip', '.github/scripts/import_landing_photos.py']
 
 permissions:
   contents: write
