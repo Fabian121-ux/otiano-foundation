@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import Kingsley from '../../assets/trustees/kingsley-otiaba.jpg'
 import David from '../../assets/trustees/david-achugbu.jpg'
 import Raphael from '../../assets/trustees/raphael-anyanwu.jpg'
@@ -29,6 +30,34 @@ const trustees = [
 ]
 
 function Trustees() {
+  const [selectedTrustee, setSelectedTrustee] = useState(null)
+  const dialogRef = useRef(null)
+  const openingButtonRef = useRef(null)
+
+  useEffect(() => {
+    if (!selectedTrustee) return undefined
+    const dialog = dialogRef.current
+    if (!dialog.open) dialog.showModal()
+
+    // Prevent the underlying board from moving on touchscreens while the
+    // selected trustee's profile is open.
+    const oldOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = oldOverflow }
+  }, [selectedTrustee])
+
+  const openProfile = (trustee, button) => {
+    openingButtonRef.current = button
+    setSelectedTrustee(trustee)
+  }
+
+  const closeProfile = () => dialogRef.current?.close()
+
+  const onProfileClosed = () => {
+    setSelectedTrustee(null)
+    openingButtonRef.current?.focus({ preventScroll: true })
+  }
+
   return (
     <div>
       <section className="brand-hero trustees-hero" aria-labelledby="trustees-heading">
@@ -40,8 +69,7 @@ function Trustees() {
             <h1 id="trustees-heading">Meet Our Board of Trustees</h1>
             <div className="trustees-hero-rule" aria-hidden="true" />
             <p className="trustees-hero-description">
-              Our trustees provide oversight, guidance and diverse experience to help the Foundation
-              pursue its mission through responsible governance and community-led programmes.
+              Our Board provides independent oversight and guidance for the Foundation’s community work.
             </p>
           </div>
         </div>
@@ -57,7 +85,7 @@ function Trustees() {
               <article
                 key={trustee.name}
                 id={trustee.founder ? 'chairman-profile' : undefined}
-                className="trustee-card"
+                className={`trustee-card ${selectedTrustee?.name === trustee.name ? 'is-selected' : ''}`}
                 aria-label={trustee.name}
               >
                 <div className="trustee-photo-frame">
@@ -72,24 +100,58 @@ function Trustees() {
                 <div className="trustee-card-body">
                   <h3 className="trustee-card-name">{trustee.name}</h3>
                   <p className="trustee-card-role">{trustee.role}</p>
-                  <details className="trustee-profile-details">
-                    <summary className="trustee-profile-button">
-                      View Profile <span aria-hidden="true">›</span>
-                    </summary>
-                    <div className="trustee-profile-copy">
-                      {trustee.bio ? (
-                        trustee.bio.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
-                      ) : (
-                        <p>A full biography will be added once approved by the Foundation.</p>
-                      )}
-                    </div>
-                  </details>
+                  <button
+                    type="button"
+                    className="trustee-profile-button"
+                    aria-label={`View Profile: ${trustee.name}`}
+                    onClick={(event) => openProfile(trustee, event.currentTarget)}
+                  >
+                    View Profile <span aria-hidden="true">›</span>
+                  </button>
                 </div>
               </article>
             ))}
           </div>
         </div>
       </section>
+
+      <dialog
+        ref={dialogRef}
+        className="trustee-profile-dialog"
+        aria-labelledby="trustee-dialog-heading"
+        aria-describedby="trustee-dialog-role"
+        onClose={onProfileClosed}
+        onClick={(event) => { if (event.target === event.currentTarget) closeProfile() }}
+      >
+        {selectedTrustee && (
+          <>
+            <div className="trustee-dialog-header">
+              <p className="trustee-dialog-eyebrow">Board of Trustees · Selected profile</p>
+              <button type="button" className="trustee-dialog-close" aria-label="Close trustee profile" onClick={closeProfile}>
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div className="trustee-dialog-content">
+              <img
+                className="trustee-dialog-portrait"
+                src={selectedTrustee.image}
+                alt={selectedTrustee.name}
+                decoding="async"
+              />
+              <div className="trustee-dialog-text">
+                <h2 id="trustee-dialog-heading">{selectedTrustee.name}</h2>
+                <p id="trustee-dialog-role" className="trustee-dialog-role">{selectedTrustee.role}</p>
+                <div className="trustee-dialog-accent" aria-hidden="true" />
+                <div className="trustee-dialog-bio">
+                  {selectedTrustee.bio
+                    ? selectedTrustee.bio.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
+                    : <p>A full biography will be added once approved by the Foundation.</p>}
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+      </dialog>
     </div>
   )
 }
