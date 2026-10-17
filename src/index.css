@@ -256,12 +256,12 @@
   .trustee-dialog-accent { width: 4.5rem; height: 3px; margin-block: 1.25rem 1.65rem; background: var(--brand); }
   .trustee-dialog-bio { display: grid; gap: 1.25rem; color: #424242; font-size: 0.975rem; line-height: 1.8; }
   .trustee-dialog-lede { color: #222; font-size: clamp(1.125rem, 2.75vw, 1.4rem); font-weight: 500; line-height: 1.55; }
-  .trustee-dialog-portrait { display: block; width: min(100%, 19rem); height: auto; max-height: 24rem; margin-block: 0.35rem; background: #f3f3f3; object-fit: contain; object-position: center; }
+  .trustee-dialog-portrait { display: block; width: 100%; max-width: 100%; height: auto; max-height: none; margin: 0.5rem auto; background: #f3f3f3; object-fit: contain; object-position: center; }
   @media (max-width: 639px) {
     .trustee-dialog-header { min-height: 3.5rem; padding-inline: 0.9rem; }
     .trustee-dialog-content { padding: 1.25rem; }
     .trustee-dialog-bio { font-size: 0.9375rem; line-height: 1.7; }
-    .trustee-dialog-portrait { width: min(100%, 18rem); }
+    .trustee-dialog-portrait { width: 100%; }
   }
   @media (max-width: 1023px) {
     .trustees-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
