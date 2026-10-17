@@ -154,6 +154,13 @@ try {
     assert.equal(await modal.locator('.trustee-dialog-bio p').count(), 2)
     assert.ok((await modal.locator('.trustee-dialog-bio').innerText()).includes('American University of Nigeria'))
     assert.ok((await modal.locator('.trustee-dialog-bio').innerText()).includes('stronger, more resilient communities.'))
+    assert.deepEqual(
+      await modal.locator('.trustee-dialog-bio').evaluate((node) => [...node.children].map((element) => element.tagName)),
+      ['P', 'IMG', 'P'],
+      'Approved portrait should follow introduction and precede remaining approved biography'
+    )
+    assert.ok((await modal.locator('.trustee-dialog-portrait').getAttribute('src')).includes('zanang-diana-awan-'), 'Use the approved Zanang portrait')
+    assert.ok(await modal.locator('.trustee-dialog-portrait').evaluate((img) => img.complete && img.naturalWidth > 0), 'Modal portrait not loaded')
     assert.ok(await zanangCard.evaluate((el) => el.classList.contains('is-selected')), 'Clicked trustee not highlighted')
     assert.equal(await page.evaluate(() => document.body.style.overflow), 'hidden', 'Modal failed to lock background scrolling')
     await assertNoOverflow(width + 'px trustee popup')
