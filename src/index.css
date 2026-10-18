@@ -101,13 +101,14 @@
     padding-top: 7rem;
     align-items: flex-end;
   }
-  /* Quiet image treatment: board identity and introductory copy take priority
-     over the founder portrait used as a backdrop. */
-  .trustees-hero-image { object-position: 65% 35%; filter: brightness(0.48) saturate(0.68); }
+  /* The approved portrait remains visible behind readable board text. */
+  .trustees-hero-image { object-position: 65% 35%; filter: brightness(0.88) saturate(0.86); }
   .trustees-hero::before {
+    /* Darkest behind left-aligned text; keep the approved portrait clearly
+       visible on the right, without letting it overpower the board heading. */
     background:
-      linear-gradient(110deg, rgb(3 2 5 / 0.94) 0%, rgb(33 3 11 / 0.90) 42%, rgb(96 9 24 / 0.82) 100%),
-      linear-gradient(0deg, rgb(4 2 5 / 0.75), rgb(56 2 14 / 0.3) 72%);
+      linear-gradient(105deg, rgb(8 2 6 / 0.82) 0%, rgb(26 3 10 / 0.66) 42%, rgb(67 8 22 / 0.42) 80%, rgb(74 8 20 / 0.36) 100%),
+      linear-gradient(0deg, rgb(6 2 5 / 0.25), transparent 70%);
   }
   .trustees-hero-content { padding-block: 4rem 4.5rem; }
   .trustees-hero .trustees-hero-eyebrow {
@@ -411,8 +412,8 @@
     width: auto;
     height: auto;
     background:
-      linear-gradient(110deg, rgb(3 2 5 / 0.94) 0%, rgb(33 3 11 / 0.90) 42%, rgb(96 9 24 / 0.82) 100%),
-      linear-gradient(0deg, rgb(4 2 5 / 0.75), rgb(56 2 14 / 0.3) 72%);
+      linear-gradient(105deg, rgb(8 2 6 / 0.82) 0%, rgb(26 3 10 / 0.66) 42%, rgb(67 8 22 / 0.42) 80%, rgb(74 8 20 / 0.36) 100%),
+      linear-gradient(0deg, rgb(6 2 5 / 0.25), transparent 70%);
   }
 }
 @media (prefers-reduced-motion: reduce) {
