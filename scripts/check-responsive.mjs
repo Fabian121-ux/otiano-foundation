@@ -144,6 +144,13 @@ try {
       await page.screenshot({ path: output + '/' + width + '-trustees-tall-label.png' })
     }
 
+    const heroTreatment = await page.locator('.trustees-hero').evaluate((element) => ({
+      overlay: getComputedStyle(element, '::before').backgroundImage,
+      photoFilter: getComputedStyle(element.querySelector('.trustees-hero-image')).filter,
+    }))
+    assert.ok(heroTreatment.overlay.includes('linear-gradient') && /96[, ]+9[, ]+24/.test(heroTreatment.overlay),
+      'Trustee banner needs a dark red-to-black gradient')
+    assert.ok(heroTreatment.photoFilter.includes('brightness(0.48)'), 'Trustees photo must remain a subdued backdrop')
     const modal = page.locator('dialog.trustee-profile-dialog')
     const zanangCard = page.locator('.trustee-card').filter({ has: page.getByRole('heading', { name: 'Miss Zanang Diana Awan', exact: true }) })
     assert.equal(await zanangCard.getByText('Trustee', { exact: true }).count(), 1)
@@ -151,13 +158,21 @@ try {
     await zanangButton.click()
     await modal.waitFor({ state: 'visible' })
     assert.equal(await modal.getByRole('heading', { name: 'Miss Zanang Diana Awan' }).count(), 1)
-    assert.equal(await modal.locator('.trustee-dialog-bio p').count(), 2)
-    assert.ok((await modal.locator('.trustee-dialog-bio').innerText()).includes('American University of Nigeria'))
+    const zanangLead = 'Zanang Diana Awan holds a BA in International Relations from the American University of Nigeria and an MA in Global Governance and Sustainable Development from Middlesex University London.'
+    assert.equal(await modal.locator('.trustee-dialog-bio p').count(), 3, 'Zanang copy should split after exactly the first sentence')
+    assert.equal(await modal.locator('.trustee-dialog-lede').textContent(), zanangLead)
+    assert.ok((await modal.locator('.trustee-dialog-bio p').nth(1).textContent()).startsWith('She works in tax administration'))
     assert.ok((await modal.locator('.trustee-dialog-bio').innerText()).includes('stronger, more resilient communities.'))
+    const zanangTitleAppearance = await modal.locator('#trustee-dialog-heading').evaluate((element) => ({
+      color: getComputedStyle(element).color,
+      weight: Number.parseInt(getComputedStyle(element).fontWeight, 10),
+    }))
+    assert.ok(zanangTitleAppearance.weight >= 700, 'Every profile name must be bold')
+    assert.notEqual(zanangTitleAppearance.color, 'rgb(0, 0, 0)', 'Every profile name must have the red brand styling')
     assert.deepEqual(
       await modal.locator('.trustee-dialog-bio').evaluate((node) => [...node.children].map((element) => element.tagName)),
-      ['P', 'IMG', 'P'],
-      'Approved portrait should follow introduction and precede remaining approved biography'
+      ['P', 'IMG', 'P', 'P'],
+      'Portrait follows only the first sentence, ahead of both remaining approved biography paragraphs'
     )
     assert.ok((await modal.locator('.trustee-dialog-portrait').getAttribute('src')).includes('zanang-diana-awan-'), 'Use the approved Zanang portrait')
     assert.ok(await modal.locator('.trustee-dialog-portrait').evaluate((img) => img.complete && img.naturalWidth > 0), 'Modal portrait not loaded')
@@ -181,7 +196,20 @@ try {
     await chairman.getByRole('button', { name: 'View Profile: ' + founderProfile.name }).click()
     await modal.waitFor({ state: 'visible' })
     assert.equal(await modal.getByText('Chairman', { exact: true }).count(), 1)
-    assert.deepEqual(await modal.locator('.trustee-dialog-bio p').allTextContents(), founderProfile.bio, 'Approved Chairman bio changed')
+    const founderFirstParagraph = founderProfile.bio[0]
+    const firstSentenceEnd = founderFirstParagraph.indexOf('. ') + 1
+    const founderOpeningSentence = founderFirstParagraph.slice(0, firstSentenceEnd)
+    const founderContinuation = founderFirstParagraph.slice(firstSentenceEnd).trim()
+    assert.equal(await modal.locator('.trustee-dialog-lede').textContent(), founderOpeningSentence,
+      'Chairman introduction must stop at the first period')
+    assert.deepEqual(await modal.locator('.trustee-dialog-bio p').allTextContents(),
+      [founderOpeningSentence, founderContinuation, ...founderProfile.bio.slice(1)],
+      'Approved chairman biography should be preserved, with only the first sentence above the portrait')
+    const chairmanTitle = await modal.locator('#trustee-dialog-heading').evaluate((element) => ({
+      color: getComputedStyle(element).color,
+      weight: Number.parseInt(getComputedStyle(element).fontWeight, 10),
+    }))
+    assert.deepEqual(chairmanTitle, zanangTitleAppearance, 'Chairman and other profile names must share the same bold red style')
     await modal.getByRole('button', { name: 'Close trustee profile' }).click()
     await modal.waitFor({ state: 'hidden' })
 
@@ -191,6 +219,12 @@ try {
     await modal.waitFor({ state: 'visible' })
     assert.equal(await modal.getByText('Secretary', { exact: true }).count(), 1, 'Secretary role must be concise in the modal')
     assert.equal(await modal.getByText(/Selected Profile/i).count(), 0, 'Do not show the redundant selected profile label')
+    assert.equal(await modal.locator('.trustee-dialog-lede').count(), 0, 'Do not invent an opening biography for unapproved profiles')
+    const secretaryTitle = await modal.locator('#trustee-dialog-heading').evaluate((element) => ({
+      color: getComputedStyle(element).color,
+      weight: Number.parseInt(getComputedStyle(element).fontWeight, 10),
+    }))
+    assert.deepEqual(secretaryTitle, zanangTitleAppearance, 'Secretary heading must use the same bold red treatment')
     await modal.getByText('A full biography will be added once approved by the Foundation.').waitFor()
     await page.keyboard.press('Escape')
     await modal.waitFor({ state: 'hidden' })

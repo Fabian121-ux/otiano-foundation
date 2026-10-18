@@ -101,9 +101,13 @@
     padding-top: 7rem;
     align-items: flex-end;
   }
-  .trustees-hero-image { object-position: 65% 35%; }
+  /* Quiet image treatment: board identity and introductory copy take priority
+     over the founder portrait used as a backdrop. */
+  .trustees-hero-image { object-position: 65% 35%; filter: brightness(0.48) saturate(0.68); }
   .trustees-hero::before {
-    background: linear-gradient(90deg, rgb(14 0 5 / 0.86) 0%, rgb(18 0 7 / 0.68) 48%, rgb(18 0 7 / 0.36) 100%);
+    background:
+      linear-gradient(110deg, rgb(3 2 5 / 0.94) 0%, rgb(33 3 11 / 0.90) 42%, rgb(96 9 24 / 0.82) 100%),
+      linear-gradient(0deg, rgb(4 2 5 / 0.75), rgb(56 2 14 / 0.3) 72%);
   }
   .trustees-hero-content { padding-block: 4rem 4.5rem; }
   .trustees-hero .trustees-hero-eyebrow {
@@ -395,13 +399,20 @@
      It overrides the general .brand-hero height; the first profile remains
      below the initial viewport and visitors scroll through the grey panel. */
   .trustees-hero { min-height: max(31rem, calc(100svh - 5rem)); }
-  .trustees-hero::before,
   .founders-message-hero::before {
     inset: 0;
     width: auto;
     height: auto;
     background: linear-gradient(90deg, rgb(20 0 6 / 0.88), rgb(20 0 6 / 0.52)),
                 linear-gradient(0deg, rgb(20 0 6 / 0.58), transparent 65%);
+  }
+  .trustees-hero::before {
+    inset: 0;
+    width: auto;
+    height: auto;
+    background:
+      linear-gradient(110deg, rgb(3 2 5 / 0.94) 0%, rgb(33 3 11 / 0.90) 42%, rgb(96 9 24 / 0.82) 100%),
+      linear-gradient(0deg, rgb(4 2 5 / 0.75), rgb(56 2 14 / 0.3) 72%);
   }
 }
 @media (prefers-reduced-motion: reduce) {
