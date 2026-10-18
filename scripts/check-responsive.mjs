@@ -148,7 +148,7 @@ try {
       overlay: getComputedStyle(element, '::before').backgroundImage,
       photoFilter: getComputedStyle(element.querySelector('.trustees-hero-image')).filter,
     }))
-    assert.ok(heroTreatment.overlay.includes('linear-gradient') && heroTreatment.overlay.includes('rgb(96, 9, 24'),
+    assert.ok(heroTreatment.overlay.includes('linear-gradient') && /96[, ]+9[, ]+24/.test(heroTreatment.overlay),
       'Trustee banner needs a dark red-to-black gradient')
     assert.ok(heroTreatment.photoFilter.includes('brightness(0.48)'), 'Trustees photo must remain a subdued backdrop')
     const modal = page.locator('dialog.trustee-profile-dialog')
