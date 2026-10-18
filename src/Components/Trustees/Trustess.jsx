@@ -9,6 +9,21 @@ import Lucy from '../../assets/trustees/lucy-simon-ashide.jpg'
 import FounderMessageBackground from '../../assets/trustees/trustees-hero.jpg'
 import { founderProfile } from '../../data/founderProfile'
 
+// Keep the Foundation-approved biography text intact while placing only its
+// first complete sentence above the portrait. The rest follows the portrait.
+function splitProfileBiography(bio) {
+  if (!Array.isArray(bio) || bio.length === 0) return { introduction: null, remainder: [] }
+  const [firstParagraph, ...laterParagraphs] = bio
+  const end = firstParagraph.indexOf('. ')
+  if (end < 0) return { introduction: firstParagraph, remainder: laterParagraphs }
+  const introduction = firstParagraph.slice(0, end + 1)
+  const continuation = firstParagraph.slice(end + 2).trim()
+  return {
+    introduction,
+    remainder: continuation ? [continuation, ...laterParagraphs] : laterParagraphs,
+  }
+}
+
 // Only the Foundation-approved profiles have biographies. Other profiles
 // remain clearly marked as awaiting approved text.
 const trustees = [
@@ -33,6 +48,7 @@ function Trustees() {
   const [selectedTrustee, setSelectedTrustee] = useState(null)
   const dialogRef = useRef(null)
   const openingButtonRef = useRef(null)
+  const profileText = splitProfileBiography(selectedTrustee?.bio)
 
   useEffect(() => {
     if (!selectedTrustee) return undefined
@@ -136,8 +152,8 @@ function Trustees() {
                 <p id="trustee-dialog-role" className="trustee-dialog-role">{selectedTrustee.role}</p>
                 <div className="trustee-dialog-accent" aria-hidden="true" />
                 <div className="trustee-dialog-bio">
-                  {selectedTrustee.bio?.length > 0 && (
-                    <p className="trustee-dialog-lede">{selectedTrustee.bio[0]}</p>
+                  {profileText.introduction && (
+                    <p className="trustee-dialog-lede">{profileText.introduction}</p>
                   )}
                   <img
                     className="trustee-dialog-portrait"
@@ -145,8 +161,8 @@ function Trustees() {
                     alt={selectedTrustee.name}
                     decoding="async"
                   />
-                  {selectedTrustee.bio?.length > 0
-                    ? selectedTrustee.bio.slice(1).map((paragraph) => <p key={paragraph}>{paragraph}</p>)
+                  {profileText.introduction
+                    ? profileText.remainder.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
                     : <p>A full biography will be added once approved by the Foundation.</p>}
                 </div>
               </div>
