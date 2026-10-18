@@ -133,14 +133,21 @@ try {
       const label = await page.locator('.trustees-board-label').boundingBox()
       const photo = await page.locator('.trustee-photo-frame').first().boundingBox()
       assert.ok(landing && label && photo, 'Trustees hero, board panel or first portrait missing')
-      assert.ok(label.height >= 270, 'Grey Board of Trustees panel must be spacious on small phones')
-      assert.ok(label.y - (landing.y + landing.height) >= 48, 'Grey board panel needs clear separation from the photo hero')
-      assert.ok(photo.y - (label.y + label.height) >= 56, 'Trustee portrait must sit well below the grey board panel')
+      assert.ok(label.height >= 270, 'Grey Board of Trustees panel must be sufficiently tall on small phones')
+      assert.ok(Math.abs(label.y - (landing.y + landing.height)) <= 8,
+        'The narrow grey Board of Trustees panel must begin at the top of its section, touching the hero')
+      assert.ok(label.width <= width * 0.42, 'The vertical grey board tab must be narrow, like the reference')
+      assert.ok(photo.y - (label.y + label.height) >= 40, 'Trustee portrait must sit below the grey board tab')
       assert.ok(photo.y >= 800, width + 'px: first profile photograph should be below the initial mobile viewport')
+      const headingBox = await page.locator('#trustees-heading').boundingBox()
+      assert.ok(headingBox && headingBox.y < landing.y + landing.height * 0.65,
+        'Meet Our Board of Trustees must sit higher in the hero, not by its bottom edge')
+      assert.equal(await page.locator('.trustees-hero-image').evaluate((img) => getComputedStyle(img).objectPosition),
+        '65% 0%', 'Show the top of the approved background portrait on mobile so its head is not cropped')
       assert.equal(await page.locator('.trustees-board-label').evaluate((element) => getComputedStyle(element).backgroundColor), 'rgb(230, 230, 230)', 'Board of Trustees heading should remain inside a grey box')
       const profileButton = await page.locator('.trustee-profile-button').first().boundingBox()
-      assert.ok(profileButton && profileButton.width <= 170 && profileButton.height >= 44,
-        'View Profile should be visually compact but keep a touch-friendly tap target')
+      assert.ok(profileButton && profileButton.width <= 135 && profileButton.height >= 44,
+        'View Profile should be smaller while retaining a 44px tap target')
       await page.screenshot({ path: output + '/' + width + '-trustees-tall-label.png' })
     }
 
@@ -153,6 +160,8 @@ try {
     assert.ok(heroTreatment.photoFilter.includes('brightness(0.88)'), 'Approved trustees photo should be visible, but softly dimmed')
     assert.ok(await page.locator('.trustees-hero-image').evaluate((img) => img.complete && img.naturalWidth > 0),
       'Approved trustees banner image must still load')
+    assert.ok((await page.locator('.trustees-hero-description').innerText()).includes('strengthen accountability'),
+      'Trustee introduction should include the approved modest additional explanation')
     const modal = page.locator('dialog.trustee-profile-dialog')
     const zanangCard = page.locator('.trustee-card').filter({ has: page.getByRole('heading', { name: 'Miss Zanang Diana Awan', exact: true }) })
     assert.equal(await zanangCard.getByText('Trustee', { exact: true }).count(), 0,

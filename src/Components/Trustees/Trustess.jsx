@@ -85,7 +85,7 @@ function Trustees() {
             <h1 id="trustees-heading">Meet Our Board of Trustees</h1>
             <div className="trustees-hero-rule" aria-hidden="true" />
             <p className="trustees-hero-description">
-              Our Board provides independent oversight and guidance for the Foundation’s community work.
+              Our Board provides independent oversight and guidance for the Foundation’s community work. Its members help shape priorities, strengthen accountability, and keep programmes focused on the needs of the communities we serve.
             </p>
           </div>
         </div>
