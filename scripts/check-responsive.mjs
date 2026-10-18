@@ -148,16 +148,21 @@ try {
       overlay: getComputedStyle(element, '::before').backgroundImage,
       photoFilter: getComputedStyle(element.querySelector('.trustees-hero-image')).filter,
     }))
-    assert.ok(heroTreatment.overlay.includes('linear-gradient') && /96[, ]+9[, ]+24/.test(heroTreatment.overlay),
-      'Trustee banner needs a dark red-to-black gradient')
-    assert.ok(heroTreatment.photoFilter.includes('brightness(0.48)'), 'Trustees photo must remain a subdued backdrop')
+    assert.ok(heroTreatment.overlay.includes('linear-gradient') && /67[, ]+8[, ]+22/.test(heroTreatment.overlay),
+      'Trustee banner needs the balanced red-and-black gradient')
+    assert.ok(heroTreatment.photoFilter.includes('brightness(0.88)'), 'Approved trustees photo should be visible, but softly dimmed')
+    assert.ok(await page.locator('.trustees-hero-image').evaluate((img) => img.complete && img.naturalWidth > 0),
+      'Approved trustees banner image must still load')
     const modal = page.locator('dialog.trustee-profile-dialog')
     const zanangCard = page.locator('.trustee-card').filter({ has: page.getByRole('heading', { name: 'Miss Zanang Diana Awan', exact: true }) })
-    assert.equal(await zanangCard.getByText('Trustee', { exact: true }).count(), 1)
+    assert.equal(await zanangCard.getByText('Trustee', { exact: true }).count(), 0,
+      'Hide generic Trustee label below member names')
     const zanangButton = zanangCard.getByRole('button', { name: 'View Profile: Miss Zanang Diana Awan' })
     await zanangButton.click()
     await modal.waitFor({ state: 'visible' })
     assert.equal(await modal.getByRole('heading', { name: 'Miss Zanang Diana Awan' }).count(), 1)
+    assert.equal(await modal.locator('.trustee-dialog-role').count(), 0,
+      'Do not repeat generic Trustee label in profile popups')
     const zanangLead = 'Zanang Diana Awan holds a BA in International Relations from the American University of Nigeria and an MA in Global Governance and Sustainable Development from Middlesex University London.'
     assert.equal(await modal.locator('.trustee-dialog-bio p').count(), 3, 'Zanang copy should split after exactly the first sentence')
     assert.equal(await modal.locator('.trustee-dialog-lede').textContent(), zanangLead)
@@ -213,6 +218,13 @@ try {
     await modal.getByRole('button', { name: 'Close trustee profile' }).click()
     await modal.waitFor({ state: 'hidden' })
 
+    for (const card of await page.locator('.trustee-card').all()) {
+      const name = await card.locator('.trustee-card-name').textContent()
+      if (!['David Achugbu', founderProfile.name].includes(name)) {
+        assert.equal(await card.locator('.trustee-card-role').count(), 0,
+          'Generic trustee roles should not appear beneath ' + name)
+      }
+    }
     const pendingProfile = page.locator('.trustee-card').filter({ hasText: 'David Achugbu' })
     assert.equal(await pendingProfile.getByText('Secretary', { exact: true }).count(), 1, 'Secretary role must not repeat Board of Trustees')
     await pendingProfile.getByRole('button', { name: 'View Profile: David Achugbu' }).click()
