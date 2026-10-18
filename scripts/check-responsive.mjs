@@ -171,8 +171,8 @@ try {
     assert.notEqual(zanangTitleAppearance.color, 'rgb(0, 0, 0)', 'Every profile name must have the red brand styling')
     assert.deepEqual(
       await modal.locator('.trustee-dialog-bio').evaluate((node) => [...node.children].map((element) => element.tagName)),
-      ['P', 'IMG', 'P'],
-      'Approved portrait should follow introduction and precede remaining approved biography'
+      ['P', 'IMG', 'P', 'P'],
+      'Portrait follows only the first sentence, ahead of both remaining approved biography paragraphs'
     )
     assert.ok((await modal.locator('.trustee-dialog-portrait').getAttribute('src')).includes('zanang-diana-awan-'), 'Use the approved Zanang portrait')
     assert.ok(await modal.locator('.trustee-dialog-portrait').evaluate((img) => img.complete && img.naturalWidth > 0), 'Modal portrait not loaded')
