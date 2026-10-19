@@ -10,7 +10,7 @@ const SLIDE_INTERVAL_MS = 3800
 const slides = [
   { title: 'Opportunity for All. Possibility Everywhere.',
     text: 'We believe opportunity should not depend on where someone lives or the circumstances they were born into.',
-    button: 'Discover Our Story', to: '/about/our-story', image: TeamPhoto, position: 'center 45%' },
+    image: TeamPhoto, position: 'center 45%' },
   { title: 'Development Starts With Listening',
     text: 'Our approach puts community priorities, thoughtful planning and accountable partnerships first.',
     button: 'Explore Our Approach', to: '/about/our-role', image: SpeakerPhoto, position: 'center 36%' },
@@ -88,7 +88,11 @@ function Home() {
                 className={`landing-slide ${current ? 'is-active' : ''}`}>
                 <Heading className="landing-heading">{slide.title}</Heading>
                 <p className="landing-description">{slide.text}</p>
-                <Link to={slide.to} className="ofd-button landing-cta">{slide.button}<span aria-hidden="true">→</span></Link>
+                {slide.button && (
+                  <Link to={slide.to} className="ofd-button landing-cta">
+                    {slide.button}<span aria-hidden="true">→</span>
+                  </Link>
+                )}
               </div>
             )
           })}

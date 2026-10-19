@@ -78,8 +78,8 @@ try {
           'Preserve the original Founder’s Message background photo, not the trustees card portrait')
         assert.equal(await page.locator('.founders-feature').count(), 0,
           'Do not swap the original Founder’s Message hero for a portrait card')
-        assert.equal(await image.evaluate(img => getComputedStyle(img).objectFit), 'cover',
-          'Original photographic hero must remain full-bleed, not a contained portrait')
+        assert.equal(await image.evaluate(img => getComputedStyle(img).objectFit), 'contain',
+          'The original photograph should fit the hero height, not crop the face horizontally')
         assert.ok(await image.evaluate(img => img.complete && img.naturalWidth > 0),
           'The original founder hero image failed to load')
         const framing = await page.evaluate(() => {
@@ -87,15 +87,17 @@ try {
           const image = document.querySelector('.founders-message-hero-image').getBoundingClientRect()
           const navbar = document.querySelector('.site-navbar').getBoundingClientRect()
           return { heroTop: hero.top, navBottom: navbar.bottom, imageTop: image.top,
-            heroBottom: hero.bottom, imageBottom: image.bottom }
+            imageHeight: image.height, imageWidth: image.width, heroHeight: hero.height,
+            heroBottom: hero.bottom, imageBottom: image.bottom, rightGap: hero.right - image.right }
         })
         assert.ok(framing.heroTop >= framing.navBottom - 1,
           'Founder photograph must start below the fixed navigation, not be hidden by it')
+        assert.ok(Math.abs(framing.imageHeight - framing.heroHeight) < 2,
+          'Founder photograph must scale to hero height so the complete face remains in frame')
+        assert.ok(Math.abs(framing.imageBottom - framing.heroBottom) < 2 && Math.abs(framing.rightGap) < 2,
+          'Founder photograph must remain bottom-right anchored')
+        assert.ok(framing.imageWidth > 0 && framing.imageHeight > 0)
         if (width < 640) {
-          assert.ok(framing.imageTop - framing.heroTop >= 38,
-            'Mobile original background photo must be shifted down at least 2.5rem for headroom')
-          assert.ok(Math.abs(framing.imageBottom - framing.heroBottom) < 2,
-            'Shift the image down while still filling the lower banner')
           await page.screenshot({ path: output + '/' + width + '-founders-message-framing.png' })
         }
       }
@@ -103,6 +105,13 @@ try {
         const image = page.locator('.trustees-hero-image')
         assert.equal(await image.count(), 1, 'Trustees page must display a hero photograph')
         assert.ok((await image.getAttribute('src')).includes('trustees-hero-'), 'Trustees should reuse the unchanged Founder’s Message background')
+        const boardImageBox = await image.boundingBox()
+        const boardHeroBox = await page.locator('.trustees-hero').boundingBox()
+        assert.equal(await image.evaluate(img => getComputedStyle(img).objectFit), 'contain',
+          'Trustees portrait must not crop the subject on wide or narrow screens')
+        assert.ok(boardImageBox && boardHeroBox && Math.abs(boardImageBox.height - boardHeroBox.height) < 2 &&
+          Math.abs(boardImageBox.x + boardImageBox.width - boardHeroBox.x - boardHeroBox.width) < 2,
+          'Trustees image must stay full-height and right-aligned')
         assert.equal(await page.getByRole('heading', { level: 1, name: 'Meet Our Board of Trustees' }).count(), 1)
         assert.equal(await page.locator('.trustee-card').count(), 7, 'Seven board members should be displayed')
         const title = await page.locator('#trustees-heading').evaluate(el => ({
@@ -122,7 +131,7 @@ try {
     // Every slide keeps its approved copy, link, accessible state, and layout.
     const hero = page.getByRole('region', { name: 'Otiano Foundation highlights' })
     const heroSlides = [
-      ['Opportunity for All. Possibility Everywhere.', 'Discover Our Story', '/about/our-story'],
+      ['Opportunity for All. Possibility Everywhere.', null, null],
       ['Development Starts With Listening', 'Explore Our Approach', '/about/our-role'],
       ['The Future Is Built Together', 'Get Involved', '/volunteer-opportunities'],
     ]
@@ -130,9 +139,10 @@ try {
       const [title, button, href] = heroSlides[index]
       await hero.getByRole('button', { name: 'Show slide ' + (index + 1) + ': ' + title, exact: true }).click()
       assert.equal(await hero.getByRole('heading', { level: 1 }).textContent(), title)
-      assert.equal(await hero.getByRole('link', { name: button, exact: false }).getAttribute('href'), href)
+      if (button) assert.equal(await hero.getByRole('link', { name: button, exact: false }).getAttribute('href'), href)
       assert.equal(await hero.getByRole('group', { name: 'Choose a highlight' }).locator('[aria-current="true"]').count(), 1)
-      assert.equal(await hero.getByRole('link').count(), 1)
+      assert.equal(await hero.getByRole('link').count(), button ? 1 : 0,
+        'The first homepage slide must not display a Discover Our Story button')
       assert.equal(await page.locator('.landing-slide:visible').count(), 1)
       assert.equal(await hero.locator('.landing-hero-images img').count(), 3)
       assert.equal(await hero.locator('.landing-healthcare-art').count(), 0)
@@ -161,6 +171,12 @@ try {
     assert.equal(await page.locator('.trustee-card').count(), 7)
     assert.equal(await page.locator('.trustee-profile-button').count(), 7, 'Every board card needs a View Profile button')
     if (width <= 430) {
+      const gridColumns = await page.locator('.trustees-grid').evaluate(el => getComputedStyle(el).gridTemplateColumns.split(' ').length)
+      assert.equal(gridColumns, 1, 'On phone-size viewports trustees must display as a single readable column')
+      const navbarLogo = await page.locator('.site-navbar img').boundingBox()
+      assert.ok(navbarLogo && navbarLogo.width > 75, 'Mobile logo should remain readable')
+    }
+    if (width <= 430) {
       const landing = await page.locator('.trustees-hero').boundingBox()
       const label = await page.locator('.trustees-board-label').boundingBox()
       const photo = await page.locator('.trustee-photo-frame').first().boundingBox()
@@ -175,7 +191,7 @@ try {
       assert.ok(headingBox && headingBox.y < landing.y + landing.height * 0.65,
         'Meet Our Board of Trustees must sit higher in the hero, not by its bottom edge')
       assert.equal(await page.locator('.trustees-hero-image').evaluate((img) => getComputedStyle(img).objectPosition),
-        '65% 0%', 'Show the top of the approved background portrait on mobile so its head is not cropped')
+        '100% 100%', 'Keep the approved full portrait anchored right and bottom on mobile')
       assert.equal(await page.locator('.trustees-board-label').evaluate((element) => getComputedStyle(element).backgroundColor), 'rgb(230, 230, 230)', 'Board of Trustees heading should remain inside a grey box')
       const profileButton = await page.locator('.trustee-profile-button').first().boundingBox()
       assert.ok(profileButton && profileButton.width <= 130 && profileButton.height >= 40,
@@ -411,11 +427,14 @@ try {
      'Homepage slideshow must keep auto-advancing after pointer selection')
   await heroPage.close()
 
-  // Short phones keep the lead call to action visible immediately.
+  // Short phones retain the first-slide headline and description without an unwanted CTA.
   await page.setViewportSize({ width: 320, height: 568 })
   await page.goto(baseUrl, { waitUntil: 'networkidle' })
-  const leadAction = await page.getByRole('region', { name: 'Otiano Foundation highlights' }).getByRole('link', { name: 'Discover Our Story', exact: false }).boundingBox()
-  assert.ok(leadAction && leadAction.y >= 80 && leadAction.y + leadAction.height <= 568, 'Lead hero CTA is below the first screen')
+  const heroIntro = page.getByRole('region', { name: 'Otiano Foundation highlights' })
+  assert.equal(await heroIntro.getByRole('link').count(), 0, 'Lead slide must not have a CTA')
+  const leadHeading = await heroIntro.getByRole('heading', { level: 1 }).boundingBox()
+  assert.ok(leadHeading && leadHeading.y >= 80 && leadHeading.y + leadHeading.height <= 568,
+    'First-slide headline must remain visible on a short mobile screen')
   await page.screenshot({ path: output + '/320-short-home.png' })
 
   // Empty news/event states offer a useful next step without invented records.
