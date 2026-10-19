@@ -20,12 +20,15 @@ function Footer() {
             <div className="ofd-footer-social" aria-label="Social media">
               <p className="ofd-footer-social-title">Connect with OFD</p>
               <div className="ofd-footer-social-links">
-                {socialChannels.map(({ name, Icon, href }) => href ? (
-                  <a key={name} href={href} target="_blank" rel="noopener noreferrer" className="ofd-social-link"
-                    aria-label={`Follow OFD on ${name}`}><Icon aria-hidden="true" /><span>{name}</span></a>
+                {socialChannels.map((channel) => channel.href ? (
+                  <a key={channel.name} href={channel.href} target="_blank" rel="noopener noreferrer" className="ofd-social-link"
+                    aria-label={`Follow OFD on ${channel.name}`}><channel.Icon aria-hidden="true" /><span>{channel.name}</span></a>
                 ) : (
-                  <span key={name} className="ofd-social-link is-pending" aria-label={`${name} official page awaiting confirmation`}
-                    title="Official profile URL not yet confirmed"><Icon aria-hidden="true" /><span>{name}</span></span>
+                  <span key={channel.name} className="ofd-social-link is-pending"
+                    aria-label={`${channel.name} official page awaiting confirmation`}
+                    title="Official profile URL not yet confirmed">
+                    <channel.Icon aria-hidden="true" /><span>{channel.name}</span>
+                  </span>
                 ))}
               </div>
             </div>
