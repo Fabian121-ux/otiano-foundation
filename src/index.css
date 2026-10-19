@@ -77,7 +77,9 @@
   }
   .trustees-hero-image { object-position: 63% 28%; }
   /* Preserve the founder's entire head: anchor the top of the approved portrait. */
-  .founders-message-hero-image { object-position: 50% 0%; }
+  /* Keep the original photograph and overlay exactly as the existing hero. */
+  .founders-message-hero { margin-top: 5rem; }
+  .founders-message-hero-image { object-position: center top; }
   .trustees-hero::before,
   .founders-message-hero::before {
     z-index: 1;
@@ -281,10 +283,7 @@
     /* Full first-screen introduction: portrait cards stay below the fold. */
     .trustees-hero { min-height: max(31rem, calc(100svh - 5rem)); padding-top: 5.25rem; }
     .trustees-hero-image { object-position: 65% 0%; }
-    /* Show the entire approved portrait on small screens instead of cropping
-       the top of the founder's head with object-fit: cover. */
-    .founders-message-hero-image { object-fit: contain; object-position: center top; }
-    /* Use the lower hero space for readable, larger text rather than a blank band. */
+/* Use the lower hero space for readable, larger text rather than a blank band. */
     .trustees-hero-content { padding-block: 1.4rem clamp(3rem, 8svh, 5rem); }
     .trustees-hero .trustees-hero-eyebrow { display: none; }
     .trustees-hero .trustees-hero-content h1 { max-width: 18ch; font-size: clamp(2.25rem, 9.2vw, 3.4rem); line-height: 1.06; font-weight: 850; }
@@ -402,17 +401,18 @@
 @media (max-width: 639px) {
   .brand-hero { min-height: 20rem; }
   .brand-hero::before { width: 15rem; height: 15rem; right: -8rem; }
-  .founders-message-hero { min-height: 30rem; background: #35000d; }
-  /*
-   * Mobile photograph framing: leave visible red headroom above the original
-   * portrait rather than filling the hero with a cover crop. The approved
-   * image has space above the hair in its source; show that space on phones.
-   */
+  /* The fixed 5rem navbar must NOT cover the top of this photograph.
+     Keep the original full-width red/black photographic banner, but move
+     the image itself down to reveal the founder's whole head. */
+  .founders-message-hero {
+    min-height: 30rem;
+    background: #35000d;
+  }
   .founders-message-hero-image {
-    top: 2.25rem;
-    height: calc(100% - 2.25rem);
+    top: 2.5rem;
+    height: calc(100% - 2.5rem);
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center top;
   }
   /* This unlayered mobile rule must agree with the component-layer rule.
@@ -589,22 +589,6 @@
 /* Keep bounded paragraphs aligned with the centred sections that contain them. */
 .text-center > .max-w-prose { margin-inline: auto; }
 
-/* Full founder portrait in flow: no banner cover crop can hide the head. */
-.founders-feature { isolation:isolate; margin-top:5rem; overflow:hidden; background:radial-gradient(circle at 84% 35%,#a91b31,transparent 46%),linear-gradient(125deg,#29020b,#650a1d 85%); color:#fff; }
-.founders-feature-layout { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); align-items:center; gap:clamp(2rem,6vw,5rem); padding-block:clamp(3rem,6vw,5rem); }
-.founders-feature-copy { max-width:38rem; }
-.founders-feature-eyebrow { margin-bottom:1.25rem; color:#ffdce1; font-size:.78rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
-.founders-feature h1 { font-size:clamp(2.15rem,5vw,4.5rem); font-weight:800; letter-spacing:-.04em; line-height:1.09; color:#fff; }
-.founders-feature-quote { margin-top:1.5rem; max-width:36rem; color:#fff; font-size:clamp(1.125rem,2vw,1.5rem); font-weight:500; line-height:1.6; }
-.founders-feature-byline { margin-top:2rem; border-left:3px solid #fcd5dd; padding-left:1rem; }
-.founders-feature-byline p { color:#fff; font-size:.95rem; line-height:1.65; }
-.founders-feature-image-wrap { width:100%; max-width:27rem; min-width:0; margin:0 auto; padding:.85rem; border:1px solid rgb(255 255 255 / .3); border-radius:1.25rem; background:rgb(255 255 255 / .08); }
-.founders-feature-portrait { display:block; width:100%; height:auto; max-height:34rem; margin:0 auto; border-radius:.7rem; object-fit:contain; object-position:center top; }
-@media(max-width:767px) {
- .founders-feature-layout { grid-template-columns:minmax(0,1fr); gap:2rem; padding-block:2.75rem 3rem; }
- .founders-feature-image-wrap { max-width:min(100%,21rem); }
- .founders-feature h1 { font-size:clamp(2rem,8vw,3.3rem); }
-}
 .trustee-profile-button { min-height:2.5rem; gap:.2rem; padding:.4rem .7rem; font-size:.625rem; letter-spacing:.005em; }
 .trustee-profile-button span { font-size:.95rem; }
 @media(max-width:639px) {

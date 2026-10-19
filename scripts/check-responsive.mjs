@@ -71,12 +71,33 @@ try {
       const brokenImages = await page.locator('img').evaluateAll((images) => images.filter((img) => img.complete && img.naturalWidth === 0).map((img) => img.src))
       assert.deepEqual(brokenImages, [], width + 'px ' + route + ': broken image')
       if (route === '/about/founders-message') {
-        const image = page.locator('.founders-feature-portrait')
-        assert.equal(await image.count(), 1)
-        assert.ok((await image.getAttribute('src')).includes('kingsley-otiaba-'))
-        assert.equal(await image.evaluate((img) => getComputedStyle(img).objectFit), 'contain')
-        assert.ok(await image.evaluate((img) => img.complete && img.naturalWidth > 0 && img.getBoundingClientRect().height > 0))
-        if (width < 640) await page.screenshot({ path: output + '/' + width + '-founders-message-framing.png' })
+        const hero = page.locator('.founders-message-hero')
+        const image = hero.locator('.founders-message-hero-image')
+        assert.equal(await image.count(), 1, 'Founder must appear in the original full-bleed background hero')
+        assert.ok((await image.getAttribute('src')).includes('trustees-hero-'),
+          'Preserve the original Founder’s Message background photo, not the trustees card portrait')
+        assert.equal(await page.locator('.founders-feature').count(), 0,
+          'Do not swap the original Founder’s Message hero for a portrait card')
+        assert.equal(await image.evaluate(img => getComputedStyle(img).objectFit), 'cover',
+          'Original photographic hero must remain full-bleed, not a contained portrait')
+        assert.ok(await image.evaluate(img => img.complete && img.naturalWidth > 0),
+          'The original founder hero image failed to load')
+        const framing = await page.evaluate(() => {
+          const hero = document.querySelector('.founders-message-hero').getBoundingClientRect()
+          const image = document.querySelector('.founders-message-hero-image').getBoundingClientRect()
+          const navbar = document.querySelector('.site-navbar').getBoundingClientRect()
+          return { heroTop: hero.top, navBottom: navbar.bottom, imageTop: image.top,
+            heroBottom: hero.bottom, imageBottom: image.bottom }
+        })
+        assert.ok(framing.heroTop >= framing.navBottom - 1,
+          'Founder photograph must start below the fixed navigation, not be hidden by it')
+        if (width < 640) {
+          assert.ok(framing.imageTop - framing.heroTop >= 38,
+            'Mobile original background photo must be shifted down at least 2.5rem for headroom')
+          assert.ok(Math.abs(framing.imageBottom - framing.heroBottom) < 2,
+            'Shift the image down while still filling the lower banner')
+          await page.screenshot({ path: output + '/' + width + '-founders-message-framing.png' })
+        }
       }
       if (route === '/about/trustees') {
         const image = page.locator('.trustees-hero-image')
