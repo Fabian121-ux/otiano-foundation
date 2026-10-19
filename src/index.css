@@ -76,7 +76,8 @@
     object-fit: cover;
   }
   .trustees-hero-image { object-position: 63% 28%; }
-  .founders-message-hero-image { object-position: 65% 35%; }
+  /* Preserve the founder's entire head: anchor the top of the approved portrait. */
+  .founders-message-hero-image { object-position: 65% 0%; }
   .trustees-hero::before,
   .founders-message-hero::before {
     z-index: 1;
@@ -121,10 +122,10 @@
     text-transform: uppercase;
   }
   .trustees-hero .trustees-hero-content h1 {
-    max-width: 16ch;
-    font-size: clamp(2.5rem, 5.2vw, 4.8rem);
-    line-height: 1.1;
-    font-weight: 800;
+    max-width: 18ch;
+    font-size: clamp(2.75rem, 5.4vw, 5rem);
+    line-height: 1.08;
+    font-weight: 850;
     letter-spacing: -0.035em;
     color: white;
   }
@@ -137,8 +138,9 @@
   .trustees-hero .trustees-hero-description {
     max-width: 41rem;
     color: white;
-    font-size: clamp(0.9375rem, 1.5vw, 1.125rem);
-    line-height: 1.75;
+    font-size: clamp(1rem, 1.65vw, 1.25rem);
+    font-weight: 600;
+    line-height: 1.65;
     text-shadow: 0 1px 5px rgb(0 0 0 / 0.35);
   }
   .trustees-board-section { padding-block: 3.25rem 5rem; background: #f9f9f9; }
@@ -279,11 +281,13 @@
     /* Full first-screen introduction: portrait cards stay below the fold. */
     .trustees-hero { min-height: max(31rem, calc(100svh - 5rem)); padding-top: 5.25rem; }
     .trustees-hero-image { object-position: 65% 0%; }
-    .trustees-hero-content { padding-block: 0.95rem clamp(8rem, 28svh, 14rem); }
+    .founders-message-hero-image { object-position: 63% 0%; }
+    /* Use the lower hero space for readable, larger text rather than a blank band. */
+    .trustees-hero-content { padding-block: 1.4rem clamp(3rem, 8svh, 5rem); }
     .trustees-hero .trustees-hero-eyebrow { display: none; }
-    .trustees-hero .trustees-hero-content h1 { max-width: 17ch; font-size: clamp(1.75rem, 7.3vw, 2.1rem); line-height: 1.15; }
+    .trustees-hero .trustees-hero-content h1 { max-width: 18ch; font-size: clamp(2.25rem, 9.2vw, 3.4rem); line-height: 1.06; font-weight: 850; }
     .trustees-hero-rule { width: 6rem; height: 3px; margin-block: 0.75rem; }
-    .trustees-hero .trustees-hero-description { font-size: 0.8125rem; line-height: 1.4; }
+    .trustees-hero .trustees-hero-description { max-width: 34rem; font-size: clamp(1rem, 3.7vw, 1.125rem); line-height: 1.5; font-weight: 600; }
     .trustees-grid { grid-template-columns: minmax(0, 1fr); gap: 1.2rem; }
     /* A separated grey chapter panel provides a distinct scroll interval
        between the photograph-led hero and the first board member. */
