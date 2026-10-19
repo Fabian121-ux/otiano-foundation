@@ -29,7 +29,15 @@ function splitProfileBiography(bio) {
 const trustees = [
   { name: founderProfile.name, image: Kingsley, role: 'Chairman', bio: founderProfile.bio, founder: true },
   { name: 'David Achugbu', image: David, role: 'Secretary' },
-  { name: 'Raphael Anyanwu', image: Raphael, role: 'Trustee' },
+  {
+    name: 'Raphael Anyanwu',
+    image: Raphael,
+    role: 'Trustee',
+    bio: [
+      'Raphael Anyanwu is a software engineer with over six years of experience building backend systems and cloud applications. His work spans financial technology, healthcare, consulting and enterprise platforms, including systems that serve thousands of users and process millions of transactions. He currently works with Kindred, following engineering roles with Media.Monks, Axxess, Software Business Solutions Consulting and Genesys Tech Hub.',
+      'Raphael holds a bachelor’s degree in Computer Science from Nnamdi Azikiwe University and is pursuing a master’s degree in Artificial Intelligence at Kaunas University of Technology. He also develops open-source tools, including libraries for data security, rate limiting and Nigerian state and local government data. As a trustee of Otiano Foundation for Development, he brings practical experience in technology and problem-solving to its mission of expanding opportunity.',
+    ],
+  },
   {
     name: 'Miss Zanang Diana Awan',
     image: Awan,
@@ -39,7 +47,16 @@ const trustees = [
       'She is passionate about community development, agriculture and youth empowerment, particularly initiatives that promote inclusive growth and create opportunities for young people to thrive. As a trustee, she supports the Foundation’s efforts to build stronger, more resilient communities.',
     ],
   },
-  { name: 'Cheeka Onyeka Esq.', image: Cheeka, role: 'Trustee' },
+  {
+    name: 'Cheeka Onyeka Esq.',
+    image: Cheeka,
+    role: 'Trustee',
+    bio: [
+      '‘Cheeka’ Onyeka Chika is a Nigerian-qualified lawyer who advises and represents businesses across various sectors of the Nigerian economy.',
+      'Beyond legal practice, Cheeka is the founder of EnergyGrid, a social impact initiative providing pro bono legal support for renewable energy projects across Africa. He also serves as a trustee of the Otiano Foundation for Development, supporting initiatives focused on improving access to basic healthcare and education, as well as advancing youth development.',
+      'Cheeka is a graduate of the Nasdaq Entrepreneurial Center’s Milestone Makers programme, where he developed his entrepreneurial capacity and advanced his work in the energy sector.',
+    ],
+  },
   { name: 'Ekeoma Solomon Ogbu Esq.', image: Ekeoma, role: 'Trustee' },
   { name: 'Lucy Simon Ashide', image: Lucy, role: 'Trustee' },
 ]

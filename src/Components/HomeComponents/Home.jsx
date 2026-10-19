@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import SpeakerPhoto from '../../assets/homepage/landing-speaker.jpg'
 import TeamPhoto from '../../assets/homepage/landing-team.jpg'
 import StudentsPhoto from '../../assets/homepage/landing-students.jpg'
-import HealthcareImage from '../../assets/homepage/health.jpeg'
 
 
 const slides = [
@@ -22,8 +21,7 @@ const slides = [
   {
     title: 'Healthcare',
     text: 'Promoting stronger communities through awareness, access, and practical support.',
-    button: 'Explore Healthcare', to: '/healthcare', image: HealthcareImage,
-    position: '75% center',
+    button: 'Explore Healthcare', to: '/healthcare', art: 'healthcare',
   },
   {
     title: 'Community Impact',
@@ -32,6 +30,25 @@ const slides = [
     position: 'center 36%',
   },
 ]
+
+// Branded healthcare illustration replaces the unrelated stock doctor photograph.
+// This is a decorative SVG medical emblem; it makes no claim about actual beneficiaries.
+function HealthcareHeroArt({ active }) {
+  return (
+    <div className={`landing-healthcare-art ${active ? 'is-active' : ''}`}>
+      <div className="landing-healthcare-halo" />
+      <div className="landing-healthcare-tile">
+        <svg viewBox="0 0 128 128" fill="none" focusable="false" aria-hidden="true">
+          <path d="M47 16c0-4 3-7 7-7h20c4 0 7 3 7 7v31h31c4 0 7 3 7 7v20c0 4-3 7-7 7H81v31c0 4-3 7-7 7H54c-4 0-7-3-7-7V81H16c-4 0-7-3-7-7V54c0-4 3-7 7-7h31V16Z" fill="#BE1932" />
+          <path d="M16 69h23l9-16 11 30 11-20 8 7h34" stroke="white" strokeWidth="5.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M54 9h20c4 0 7 3 7 7v6H47v-6c0-4 3-7 7-7Z" fill="#EF6678" opacity=".7" />
+        </svg>
+      </div>
+      <span className="landing-healthcare-orbit landing-healthcare-orbit-one" />
+      <span className="landing-healthcare-orbit landing-healthcare-orbit-two" />
+    </div>
+  )
+}
 
 function Home() {
   const [active, setActive] = useState(0)
@@ -83,10 +100,12 @@ function Home() {
       }}>
       <div className="landing-hero-images" aria-hidden="true">
         {slides.map((slide, index) => (
-          <img key={slide.title} src={slide.image} alt="" decoding="async"
-            fetchPriority={index === 0 ? 'high' : 'low'}
-            className={`landing-hero-image ${index === active ? 'is-active' : ''} ${index === 3 ? 'is-photo' : ''}`}
-            style={{ objectPosition: slide.position }} />
+          slide.art === 'healthcare'
+            ? <HealthcareHeroArt key={slide.title} active={index === active} />
+            : <img key={slide.title} src={slide.image} alt="" decoding="async"
+                fetchPriority={index === 0 ? 'high' : 'low'}
+                className={`landing-hero-image ${index === active ? 'is-active' : ''}`}
+                style={{ objectPosition: slide.position }} />
         ))}
       </div>
       <div className="landing-hero-shade" aria-hidden="true" />

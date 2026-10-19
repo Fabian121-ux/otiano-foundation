@@ -75,6 +75,9 @@ try {
         assert.equal(await image.count(), 1, 'Founder’s Message should display its new hero photo')
         assert.ok((await image.getAttribute('src')).includes('trustees-hero-'), 'Founder’s Message should use the former Trustees photo')
         assert.equal(await page.locator('.founders-message-hero figure').count(), 0, 'Previous Founder’s Message portrait should no longer appear in its hero')
+        const founderCrop = await image.evaluate((el) => getComputedStyle(el).objectPosition)
+        assert.ok(founderCrop.endsWith('0%'), 'Founder’s Message portrait must be anchored at the top to keep the head visible')
+        assert.ok(await image.evaluate((img) => img.complete && img.naturalWidth > 0), 'Founder hero photograph failed to load')
       }
       if (route === '/about/trustees') {
         const image = page.locator('.trustees-hero-image')
@@ -82,6 +85,14 @@ try {
         assert.ok((await image.getAttribute('src')).includes('trustees-hero-'), 'Trustees should reuse the unchanged Founder’s Message background')
         assert.equal(await page.getByRole('heading', { level: 1, name: 'Meet Our Board of Trustees' }).count(), 1)
         assert.equal(await page.locator('.trustee-card').count(), 7, 'Seven board members should be displayed')
+        const title = await page.locator('#trustees-heading').evaluate(el => ({
+          fontSize: getComputedStyle(el).fontSize,
+          fontWeight: getComputedStyle(el).fontWeight,
+        }))
+        assert.ok(parseFloat(title.fontSize) >= 36 && Number.parseInt(title.fontWeight, 10) >= 800,
+          'Trustees hero headline must be large and bold at all requested widths')
+        const introductionSize = await page.locator('.trustees-hero-description').evaluate(el => parseFloat(getComputedStyle(el).fontSize))
+        assert.ok(introductionSize >= 16, 'Trustees hero description must have readable, larger typography')
       }
       if (['/', '/education', '/about/founders-message', '/about/trustees'].includes(route)) {
         await page.screenshot({ path: output + '/' + width + '-' + (route === '/' ? 'home' : route.replaceAll('/', '-')) + '.png', fullPage: true })
@@ -105,6 +116,15 @@ try {
       assert.equal(await hero.getByRole('link').count(), 1, 'Inactive slide links remained accessible')
       assert.equal(await page.locator('.landing-slide:visible').count(), 1, 'Carousel displayed overlapping slide text')
       assert.equal(await hero.locator('.landing-caption').count(), 0, 'Illustrative caption should not appear')
+      assert.equal(await hero.locator('.landing-hero-images img').count(), 3, 'All three approved photo slides should remain')
+      assert.equal(await hero.locator('.landing-hero-images img[src*="health-"]').count(), 0,
+        'The unrelated stock doctor must not be part of the landing carousel')
+      if (index === 2) {
+        assert.equal(await hero.locator('.landing-healthcare-art.is-active').count(), 1,
+          'Healthcare slide must show the OFD medical artwork instead of a photograph')
+        assert.equal(await hero.locator('.landing-healthcare-tile svg').count(), 1,
+          'Healthcare artwork must contain the vector medical emblem')
+      }
       await assertNoOverflow(width + 'px slide ' + (index + 1))
       await page.screenshot({ path: output + '/' + width + '-slide-' + (index + 1) + '.png' })
     }
@@ -250,6 +270,32 @@ try {
     await page.keyboard.press('Escape')
     await modal.waitFor({ state: 'hidden' })
     await waitFor(() => page.evaluate(() => document.body.style.overflow === ''), 'Background scroll remains locked after closing the popup')
+    const newlyApprovedBios = [
+      {
+        name: 'Raphael Anyanwu',
+        firstSentence: 'Raphael Anyanwu is a software engineer with over six years of experience building backend systems and cloud applications.',
+        remaining: ['Media.Monks', 'Kaunas University of Technology', 'Nigerian state and local government data'],
+        paragraphCount: 3,
+      },
+      {
+        name: 'Cheeka Onyeka Esq.',
+        firstSentence: '‘Cheeka’ Onyeka Chika is a Nigerian-qualified lawyer who advises and represents businesses across various sectors of the Nigerian economy.',
+        remaining: ['founder of EnergyGrid', 'Nasdaq Entrepreneurial Center’s Milestone Makers programme'],
+        paragraphCount: 3,
+      },
+    ]
+    for (const profile of newlyApprovedBios) {
+      await page.getByRole('button', { name: 'View Profile: ' + profile.name }).click()
+      await modal.waitFor({ state: 'visible' })
+      assert.equal(await modal.locator('.trustee-dialog-lede').textContent(), profile.firstSentence,
+        'Approved first sentence missing for ' + profile.name)
+      assert.equal(await modal.locator('.trustee-dialog-bio p').count(), profile.paragraphCount,
+        'Approved full biography paragraphs missing for ' + profile.name)
+      const fullText = await modal.locator('.trustee-dialog-bio').innerText()
+      for (const phrase of profile.remaining) assert.ok(fullText.includes(phrase), profile.name + ' missing approved detail: ' + phrase)
+      await page.keyboard.press('Escape')
+      await modal.waitFor({ state: 'hidden' })
+    }
     await page.goto(baseUrl + '/about/founders-message', { waitUntil: 'networkidle' })
     await page.getByRole('heading', { name: "Founder's Message", level: 1 }).waitFor()
     assert.ok((await page.locator('main, section').allTextContents()).join(' ').includes('The future we envision is achievable.'))
