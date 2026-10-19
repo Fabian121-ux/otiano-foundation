@@ -18,7 +18,7 @@ function Footer() {
             <h3 className="mb-4 max-w-xs text-xl font-bold text-white">The Otiano Foundation for Development</h3>
             <p className="text-sm leading-relaxed text-neutral-200">Working to widen access to opportunity through education, healthcare, economic empowerment, and social welfare.</p>
             <div className="ofd-footer-social" aria-label="Social media">
-              <p className="ofd-footer-social-title">Connect with OFD</p>
+              <p className="ofd-footer-social-title">Follow us on</p>
               <div className="ofd-footer-social-links">
                 {socialChannels.map((channel) => channel.href ? (
                   <a key={channel.name} href={channel.href} target="_blank" rel="noopener noreferrer" className="ofd-social-link"

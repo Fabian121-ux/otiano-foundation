@@ -132,7 +132,7 @@ function Trustees() {
                 </div>
                 <div className="trustee-card-body">
                   <h3 className="trustee-card-name">{trustee.name}</h3>
-                  {trustee.role !== 'Trustee' && <p className="trustee-card-role">{trustee.role}</p>}
+                  <p className="trustee-card-role">{trustee.role}</p>
                   <button
                     type="button"
                     className="trustee-profile-button"
@@ -152,7 +152,7 @@ function Trustees() {
         ref={dialogRef}
         className="trustee-profile-dialog"
         aria-labelledby="trustee-dialog-heading"
-        aria-describedby={selectedTrustee?.role !== 'Trustee' ? 'trustee-dialog-role' : undefined}
+        aria-describedby={selectedTrustee ? 'trustee-dialog-role' : undefined}
         onClose={onProfileClosed}
         onClick={(event) => { if (event.target === event.currentTarget) closeProfile() }}
       >
@@ -166,7 +166,7 @@ function Trustees() {
             <div className="trustee-dialog-content">
               <div className="trustee-dialog-text">
                 <h2 id="trustee-dialog-heading">{selectedTrustee.name}</h2>
-                {selectedTrustee.role !== 'Trustee' && <p id="trustee-dialog-role" className="trustee-dialog-role">{selectedTrustee.role}</p>}
+                <p id="trustee-dialog-role" className="trustee-dialog-role">{selectedTrustee.role}</p>
                 <div className="trustee-dialog-accent" aria-hidden="true" />
                 <div className="trustee-dialog-bio">
                   {profileText.introduction && (

@@ -144,6 +144,7 @@ try {
     assert.equal(await page.locator('footer a[href="#"]').count(), 0)
     assert.equal(await page.locator('footer a[href*="facebook.com/61590448050659"]').count(), 1)
     assert.equal(await page.locator('footer .ofd-social-link.is-pending').count(), 2)
+    assert.equal((await page.locator('footer .ofd-footer-social-title').textContent()).trim(), 'Follow us on')
     const messageCta = page.getByRole('link', { name: "Founder's Message" })
     assert.equal(await messageCta.getAttribute('href'), '/about/founders-message', 'Founder CTA should open the original Founder’s Message')
     await messageCta.click()
@@ -193,14 +194,14 @@ try {
       'Trustee introduction should include the approved modest additional explanation')
     const modal = page.locator('dialog.trustee-profile-dialog')
     const zanangCard = page.locator('.trustee-card').filter({ has: page.getByRole('heading', { name: 'Miss Zanang Diana Awan', exact: true }) })
-    assert.equal(await zanangCard.getByText('Trustee', { exact: true }).count(), 0,
-      'Hide generic Trustee label below member names')
+    assert.equal(await zanangCard.locator('.trustee-card-role').textContent(), 'Trustee',
+      'Each board member must have their role beneath their name')
     const zanangButton = zanangCard.getByRole('button', { name: 'View Profile: Miss Zanang Diana Awan' })
     await zanangButton.click()
     await modal.waitFor({ state: 'visible' })
     assert.equal(await modal.getByRole('heading', { name: 'Miss Zanang Diana Awan' }).count(), 1)
-    assert.equal(await modal.locator('.trustee-dialog-role').count(), 0,
-      'Do not repeat generic Trustee label in profile popups')
+    assert.equal(await modal.locator('.trustee-dialog-role').textContent(), 'Trustee',
+      'Profile dialog must identify the member as a trustee')
     const zanangLead = 'Zanang Diana Awan holds a BA in International Relations from the American University of Nigeria and an MA in Global Governance and Sustainable Development from Middlesex University London.'
     assert.equal(await modal.locator('.trustee-dialog-bio p').count(), 3, 'Zanang copy should split after exactly the first sentence')
     assert.equal(await modal.locator('.trustee-dialog-lede').textContent(), zanangLead)
@@ -258,10 +259,15 @@ try {
 
     for (const card of await page.locator('.trustee-card').all()) {
       const name = await card.locator('.trustee-card-name').textContent()
-      if (!['David Achugbu', founderProfile.name].includes(name)) {
-        assert.equal(await card.locator('.trustee-card-role').count(), 0,
-          'Generic trustee roles should not appear beneath ' + name)
-      }
+      const role = await card.locator('.trustee-card-role').textContent()
+      const expected = name === founderProfile.name ? 'Chairman' : name === 'David Achugbu' ? 'Secretary' : 'Trustee'
+      assert.equal(role, expected, 'Board position must be visible beneath ' + name)
+      const layout = await card.evaluate((el) => {
+        const roleBox = el.querySelector('.trustee-card-role').getBoundingClientRect()
+        const actionBox = el.querySelector('.trustee-profile-button').getBoundingClientRect()
+        return { gap: actionBox.top - roleBox.bottom }
+      })
+      assert.ok(layout.gap >= 12, 'Board position and View Profile button should not crowd each other for ' + name)
     }
     const pendingProfile = page.locator('.trustee-card').filter({ hasText: 'David Achugbu' })
     assert.equal(await pendingProfile.getByText('Secretary', { exact: true }).count(), 1, 'Secretary role must not repeat Board of Trustees')
