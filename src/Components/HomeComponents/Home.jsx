@@ -88,11 +88,7 @@ function Home() {
                 className={`landing-slide ${current ? 'is-active' : ''}`}>
                 <Heading className="landing-heading">{slide.title}</Heading>
                 <p className="landing-description">{slide.text}</p>
-                {slide.to.startsWith('#') ? (
-                  <a href={slide.to} className="ofd-button landing-cta">{slide.button}<span aria-hidden="true">→</span></a>
-                ) : (
-                  <Link to={slide.to} className="ofd-button landing-cta">{slide.button}<span aria-hidden="true">→</span></Link>
-                )}
+                <Link to={slide.to} className="ofd-button landing-cta">{slide.button}<span aria-hidden="true">→</span></Link>
               </div>
             )
           })}

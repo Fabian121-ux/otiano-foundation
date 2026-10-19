@@ -6,7 +6,7 @@ import { FaFacebookF, FaLinkedinIn, FaTiktok } from 'react-icons/fa6'
 const socialChannels = [
   { name: 'Facebook', Icon: FaFacebookF, href: 'https://www.facebook.com/61590448050659/' },
   { name: 'LinkedIn', Icon: FaLinkedinIn, href: null },
-  { name: 'TikTok', Icon: FaTiktok, href: null },
+  { name: 'TikTok', Icon: FaTiktok, href: 'https://www.tiktok.com/@the_ofd' },
 ]
 
 function Footer() {
