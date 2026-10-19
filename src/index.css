@@ -403,6 +403,18 @@
   .brand-hero { min-height: 20rem; }
   .brand-hero::before { width: 15rem; height: 15rem; right: -8rem; }
   .founders-message-hero { min-height: 30rem; background: #35000d; }
+  /*
+   * Mobile photograph framing: leave visible red headroom above the original
+   * portrait rather than filling the hero with a cover crop. The approved
+   * image has space above the hair in its source; show that space on phones.
+   */
+  .founders-message-hero-image {
+    top: 2.25rem;
+    height: calc(100% - 2.25rem);
+    width: 100%;
+    object-fit: contain;
+    object-position: center top;
+  }
   /* This unlayered mobile rule must agree with the component-layer rule.
      It overrides the general .brand-hero height; the first profile remains
      below the initial viewport and visitors scroll through the grey panel. */
