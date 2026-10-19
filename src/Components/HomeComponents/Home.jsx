@@ -5,6 +5,8 @@ import TeamPhoto from '../../assets/homepage/landing-team.jpg'
 import StudentsPhoto from '../../assets/homepage/landing-students.jpg'
 
 
+const SLIDE_INTERVAL_MS = 3800
+
 const slides = [
   {
     title: 'Opportunity for All • Possibility Everywhere',
@@ -77,20 +79,20 @@ function Home() {
   const rotating = !paused && !reducedMotion && !hidden && !hovered && inView
   useEffect(() => {
     if (!rotating) return
-    const timer = window.setInterval(() => setActive((index) => (index + 1) % slides.length), 7000)
+    const timer = window.setInterval(() => setActive((index) => (index + 1) % slides.length), SLIDE_INTERVAL_MS)
     return () => window.clearInterval(timer)
   }, [rotating])
 
   const chooseSlide = (index) => {
     setActive((index + slides.length) % slides.length)
-    setPaused(true)
   }
 
   return (
     <section ref={carouselRef} className="landing-hero" aria-label="Otiano Foundation highlights" aria-roledescription="carousel"
       onPointerEnter={(event) => { if (event.pointerType === 'mouse') setHovered(true) }} onPointerLeave={() => setHovered(false)}
       onFocusCapture={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget) && !event.target.closest('[data-rotation-control]')) setPaused(true)
+        // Keyboard focus pauses autoplay for accessibility; touch selection keeps rotating.
+        if (!event.currentTarget.contains(event.relatedTarget) && !event.target.closest('[data-rotation-control]') && event.target.matches(':focus-visible')) setPaused(true)
       }}
       onKeyDown={(event) => {
         if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
