@@ -85,7 +85,10 @@ try {
         assert.ok((await image.getAttribute('src')).includes('trustees-hero-'), 'Trustees should reuse the unchanged Founder’s Message background')
         assert.equal(await page.getByRole('heading', { level: 1, name: 'Meet Our Board of Trustees' }).count(), 1)
         assert.equal(await page.locator('.trustee-card').count(), 7, 'Seven board members should be displayed')
-        const title = await page.locator('#trustees-heading').evaluate(el => getComputedStyle(el))
+        const title = await page.locator('#trustees-heading').evaluate(el => ({
+          fontSize: getComputedStyle(el).fontSize,
+          fontWeight: getComputedStyle(el).fontWeight,
+        }))
         assert.ok(parseFloat(title.fontSize) >= 36 && Number.parseInt(title.fontWeight, 10) >= 800,
           'Trustees hero headline must be large and bold at all requested widths')
         const introductionSize = await page.locator('.trustees-hero-description').evaluate(el => parseFloat(getComputedStyle(el).fontSize))
