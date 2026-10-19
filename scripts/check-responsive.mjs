@@ -77,6 +77,9 @@ try {
         assert.equal(await page.locator('.founders-message-hero figure').count(), 0, 'Previous Founder’s Message portrait should no longer appear in its hero')
         const founderCrop = await image.evaluate((el) => getComputedStyle(el).objectPosition)
         assert.ok(founderCrop.endsWith('0%'), 'Founder’s Message portrait must be anchored at the top to keep the head visible')
+        const founderFit = await image.evaluate((el) => getComputedStyle(el).objectFit)
+        assert.equal(founderFit, width < 640 ? 'contain' : 'cover',
+          'Mobile Founder’s Message must show the full, uncropped portrait; desktop remains image-led')
         assert.ok(await image.evaluate((img) => img.complete && img.naturalWidth > 0), 'Founder hero photograph failed to load')
       }
       if (route === '/about/trustees') {
@@ -166,7 +169,7 @@ try {
         '65% 0%', 'Show the top of the approved background portrait on mobile so its head is not cropped')
       assert.equal(await page.locator('.trustees-board-label').evaluate((element) => getComputedStyle(element).backgroundColor), 'rgb(230, 230, 230)', 'Board of Trustees heading should remain inside a grey box')
       const profileButton = await page.locator('.trustee-profile-button').first().boundingBox()
-      assert.ok(profileButton && profileButton.width <= 135 && profileButton.height >= 44,
+      assert.ok(profileButton && profileButton.width <= 128 && profileButton.height >= 44,
         'View Profile should be smaller while retaining a 44px tap target')
       await page.screenshot({ path: output + '/' + width + '-trustees-tall-label.png' })
     }
@@ -368,19 +371,26 @@ try {
   await heroPage.clock.install()
   await heroPage.goto(baseUrl, { waitUntil: 'networkidle' })
   const rotatingHero = heroPage.getByRole('region', { name: 'Otiano Foundation highlights' })
-  await heroPage.clock.fastForward(7100)
+  await heroPage.clock.fastForward(4100)
   assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Education', 'Slideshow did not auto-rotate')
   await rotatingHero.getByRole('button', { name: 'Pause slideshow' }).click()
   await heroPage.mouse.move(0, 0)
-  await heroPage.clock.fastForward(15000)
+  await heroPage.clock.fastForward(11000)
   assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Education', 'Paused slideshow advanced')
   await rotatingHero.getByRole('button', { name: 'Start slideshow' }).click()
   await heroPage.mouse.move(0, 0)
-  await heroPage.clock.fastForward(7100)
+  await heroPage.clock.fastForward(4100)
   assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Healthcare', 'Slideshow did not resume')
   await rotatingHero.getByRole('button', { name: 'Show slide 1: Opportunity for All • Possibility Everywhere' }).focus()
   await heroPage.keyboard.press('ArrowRight')
   assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Community Impact')
+  // Manually choosing a slide with a pointer must not silently disable autoplay.
+  await rotatingHero.getByRole('button', { name: 'Show slide 1: Opportunity for All • Possibility Everywhere' }).click()
+  await heroPage.mouse.move(0, 0)
+  assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Opportunity for All • Possibility Everywhere')
+  await heroPage.clock.fastForward(4100)
+  assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Education',
+    'Homepage slideshow must keep auto-advancing after pointer selection')
   await heroPage.close()
 
   // Short phones keep the lead call to action visible immediately.
