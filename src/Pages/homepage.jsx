@@ -1,7 +1,7 @@
 import Home from '../Components/HomeComponents/Home'
 import Navbar from '../Components/GeneralComponents/Navbar'
 import OurWork from '../Components/HomeComponents/OurWork'
-import ActivityUpdates from '../Components/HomeComponents/ActivityUpdates'
+import OurApproach from '../Components/HomeComponents/OurApproach'
 import Quote from '../Components/HomeComponents/Quote'
 import Footer from '../Components/GeneralComponents/Footer'
 import EnhancingOpportunities from '../Components/HomeComponents/EnhancingOpportunities'
@@ -21,7 +21,7 @@ function HomePage() {
       <Home />
       <EnhancingOpportunities />
       <OurWork />
-      <ActivityUpdates />
+      <OurApproach />
       <Quote />
       <Newsletter />
       <Footer />

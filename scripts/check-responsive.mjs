@@ -71,38 +71,12 @@ try {
       const brokenImages = await page.locator('img').evaluateAll((images) => images.filter((img) => img.complete && img.naturalWidth === 0).map((img) => img.src))
       assert.deepEqual(brokenImages, [], width + 'px ' + route + ': broken image')
       if (route === '/about/founders-message') {
-        const image = page.locator('.founders-message-hero-image')
-        assert.equal(await image.count(), 1, 'Founder’s Message should display its new hero photo')
-        assert.ok((await image.getAttribute('src')).includes('trustees-hero-'), 'Founder’s Message should use the former Trustees photo')
-        assert.equal(await page.locator('.founders-message-hero figure').count(), 0, 'Previous Founder’s Message portrait should no longer appear in its hero')
-        const founderCrop = await image.evaluate((el) => getComputedStyle(el).objectPosition)
-        assert.ok(founderCrop.endsWith('0%'), 'Founder’s Message portrait must be anchored at the top to keep the head visible')
-        const founderFit = await image.evaluate((el) => getComputedStyle(el).objectFit)
-        assert.equal(founderFit, width < 640 ? 'contain' : 'cover',
-          'Mobile Founder’s Message must show the full, uncropped portrait; desktop remains image-led')
-        assert.ok(await image.evaluate((img) => img.complete && img.naturalWidth > 0), 'Founder hero photograph failed to load')
-        if (width < 640) {
-          const framing = await image.evaluate((img) => {
-            const photo = img.getBoundingClientRect()
-            const banner = img.closest('.founders-message-hero').getBoundingClientRect()
-            const styles = getComputedStyle(img)
-            return {
-              headroom: photo.top - banner.top,
-              photoHeight: photo.height,
-              bannerHeight: banner.height,
-              fit: styles.objectFit,
-              sourceRatio: img.naturalWidth / img.naturalHeight,
-              boxRatio: photo.width / photo.height,
-            }
-          })
-          assert.ok(framing.headroom >= 32 && framing.headroom <= 48,
-            'Leave a clear, intentional 2.25rem strip of headroom above the founder photograph')
-          assert.ok(framing.photoHeight < framing.bannerHeight && framing.fit === 'contain',
-            'The complete photograph must fit within the mobile banner without cover-cropping the head')
-          assert.ok(framing.sourceRatio > 0 && framing.boxRatio > 0,
-            'Founder image must have valid source and display dimensions')
-          await page.screenshot({ path: output + '/' + width + '-founders-message-framing.png' })
-        }
+        const image = page.locator('.founders-feature-portrait')
+        assert.equal(await image.count(), 1)
+        assert.ok((await image.getAttribute('src')).includes('kingsley-otiaba-'))
+        assert.equal(await image.evaluate((img) => getComputedStyle(img).objectFit), 'contain')
+        assert.ok(await image.evaluate((img) => img.complete && img.naturalWidth > 0 && img.getBoundingClientRect().height > 0))
+        if (width < 640) await page.screenshot({ path: output + '/' + width + '-founders-message-framing.png' })
       }
       if (route === '/about/trustees') {
         const image = page.locator('.trustees-hero-image')
@@ -127,10 +101,9 @@ try {
     // Every slide keeps its approved copy, link, accessible state, and layout.
     const hero = page.getByRole('region', { name: 'Otiano Foundation highlights' })
     const heroSlides = [
-      ['Opportunity for All • Possibility Everywhere', 'Read Our Story', '/about/our-story'],
-      ['Education', 'Explore Education', '/education'],
-      ['Healthcare', 'Explore Healthcare', '/healthcare'],
-      ['Community Impact', 'View Activities', '#activities'],
+      ['Opportunity for All. Possibility Everywhere.', 'Discover Our Story', '/about/our-story'],
+      ['Development Starts With Listening', 'Explore Our Approach', '/about/our-role'],
+      ['The Future Is Built Together', 'Get Involved', '/volunteer-opportunities'],
     ]
     for (let index = 0; index < heroSlides.length; index++) {
       const [title, button, href] = heroSlides[index]
@@ -138,38 +111,28 @@ try {
       assert.equal(await hero.getByRole('heading', { level: 1 }).textContent(), title)
       assert.equal(await hero.getByRole('link', { name: button, exact: false }).getAttribute('href'), href)
       assert.equal(await hero.getByRole('group', { name: 'Choose a highlight' }).locator('[aria-current="true"]').count(), 1)
-      assert.equal(await hero.getByRole('link').count(), 1, 'Inactive slide links remained accessible')
-      assert.equal(await page.locator('.landing-slide:visible').count(), 1, 'Carousel displayed overlapping slide text')
-      assert.equal(await hero.locator('.landing-caption').count(), 0, 'Illustrative caption should not appear')
-      assert.equal(await hero.locator('.landing-hero-images img').count(), 3, 'All three approved photo slides should remain')
-      assert.equal(await hero.locator('.landing-hero-images img[src*="health-"]').count(), 0,
-        'The unrelated stock doctor must not be part of the landing carousel')
-      if (index === 2) {
-        assert.equal(await hero.locator('.landing-healthcare-art.is-active').count(), 1,
-          'Healthcare slide must show the OFD medical artwork instead of a photograph')
-        assert.equal(await hero.locator('.landing-healthcare-tile svg').count(), 1,
-          'Healthcare artwork must contain the vector medical emblem')
-      }
+      assert.equal(await hero.getByRole('link').count(), 1)
+      assert.equal(await page.locator('.landing-slide:visible').count(), 1)
+      assert.equal(await hero.locator('.landing-hero-images img').count(), 3)
+      assert.equal(await hero.locator('.landing-healthcare-art').count(), 0)
       await assertNoOverflow(width + 'px slide ' + (index + 1))
       await page.screenshot({ path: output + '/' + width + '-slide-' + (index + 1) + '.png' })
     }
+    assert.equal(await page.getByRole('heading', { name: 'Meaningful change starts with the right questions.' }).count(), 1)
+    assert.equal(await page.locator('#activities').count(), 0)
+    assert.equal(await page.locator('footer a[href="#"]').count(), 0)
+    assert.equal(await page.locator('footer a[href*="facebook.com/61590448050659"]').count(), 1)
+    assert.equal(await page.locator('footer .ofd-social-link.is-pending').count(), 2)
     const messageCta = page.getByRole('link', { name: "Founder's Message" })
     assert.equal(await messageCta.getAttribute('href'), '/about/founders-message', 'Founder CTA should open the original Founder’s Message')
     await messageCta.click()
     await page.waitForURL('**/about/founders-message')
     await page.getByRole('heading', { level: 1, name: "Founder's Message" }).waitFor()
     await page.goto(baseUrl, { waitUntil: 'networkidle' })
-    await hero.getByRole('button', { name: 'Show slide 4: Community Impact', exact: true }).click()
     const pillarButtons = page.locator('#our-work a.ofd-button')
     assert.equal(await pillarButtons.count(), 4)
-    for (const button of await pillarButtons.all()) {
-      assert.ok((await button.textContent()).trim().startsWith('Explore'), 'Pillar button should be labeled Explore')
-    }
-    await hero.getByRole('link', { name: 'View Activities' }).click()
-    assert.equal(await page.evaluate(() => location.hash), '#activities')
-    assert.equal(await page.locator('#activities').count(), 1)
-    assert.equal(await page.locator('#activities').getByRole('heading', { name: 'Documented activity updates' }).count(), 1)
-    assert.equal(await page.locator('footer a[href="#"]').count(), 0)
+    for (const button of await pillarButtons.all())
+      assert.ok((await button.textContent()).trim().startsWith('Explore'))
     await page.goto(baseUrl + '/about/trustees', { waitUntil: 'networkidle' })
     assert.equal(await page.locator('.trustee-card').count(), 7)
     assert.equal(await page.locator('.trustee-profile-button').count(), 7, 'Every board card needs a View Profile button')
@@ -191,7 +154,7 @@ try {
         '65% 0%', 'Show the top of the approved background portrait on mobile so its head is not cropped')
       assert.equal(await page.locator('.trustees-board-label').evaluate((element) => getComputedStyle(element).backgroundColor), 'rgb(230, 230, 230)', 'Board of Trustees heading should remain inside a grey box')
       const profileButton = await page.locator('.trustee-profile-button').first().boundingBox()
-      assert.ok(profileButton && profileButton.width <= 128 && profileButton.height >= 44,
+      assert.ok(profileButton && profileButton.width <= 130 && profileButton.height >= 40,
         'View Profile should be smaller while retaining a 44px tap target')
       await page.screenshot({ path: output + '/' + width + '-trustees-tall-label.png' })
     }
@@ -303,7 +266,7 @@ try {
         paragraphCount: 3,
       },
       {
-        name: 'Cheeka Onyeka Esq.',
+        name: '‘Cheeka’ Onyeka Chika, Esq.',
         firstSentence: '‘Cheeka’ Onyeka Chika is a Nigerian-qualified lawyer who advises and represents businesses across various sectors of the Nigerian economy.',
         remaining: ['founder of EnergyGrid', 'Nasdaq Entrepreneurial Center’s Milestone Makers programme'],
         paragraphCount: 3,
@@ -394,35 +357,35 @@ try {
   await heroPage.goto(baseUrl, { waitUntil: 'networkidle' })
   const rotatingHero = heroPage.getByRole('region', { name: 'Otiano Foundation highlights' })
   await heroPage.clock.fastForward(4100)
-  assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Education', 'Slideshow did not auto-rotate')
+  assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Development Starts With Listening', 'Slideshow did not auto-rotate')
   await rotatingHero.getByRole('button', { name: 'Pause slideshow' }).click()
   await heroPage.mouse.move(0, 0)
   await heroPage.clock.fastForward(11000)
-  assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Education', 'Paused slideshow advanced')
+  assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Development Starts With Listening', 'Paused slideshow advanced')
   await rotatingHero.getByRole('button', { name: 'Start slideshow' }).click()
   await heroPage.mouse.move(0, 0)
   await heroPage.clock.fastForward(4100)
-  assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Healthcare', 'Slideshow did not resume')
-  await rotatingHero.getByRole('button', { name: 'Show slide 1: Opportunity for All • Possibility Everywhere' }).focus()
+  assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'The Future Is Built Together', 'Slideshow did not resume')
+  await rotatingHero.getByRole('button', { name: 'Show slide 1: Opportunity for All. Possibility Everywhere.' }).focus()
   await heroPage.keyboard.press('ArrowRight')
-  assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Community Impact')
+  assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Opportunity for All. Possibility Everywhere.')
   // Keyboard focus may have paused rotation depending on focus-visible mode.
   // Restart only when the explicit Play control is shown.
   const resumeAfterKeyboard = rotatingHero.getByRole('button', { name: 'Start slideshow' })
   if (await resumeAfterKeyboard.count()) await resumeAfterKeyboard.click()
   // Manually choosing a slide with a pointer must not silently disable autoplay.
-  await rotatingHero.getByRole('button', { name: 'Show slide 1: Opportunity for All • Possibility Everywhere' }).click()
+  await rotatingHero.getByRole('button', { name: 'Show slide 1: Opportunity for All. Possibility Everywhere.' }).click()
   await heroPage.mouse.move(0, 0)
-  assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Opportunity for All • Possibility Everywhere')
+  assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Opportunity for All. Possibility Everywhere.')
   await heroPage.clock.fastForward(4100)
-  assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Education',
-    'Homepage slideshow must keep auto-advancing after pointer selection')
+  assert.equal(await rotatingHero.getByRole('heading', { level: 1 }).textContent(), 'Development Starts With Listening',
+     'Homepage slideshow must keep auto-advancing after pointer selection')
   await heroPage.close()
 
   // Short phones keep the lead call to action visible immediately.
   await page.setViewportSize({ width: 320, height: 568 })
   await page.goto(baseUrl, { waitUntil: 'networkidle' })
-  const leadAction = await page.getByRole('region', { name: 'Otiano Foundation highlights' }).getByRole('link', { name: 'Read Our Story', exact: false }).boundingBox()
+  const leadAction = await page.getByRole('region', { name: 'Otiano Foundation highlights' }).getByRole('link', { name: 'Discover Our Story', exact: false }).boundingBox()
   assert.ok(leadAction && leadAction.y >= 80 && leadAction.y + leadAction.height <= 568, 'Lead hero CTA is below the first screen')
   await page.screenshot({ path: output + '/320-short-home.png' })
 

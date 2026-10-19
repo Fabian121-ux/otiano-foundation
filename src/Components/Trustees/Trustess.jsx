@@ -48,7 +48,7 @@ const trustees = [
     ],
   },
   {
-    name: 'Cheeka Onyeka Esq.',
+    name: '‘Cheeka’ Onyeka Chika, Esq.',
     image: Cheeka,
     role: 'Trustee',
     bio: [

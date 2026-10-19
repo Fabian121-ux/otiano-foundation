@@ -8,49 +8,16 @@ import StudentsPhoto from '../../assets/homepage/landing-students.jpg'
 const SLIDE_INTERVAL_MS = 3800
 
 const slides = [
-  {
-    title: 'Opportunity for All • Possibility Everywhere',
-    text: 'Otiano Foundation for Development works to widen access to opportunity through education, healthcare, empowerment, and social welfare.',
-    button: 'Read Our Story', to: '/about/our-story', image: TeamPhoto,
-    position: 'center 45%',
-  },
-  {
-    title: 'Education',
-    text: 'Supporting learning, school engagement, and opportunity for children and young people.',
-    button: 'Explore Education', to: '/education', image: StudentsPhoto,
-    position: 'center 44%',
-  },
-  {
-    title: 'Healthcare',
-    text: 'Promoting stronger communities through awareness, access, and practical support.',
-    button: 'Explore Healthcare', to: '/healthcare', art: 'healthcare',
-  },
-  {
-    title: 'Community Impact',
-    text: 'Building programmes around real needs identified in communities.',
-    button: 'View Activities', to: '#activities', image: SpeakerPhoto,
-    position: 'center 36%',
-  },
+  { title: 'Opportunity for All. Possibility Everywhere.',
+    text: 'We believe opportunity should not depend on where someone lives or the circumstances they were born into.',
+    button: 'Discover Our Story', to: '/about/our-story', image: TeamPhoto, position: 'center 45%' },
+  { title: 'Development Starts With Listening',
+    text: 'Our approach puts community priorities, thoughtful planning and accountable partnerships first.',
+    button: 'Explore Our Approach', to: '/about/our-role', image: SpeakerPhoto, position: 'center 36%' },
+  { title: 'The Future Is Built Together',
+    text: 'Bring your ideas, expertise or time to a shared vision of wider access and lasting possibility.',
+    button: 'Get Involved', to: '/volunteer-opportunities', image: StudentsPhoto, position: 'center 44%' },
 ]
-
-// Branded healthcare illustration replaces the unrelated stock doctor photograph.
-// This is a decorative SVG medical emblem; it makes no claim about actual beneficiaries.
-function HealthcareHeroArt({ active }) {
-  return (
-    <div className={`landing-healthcare-art ${active ? 'is-active' : ''}`}>
-      <div className="landing-healthcare-halo" />
-      <div className="landing-healthcare-tile">
-        <svg viewBox="0 0 128 128" fill="none" focusable="false" aria-hidden="true">
-          <path d="M47 16c0-4 3-7 7-7h20c4 0 7 3 7 7v31h31c4 0 7 3 7 7v20c0 4-3 7-7 7H81v31c0 4-3 7-7 7H54c-4 0-7-3-7-7V81H16c-4 0-7-3-7-7V54c0-4 3-7 7-7h31V16Z" fill="#BE1932" />
-          <path d="M16 69h23l9-16 11 30 11-20 8 7h34" stroke="white" strokeWidth="5.5" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M54 9h20c4 0 7 3 7 7v6H47v-6c0-4 3-7 7-7Z" fill="#EF6678" opacity=".7" />
-        </svg>
-      </div>
-      <span className="landing-healthcare-orbit landing-healthcare-orbit-one" />
-      <span className="landing-healthcare-orbit landing-healthcare-orbit-two" />
-    </div>
-  )
-}
 
 function Home() {
   const [active, setActive] = useState(0)
@@ -102,12 +69,10 @@ function Home() {
       }}>
       <div className="landing-hero-images" aria-hidden="true">
         {slides.map((slide, index) => (
-          slide.art === 'healthcare'
-            ? <HealthcareHeroArt key={slide.title} active={index === active} />
-            : <img key={slide.title} src={slide.image} alt="" decoding="async"
-                fetchPriority={index === 0 ? 'high' : 'low'}
-                className={`landing-hero-image ${index === active ? 'is-active' : ''}`}
-                style={{ objectPosition: slide.position }} />
+          <img key={slide.title} src={slide.image} alt="" decoding="async"
+            fetchPriority={index === 0 ? 'high' : 'low'}
+            className={`landing-hero-image ${index === active ? 'is-active' : ''}`}
+            style={{ objectPosition: slide.position }} />
         ))}
       </div>
       <div className="landing-hero-shade" aria-hidden="true" />
