@@ -81,6 +81,28 @@ try {
         assert.equal(founderFit, width < 640 ? 'contain' : 'cover',
           'Mobile Founder’s Message must show the full, uncropped portrait; desktop remains image-led')
         assert.ok(await image.evaluate((img) => img.complete && img.naturalWidth > 0), 'Founder hero photograph failed to load')
+        if (width < 640) {
+          const framing = await image.evaluate((img) => {
+            const photo = img.getBoundingClientRect()
+            const banner = img.closest('.founders-message-hero').getBoundingClientRect()
+            const styles = getComputedStyle(img)
+            return {
+              headroom: photo.top - banner.top,
+              photoHeight: photo.height,
+              bannerHeight: banner.height,
+              fit: styles.objectFit,
+              sourceRatio: img.naturalWidth / img.naturalHeight,
+              boxRatio: photo.width / photo.height,
+            }
+          })
+          assert.ok(framing.headroom >= 32 && framing.headroom <= 48,
+            'Leave a clear, intentional 2.25rem strip of headroom above the founder photograph')
+          assert.ok(framing.photoHeight < framing.bannerHeight && framing.fit === 'contain',
+            'The complete photograph must fit within the mobile banner without cover-cropping the head')
+          assert.ok(framing.sourceRatio > 0 && framing.boxRatio > 0,
+            'Founder image must have valid source and display dimensions')
+          await page.screenshot({ path: output + '/' + width + '-founders-message-framing.png' })
+        }
       }
       if (route === '/about/trustees') {
         const image = page.locator('.trustees-hero-image')
