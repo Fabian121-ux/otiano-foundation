@@ -5,7 +5,7 @@ import { FaFacebookF, FaLinkedinIn, FaTiktok } from 'react-icons/fa6'
 // Do not invent official destinations when they are not confirmed.
 const socialChannels = [
   { name: 'Facebook', Icon: FaFacebookF, href: 'https://www.facebook.com/61590448050659/' },
-  { name: 'LinkedIn', Icon: FaLinkedinIn, href: null },
+  { name: 'LinkedIn', Icon: FaLinkedinIn, href: 'https://www.linkedin.com/company/otiano-foundation-for-development/' },
   { name: 'TikTok', Icon: FaTiktok, href: 'https://www.tiktok.com/@the_ofd' },
 ]
 
